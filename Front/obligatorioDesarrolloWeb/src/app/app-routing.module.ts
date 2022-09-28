@@ -5,9 +5,9 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 import { LoginComponent } from './components/login/login.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent},
-  {path:"creation", component: CreationComponent}
-  { path: 'catalog', component: CatalogComponent}
+  { path: 'login', component: LoginComponent },
+  { path: "creation", component: CreationComponent },
+  { path: 'catalog', component: CatalogComponent }
 ];
 
 @NgModule({
