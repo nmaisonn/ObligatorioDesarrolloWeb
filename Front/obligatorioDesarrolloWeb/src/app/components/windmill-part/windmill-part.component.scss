@@ -1,0 +1,9 @@
+#pieza{
+    max-width: 540px;
+ 
+}
+#pieza:hover{
+    transform: scale(1.25);
+    position:relative;
+    z-index:5;
+}

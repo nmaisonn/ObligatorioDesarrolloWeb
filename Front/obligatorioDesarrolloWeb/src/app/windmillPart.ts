@@ -6,4 +6,5 @@ export interface windmillPart {
     windResistance: number;
     material: String;
     name: String;
+    inUse: boolean;
 }

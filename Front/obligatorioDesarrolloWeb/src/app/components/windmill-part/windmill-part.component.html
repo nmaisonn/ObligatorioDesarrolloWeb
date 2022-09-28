@@ -1,9 +1,40 @@
-<div  id="Pieza" class="nota col-sm-12 col-md-4">
+<!-- <div id="pieza" class="parte col-sm-12 col-md-4">
     <div class="card-body text-success" id="clase1">
-      <h5 class="card-title">Nota</h5>
-      <p class="card-text" ></p>
+      
+      <div *ngIf="coso" class="card-text">
+        <p>Id: {{coso.id}}</p>
+        <p>Material: {{coso.material}}</p>
+        <p>Height: {{coso.height}}</p>
+        <p>Wind Resistance: {{coso.windResistance}}</p>
+      </div>
       <button id="borrar"  (click)="borrarNota()" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Borrar
       </button>
       <button id="editar" (click)="editNote()" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Editar</button>
     </div>
+</div> -->
+<div id="pieza" class="card mb-3" >
+  <div class="row g-0">
+    <div *ngIf="coso" class="col-md-4">
+      <img src="{{coso.picture}}" class="img-fluid rounded-start" alt="...">
+    </div>
+    <div class="col-md-8">
+      <div class="card-body text-end">
+        <div *ngIf="coso" class="card-title"> 
+          <h5> {{coso.name}}</h5>
+        </div>
+        <div *ngIf="coso" class="card-text">
+          <p>Id: {{coso.id}}</p>
+          <p>Material: {{coso.material}}</p>
+          <p>Height: {{coso.height}}</p>
+          <p>Wind Resistance: {{coso.windResistance}}</p>
+        </div>
+        <div>
+          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+        </div>
+        <div>
+          <app-card-buttons></app-card-buttons>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
