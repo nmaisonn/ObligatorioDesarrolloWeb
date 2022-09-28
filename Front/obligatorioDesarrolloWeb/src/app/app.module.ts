@@ -10,6 +10,7 @@ import { ApproveComponent } from './components/approve/approve.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ListComponent } from './components/list/list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CardButtonsComponent } from './components/card-buttons/card-buttons.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     WindmillPartComponent,
     ApproveComponent,
     ModalComponent,
-    ListComponent
+    ListComponent,
+    CardButtonsComponent
 
 
   ],

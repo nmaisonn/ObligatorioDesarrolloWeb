@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,  Output, EventEmitter } from '@angular/core';
+import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-modal',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModalComponent implements OnInit {
 
-  constructor() { }
+  @Output() deleteNote = new EventEmitter<string>();
+  constructor(private location: Location,private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+  }
+  goBack(): void {
+    this.location.back();
+  }
+  
+  deleteModal(){
+    this.deleteNote.emit();
   }
 
 }
