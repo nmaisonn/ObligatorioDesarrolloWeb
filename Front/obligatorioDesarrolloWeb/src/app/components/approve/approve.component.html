@@ -1,1 +1,13 @@
-<p>approve works!</p>
+<!--CARTAS-->
+<div id="notas">
+    <div class="container-md">
+        <div class="row">
+            <h3 class="text-center h1">Molinos para aprobar</h3>
+            <div class="col-sm-12 col-md-4" *ngFor = "let windmill of windmills">
+                <app-windmill [windmill]="windmill"></app-windmill>
+                <!--<notitas-comp (removeCard)="removeNota($event)" [nota]="notita"></notitas-comp>-->
+            </div>
+        </div>
+        <!--<modal-component (addcard)="addNota($event)"></modal-component> -->
+    </div>
+</div>

@@ -11,6 +11,7 @@ export class WindmillPartComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
   borrarNota(): void {
 
   }

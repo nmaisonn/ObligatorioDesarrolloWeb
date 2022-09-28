@@ -8,16 +8,19 @@ import { LoginComponent } from './components/login/login.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { WindmillPartComponent } from './components/windmill-part/windmill-part.component';
 import { ApproveComponent } from './components/approve/approve.component';
+import { WindmillComponent } from './components/windmill/windmill.component';
+import { DetailWindmillModalComponent } from './components/detail-windmill-modal/detail-windmill-modal.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-
     CatalogComponent,
-    WindmillPartComponent
-    ApproveComponent
+    WindmillPartComponent,
+    ApproveComponent,
+    WindmillComponent,
+    DetailWindmillModalComponent
 
   ],
   imports: [

@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { WindmillService } from 'src/app/services/windmill.service';
+import { windmill } from 'src/app/windmill';
 
 @Component({
   selector: 'app-approve',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApproveComponent implements OnInit {
 
-  constructor() { }
+  windmills: windmill[] = [];
+
+  constructor(private windmillService : WindmillService) { }
 
   ngOnInit(): void {
+    this.getWindmills();
   }
+
+  getWindmills():void{
+    this.windmillService.getWindmills()
+    .subscribe(response => this.windmills = response);  }
 
 }
