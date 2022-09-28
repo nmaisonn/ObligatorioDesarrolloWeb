@@ -10,8 +10,10 @@ import { ApproveComponent } from './components/approve/approve.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { ListComponent } from './components/list/list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CardButtonsComponent } from './components/card-buttons/card-buttons.component';
 import { CreationViewComponent } from './components/creation-view/creation-view.component';
 import { FooterComponent } from './components/footer/footer.component';
+
 
 
 @NgModule({
@@ -24,8 +26,10 @@ import { FooterComponent } from './components/footer/footer.component';
     ApproveComponent,
     ModalComponent,
     ListComponent,
+    CardButtonsComponent,
     CreationViewComponent,
     FooterComponent
+
   ],
   imports: [
     BrowserModule,
