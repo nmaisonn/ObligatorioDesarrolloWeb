@@ -1,0 +1,15 @@
+#pieza{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-decoration:none;
+    color:#000;
+    display:block;
+    height:15em;
+    width:15em;
+    padding:1em;
+    transition: transform .15s linear;
+    position:relative;
+    top:20px;
+  
+  }
