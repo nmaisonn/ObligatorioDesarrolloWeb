@@ -1,0 +1,17 @@
+.footer-arreglado {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+}
+
+.p-elem {
+    text-align: right;
+    width: 50%;
+    margin-bottom: 0px;
+    margin-right: 10px;
+}
+
+.bg-light {
+    opacity: 0.5;
+}

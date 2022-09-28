@@ -11,6 +11,9 @@ import { ModalComponent } from './components/modal/modal.component';
 import { ListComponent } from './components/list/list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CardButtonsComponent } from './components/card-buttons/card-buttons.component';
+import { CreationViewComponent } from './components/creation-view/creation-view.component';
+import { FooterComponent } from './components/footer/footer.component';
+
 
 
 @NgModule({
@@ -23,8 +26,9 @@ import { CardButtonsComponent } from './components/card-buttons/card-buttons.com
     ApproveComponent,
     ModalComponent,
     ListComponent,
-    CardButtonsComponent
-
+    CardButtonsComponent,
+    CreationViewComponent,
+    FooterComponent
 
   ],
   imports: [
