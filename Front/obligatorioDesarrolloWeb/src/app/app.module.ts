@@ -7,6 +7,9 @@ import { CreationComponent } from './components/creation/creation.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { WindmillPartComponent } from './components/windmill-part/windmill-part.component';
 import { ApproveComponent } from './components/approve/approve.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { ListComponent } from './components/list/list.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -16,11 +19,16 @@ import { ApproveComponent } from './components/approve/approve.component';
     CreationComponent,
     CatalogComponent,
     WindmillPartComponent,
-    ApproveComponent
+    ApproveComponent,
+    ModalComponent,
+    ListComponent
+
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
