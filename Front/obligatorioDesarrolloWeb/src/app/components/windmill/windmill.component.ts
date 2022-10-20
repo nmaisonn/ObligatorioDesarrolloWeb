@@ -15,8 +15,8 @@ export class WindmillComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  showDetailWindmillModal(pWindmill : windmill)
-  {
+  //showDetailWindmillModal(pWindmill : windmill)
+  //{
 
-  }
+  //}
 }

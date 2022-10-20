@@ -12,29 +12,23 @@
       <button id="editar" (click)="editNote()" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Editar</button>
     </div>
 </div> -->
-<div id="pieza" class="card mb-3" >
-  <div class="row g-0">
-    <div *ngIf="coso" class="col-md-4">
-      <img src="{{coso.picture}}" class="img-fluid rounded-start" alt="...">
+<div class="card" style="width: 18rem;">
+  <div *ngIf="coso">
+    <img src="{{coso.picture}}" class="img-fluid rounded-start" alt="...">
+  </div>
+  <div *ngIf="coso" class="card-body">
+    <div>
+      <h5> {{coso.name}}</h5>
+      <p>Id: {{coso.id}}</p>
+      <p>Material: {{coso.material}}</p>
+      <p>Height: {{coso.height}}</p>
+      <p>Wind Resistance: {{coso.windResistance}}</p>
     </div>
-    <div class="col-md-8">
-      <div class="card-body text-end">
-        <div *ngIf="coso" class="card-title"> 
-          <h5> {{coso.name}}</h5>
-        </div>
-        <div *ngIf="coso" class="card-text">
-          <p>Id: {{coso.id}}</p>
-          <p>Material: {{coso.material}}</p>
-          <p>Height: {{coso.height}}</p>
-          <p>Wind Resistance: {{coso.windResistance}}</p>
-        </div>
-        <div>
-          <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-        </div>
-        <div>
-          <app-card-buttons></app-card-buttons>
-        </div>
-      </div>
+    <div>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+    <div>
+      <app-card-buttons></app-card-buttons>
     </div>
   </div>
 </div>
