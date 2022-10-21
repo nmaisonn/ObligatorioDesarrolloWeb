@@ -1,8 +1,8 @@
 <div class="card w-100 card-border mb-5" *ngIf="windmill">
     <h5 class="card-header">{{windmill.id}}</h5>
-    <div class="card-body">
-        <p class="card-text" id="3">{{windmill.state}}.</p>
-        <button class="btn btn-secondary btn-sm fr" (click)="showDetailWindmillModal(windmill)">
+    <div *ngIf="windmill" class="card-body">
+        <p class="card-text" id="3">{{windmill.name}}.</p>
+        <button class="btn btn-secondary btn-sm fr">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                 class="bi bi-pencil-square" viewBox="0 0 16 16">
                 <path

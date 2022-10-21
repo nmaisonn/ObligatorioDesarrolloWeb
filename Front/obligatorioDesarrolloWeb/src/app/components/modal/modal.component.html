@@ -1,19 +1,43 @@
-<div class="modal fade" id="staticBackdrop1" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog" id="addNoteModal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">Delete Note</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body centro-modal">
-                <p>
-                    Desea borrar esta nota
-                </p>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" aria-multiselectable="Close" (click)="deleteModal()">Borrar</button>
-            </div>
-        </div>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h4 class="modal-title" id="modal-basic-title">Agregar nuevo molino</h4>
+        <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
     </div>
-</div>
+    <div class="modal-body">
+        <form action="">
+            <p>
+                <label for="name">Nombre: </label>
+                <input type="text" id="name">
+            </p>
+            <p>
+                <label for="category">Categoría: </label>
+                <select name="category" id="category">
+                    <option value="base">Base</option>
+                    <option value="aspa">Aspa</option>
+                    <option value="cuerpo">Cuerpo</option>
+                </select>
+            </p>
+            <p>
+                <label for="height">Altura: </label>
+                <input type="number" id="height">
+            </p>
+            <p>
+                <label for="wind">Resistencia viento: </label>
+                <input type="number" id="wind">
+            </p>
+            <p>
+                <label for="material">Material: </label>
+                <input type="text" id="material">
+            </p>
+            <p>
+                <label for="picture">Imagen URL: </label>
+                <input type="url" id="picture">
+            </p>
+        </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark">Save</button>
+    </div>
+</ng-template>
+
+<button id="agregar" class="btn btn-lg btn-light" (click)="open(content)">Agregar</button>
