@@ -1,13 +1,14 @@
 .card {
-    padding: 15px;
+    padding: 0.5rem;
     font-family: Georgia, serif;
     background-color: #e7ecef;
-    margin: 20px;
+    margin: 2rem;
+    width: 80%;
 
 }
 
 .card:hover {
-    transform: scale(1.25);
+    transform: scale(1.10);
     position: relative;
     z-index: 5;
 }
@@ -15,10 +16,18 @@
 h5 {
     font-weight: 700;
     text-transform: uppercase;
-    font-size: 30px;
+    font-size: 2rem;
     color: #001219;
     text-shadow: 1px 1px 0px #005f73,
         2px 2px 0px #0a9396,
         3px 3px 0px #94d2bd,
         4px 4px 0px #e9d8a6;
+}
+
+p {
+    margin: 0.5em;
+}
+
+img {
+    border-radius: 0.5rem;
 }

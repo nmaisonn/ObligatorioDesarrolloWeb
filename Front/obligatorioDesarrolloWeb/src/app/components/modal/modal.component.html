@@ -7,7 +7,7 @@
         <form action="">
             <p>
                 <label for="name">Nombre: </label>
-                <input type="text" id="name" [(ngModel)]="newNombre">
+                <input type="text" id="name">
             </p>
             <p>
                 <label for="category">Categoría: </label>
@@ -19,19 +19,19 @@
             </p>
             <p>
                 <label for="height">Altura: </label>
-                <input type="number" id="height" [(ngModel)]="newHeight">
+                <input type="number" id="height">
             </p>
             <p>
                 <label for="wind">Resistencia viento: </label>
-                <input type="number" id="wind" [(ngModel)]="newWind">
+                <input type="number" id="wind">
             </p>
             <p>
                 <label for="material">Material: </label>
-                <input type="text" id="material" [(ngModel)]="newMaterial">
+                <input type="text" id="material">
             </p>
             <p>
                 <label for="picture">Imagen URL: </label>
-                <input type="url" id="picture" [(ngModel)]="newPicture">
+                <input type="url" id="picture">
             </p>
         </form>
     </div>
@@ -40,4 +40,4 @@
     </div>
 </ng-template>
 
-<button id=" agregar" class="btn btn-lg btn-light" (click)="open(content)">Agregar</button>
+<button id="agregar" class="btn btn-lg btn-light" (click)="open(content)">Agregar</button>

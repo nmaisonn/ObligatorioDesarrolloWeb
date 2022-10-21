@@ -1,19 +1,5 @@
-<!-- <div id="pieza" class="parte col-sm-12 col-md-4">
-    <div class="card-body text-success" id="clase1">
-      
-      <div *ngIf="coso" class="card-text">
-        <p>Id: {{coso.id}}</p>
-        <p>Material: {{coso.material}}</p>
-        <p>Height: {{coso.height}}</p>
-        <p>Wind Resistance: {{coso.windResistance}}</p>
-      </div>
-      <button id="borrar"  (click)="borrarNota()" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Borrar
-      </button>
-      <button id="editar" (click)="editNote()" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Editar</button>
-    </div>
-</div> -->
-<div class="card" style="width: 18rem;">
-  <div *ngIf="coso">
+<div class="card">
+  <div class="picture" *ngIf="coso">
     <img src="{{coso.picture}}" class="img-fluid rounded-start" alt="...">
   </div>
   <div *ngIf="coso" class="card-body">
