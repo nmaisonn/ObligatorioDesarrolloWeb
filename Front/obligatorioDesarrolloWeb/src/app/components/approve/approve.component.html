@@ -1,13 +1,27 @@
+<div class="row g-3">
+  <div class="col-md-8">     
+  </div>
+  <div class="col-3">
+    <input type ="search" class="buscador" placeholder="Buscar">
+  </div>
+  <div class="col-1">
+    <!--FALTA PONER LO QUE TIENE EL INPUT EN EL FINDWINDMILLS()-->
+    <button type="search" class="btn btn-primary mb-3" (click)="findWindmills()"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+      <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+    </svg></button>
+  </div>
+</div>
+
 <!--CARTAS-->
-<div id="notas">
-    <div class="container-md">
-        <div class="row">
-            <h3 class="text-center h1">Molinos para aprobar</h3>
-            <div class="col-sm-12 col-md-4" *ngFor = "let windmill of windmills">
-                <app-windmill [windmill]="windmill"></app-windmill>
-                <!--<notitas-comp (removeCard)="removeNota($event)" [nota]="notita"></notitas-comp>-->
-            </div>
-        </div>
-        <!--<modal-component (addcard)="addNota($event)"></modal-component> -->
-    </div>
+<div id="molinos">
+  <div class="container-md">
+      <div class="row">
+          <h3 class="text-center h1">Molinos para aprobar</h3>
+          <div class="col-sm-12 col-md-4" *ngFor = "let windmill of windmills">
+              <app-windmill [windmill]="windmill"></app-windmill>
+              <!--<notitas-comp (removeCard)="removeNota($event)" [nota]="notita"></notitas-comp>-->
+          </div>
+      </div>
+      <!--<modal-component (addcard)="addNota($event)"></modal-component> -->
+  </div>
 </div>
