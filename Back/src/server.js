@@ -5,33 +5,66 @@ const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const MongoClient = require('mongodb').MongoClient
 
+const auth = require("../middleware/auth");
+const adminAuth = require("../middleware/adminAuth")
+
 require("dotenv").config()
 
-let usersCollection
-
-MongoClient.connect(
-    process.env.DB_CONNECTION_STRING,
-    (err, client) => {
-        if (err) {
-            return console.log(err)
-        }
-        console.log('Connected to Database')
-        const db = client.db('dbObligatorio')
-        usersCollection = db.collection('users')
-    },
-)
-
 const app = express()
-
 const port = process.env.PORT || 8080
 
-// Define paths for express config
 const publicDirPath = path.join(__dirname, '../public')
-
-// Setup static directory
 app.use(express.static(publicDirPath))
 
-app.post('/creacion', async (req, res) => {
+// Login de users.
+app.post("/login", async (req, res) => {
+    if (!req.query.mail || !req.query.pass) {
+        return res.status(400).send({
+            error: "Necesitas ingresar todos los campos."
+        })
+    }
+
+    MongoClient.connect(
+        process.env.DB_CONNECTION_STRING,
+        async (err, client) => {
+            if (err) {
+                client.close()
+                return console.log(err)
+            }
+            console.log('Connected to Database')
+            const db = client.db('dbObligatorio')
+            const usersCollection = db.collection('users')
+
+            const user = await usersCollection.findOne({ mail: req.query.mail })
+
+            if (!user) {
+                client.close()
+                return res.status(400).send({
+                    error: "Error al logear."
+                })
+            }
+
+            const isMatch = await bcrypt.compare(req.query.pass, user.pass)
+
+            if (!isMatch) {
+                client.close()
+                return res.status(400).send({
+                    error: "Error al logear."
+                })
+            }
+
+            // Crear jwt y mandarlo, valido por 2hs
+            const token = jwt.sign({ mail: user.mail, rol: user.rol }, process.env.JWT_SECRET, { expiresIn: "1h" })
+
+            client.close()
+
+            res.send({ token })
+        })
+})
+
+// Endpoints de admins.
+// Crear users
+app.post('/creacion', adminAuth, (req, res) => {
     // Chequeo que se hayan pasado todos los campos.
     if (!req.query.mail || !req.query.pass || !req.query.rol) {
         return res.status(400).send({
@@ -51,56 +84,46 @@ app.post('/creacion', async (req, res) => {
         })
     }
 
-    // Chequear que el mail no exista.
-    const user = await usersCollection.findOne({ mail: req.query.mail })
+    MongoClient.connect(
+        process.env.DB_CONNECTION_STRING,
+        async (err, client) => {
+            if (err) {
+                client.close()
+                return console.log(err)
+            }
+            console.log('Connected to Database')
+            const db = client.db('dbObligatorio')
+            const usersCollection = db.collection('users')
 
-    if (user) {
-        return res.status(400).send({
-            error: "Error al crear usuario."
-        })
-    }
+            // Chequear que el mail no exista.
+            const user = await usersCollection.findOne({ mail: req.query.mail })
 
-    // Creo el pass hasheado
-    const password = await bcrypt.hash(req.query.pass, 8)
+            if (user) {
+                client.close()
+                return res.status(400).send({
+                    error: "Error al crear usuario."
+                })
+            }
 
-    const insertResult = await usersCollection.insertOne({ mail: req.query.mail, pass: password, rol: req.query.rol })
-    console.log('Inserted document =>', insertResult)
-    res.send(insertResult)
+            // Creo el pass hasheado
+            const password = await bcrypt.hash(req.query.pass, 8)
+
+            const insertResult = await usersCollection.insertOne({ mail: req.query.mail, pass: password, rol: req.query.rol })
+            console.log('Inserted document =>', insertResult)
+
+            client.close()
+
+            res.send({ msg: "Usuario creado exitosamente!" })
+        }
+    )
 })
 
-app.post("/login", async (req, res) => {
-    if (!req.query.mail || !req.query.pass) {
-        return res.status(400).send({
-            error: "Necesitas ingresar todos los campos."
-        })
-    }
-
-    const user = await usersCollection.findOne({ mail: req.query.mail })
-
-    if (!user) {
-        return res.status(400).send({
-            error: "Error al logear."
-        })
-    }
-
-    const isMatch = await bcrypt.compare(req.query.pass, user.pass)
-
-    if (!isMatch) {
-        return res.status(400).send({
-            error: "Error al logear."
-        })
-    }
-
-    // Crear jwt y mandarlo
-    const token = jwt.sign({ mail: user.mail, rol: user.rol }, process.env.JWT_SECRET)
-
-    res.send({ token })
-})
-
+// Borrar users.
 app.post('/borra2', (req, res) => {
     res.send(usersCollection.deleteOne({ a: 1 }))
 })
 
+// Editar users.
 app.put('/editan2', (req, res) => {
     res.send(
         usersCollection.findOneAndUpdate(
@@ -114,28 +137,10 @@ app.put('/editan2', (req, res) => {
     )
 })
 
+// Listar users
 app.get('/obtenien2', async (req, res) => {
     res.send(await usersCollection.find().toArray())
 })
-// app.post("/addUser", (req, res) => {
-//     if (!req.query.address) {
-//         return res.send({
-//             error: "You must provide an address"
-//         })
-//     }
-// })
-
-// app.get("/listUsers", (req, res) => {
-
-// })
-
-// app.delete("/deleteUser", (req, res) => {
-
-// })
-
-// app.post("/modifyUser", (req, res) => {
-
-// })
 
 app.listen(port, () => {
     console.log('Server is up on port ' + port)
