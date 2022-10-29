@@ -160,16 +160,23 @@ app.post('/borrarUser', adminAuth, (req, res) => {
 
 // Editar users.
 app.put('/editarUser', adminAuth, (req, res) => {
-    console.log(validator.isEmail(req.query.nuevoMail))
-    if (!req.query.mail || !validator.isEmail(req.query.nuevoMail)) {
+    // Chequeo que se haya enviado el mail del usuario.
+    if (!req.query.mail) {
         return res.status(400).send({
             error: "Error al editar usuario"
         })
     }
 
+    // Ninguno de los campos fue enviado.
     if (!(req.query.nuevoMail || req.query.rol)) {
         return res.send({
             msg: "Usuario editado exitosamente"
+        })
+    }
+
+    if (!validator.isEmail(req.query.nuevoMail)) {
+        return res.status(400).send({
+            error: "Debes ingresar un mail valido."
         })
     }
 
@@ -204,6 +211,7 @@ app.put('/editarUser', adminAuth, (req, res) => {
 
             // Edito el usuario que encontre.
             let editResult
+            // Caso editar ambos campos
             if (req.query.nuevoMail && req.query.rol) {
                 editResult = await usersCollection.findOneAndUpdate(
                     { mail: req.query.mail },
@@ -214,6 +222,7 @@ app.put('/editarUser', adminAuth, (req, res) => {
                         },
                     },
                 )
+            // Caso editar solo el mail
             } else if (req.query.nuevoMail) {
                 editResult = await usersCollection.findOneAndUpdate(
                     { mail: req.query.mail },
@@ -223,6 +232,7 @@ app.put('/editarUser', adminAuth, (req, res) => {
                         },
                     },
                 )
+            // Caso editar solo el rol
             } else {
                 editResult = await usersCollection.findOneAndUpdate(
                     { mail: req.query.mail },
