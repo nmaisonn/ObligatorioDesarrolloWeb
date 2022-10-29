@@ -64,7 +64,7 @@ app.post("/login", async (req, res) => {
 
 // Endpoints de admins.
 // Crear users
-app.post('/creacion', adminAuth, (req, res) => {
+app.post('/crearUser', adminAuth, (req, res) => {
     // Chequeo que se hayan pasado todos los campos.
     if (!req.query.mail || !req.query.pass || !req.query.rol) {
         return res.status(400).send({
@@ -119,27 +119,151 @@ app.post('/creacion', adminAuth, (req, res) => {
 })
 
 // Borrar users.
-app.post('/borra2', (req, res) => {
-    res.send(usersCollection.deleteOne({ a: 1 }))
+app.post('/borrarUser', adminAuth, (req, res) => {
+    if (!req.query.mail) {
+        return res.status(400).send({
+            error: "Error al borrar usuario."
+        })
+    }
+
+    MongoClient.connect(
+        process.env.DB_CONNECTION_STRING,
+        async (err, client) => {
+            if (err) {
+                client.close()
+                return console.log(err)
+            }
+            console.log('Connected to Database')
+            const db = client.db('dbObligatorio')
+            const usersCollection = db.collection('users')
+
+            // Chequear que el usuario exista.
+            const user = await usersCollection.findOne({ mail: req.query.mail })
+
+            if (!user) {
+                client.close()
+                return res.status(400).send({
+                    error: "Error al borrar usuario."
+                })
+            }
+
+            // Borro el usuario que encontre.
+            const deleteResult = await usersCollection.deleteOne({ mail: req.query.mail })
+            console.log('Deleted document =>', deleteResult)
+
+            client.close()
+
+            res.send({ msg: "Usuario borrado exitosamente!" })
+        }
+    )
 })
 
 // Editar users.
-app.put('/editan2', (req, res) => {
-    res.send(
-        usersCollection.findOneAndUpdate(
-            { a: 1 },
-            {
-                $set: {
-                    a: 5,
-                },
-            },
-        ),
+app.put('/editarUser', adminAuth, (req, res) => {
+    console.log(validator.isEmail(req.query.nuevoMail))
+    if (!req.query.mail || !validator.isEmail(req.query.nuevoMail)) {
+        return res.status(400).send({
+            error: "Error al editar usuario"
+        })
+    }
+
+    if (!(req.query.nuevoMail || req.query.rol)) {
+        return res.send({
+            msg: "Usuario editado exitosamente"
+        })
+    }
+
+    MongoClient.connect(
+        process.env.DB_CONNECTION_STRING,
+        async (err, client) => {
+            if (err) {
+                client.close()
+                return console.log(err)
+            }
+            console.log('Connected to Database')
+            const db = client.db('dbObligatorio')
+            const usersCollection = db.collection('users')
+
+            // Chequear que el mail nuevo no exista.
+            const mailExistente = await usersCollection.findOne({ mail: req.query.nuevoMail })
+            if (mailExistente) {
+                client.close()
+                return res.status(400).send({
+                    error: "El mail ya está en uso."
+                })
+            }
+
+            // Chequear que el usuario a editar exista.
+            const user = await usersCollection.findOne({ mail: req.query.mail })
+            if (!user) {
+                client.close()
+                return res.status(400).send({
+                    error: "Error al editar usuario."
+                })
+            }
+
+            // Edito el usuario que encontre.
+            let editResult
+            if (req.query.nuevoMail && req.query.rol) {
+                editResult = await usersCollection.findOneAndUpdate(
+                    { mail: req.query.mail },
+                    {
+                        $set: {
+                            mail: req.query.nuevoMail,
+                            rol: req.query.rol
+                        },
+                    },
+                )
+            } else if (req.query.nuevoMail) {
+                editResult = await usersCollection.findOneAndUpdate(
+                    { mail: req.query.mail },
+                    {
+                        $set: {
+                            mail: req.query.nuevoMail,
+                        },
+                    },
+                )
+            } else {
+                editResult = await usersCollection.findOneAndUpdate(
+                    { mail: req.query.mail },
+                    {
+                        $set: {
+                            rol: req.query.rol,
+                        },
+                    },
+                )
+            }
+
+            console.log('Edited document =>', editResult)
+
+            client.close()
+
+            res.send({ msg: "Usuario editado exitosamente!" })
+        }
     )
 })
 
 // Listar users
-app.get('/obtenien2', async (req, res) => {
-    res.send(await usersCollection.find().toArray())
+app.get('/listarUsers', adminAuth, async (req, res) => {
+    MongoClient.connect(
+        process.env.DB_CONNECTION_STRING,
+        async (err, client) => {
+            if (err) {
+                client.close()
+                return console.log(err)
+            }
+            console.log('Connected to Database')
+            const db = client.db('dbObligatorio')
+            const usersCollection = db.collection('users')
+
+            // Chequear que el usuario exista.
+            const users = await usersCollection.find().project({ _id: 0, pass: 0 }).toArray()
+
+            client.close()
+
+            res.send({ users })
+        }
+    )
 })
 
 app.listen(port, () => {
