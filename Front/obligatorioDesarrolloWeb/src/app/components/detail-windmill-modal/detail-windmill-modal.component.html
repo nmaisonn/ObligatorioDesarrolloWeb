@@ -7,12 +7,18 @@
                 <h5 class="modal-title " id="staticBackdropLabelAgregar">Detalles del Molino</h5>
                 <button type="button" class="btn btn-close fr" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
-                <!--<textarea [(ngModel)]="texto" cols="30" rows="5" placeholder="Ingrese Texto" id="txt-areaAgregar"></textarea>-->
+            <div class="modal-body" *ngIf="molino">
+                <p class="card-text">Nombre del Molino:{{molino.name}}</p>
+                <p class="card-text">Aspa: {{molino.blade.name}} </p>
+                <p class="card-text">Cuerpo: {{molino.body.name}} </p>
+                <p class="card-text">Base: {{molino.base.name}} </p>
             </div>
             <div class="modal-footer">
-                <!--<button type="button" class="btn btn-success" (click)="add(texto);"
-                    aria-multiselectable="close">Guardar</button>-->
+                <button type="button" class="btn btn-success" (click)="approveWindmill();"
+                    aria-multiselectable="close">Aprobar</button>
+
+                <button type="button" class="btn btn-warning" (click)="rejectedWindmill();"
+                    aria-multiselectable="close">Rechazar</button>
             </div>
         </div>
     </div>

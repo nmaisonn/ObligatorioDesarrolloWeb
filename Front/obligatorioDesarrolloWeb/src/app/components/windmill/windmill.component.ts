@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { windmill } from 'src/app/windmill';
 
 @Component({
@@ -8,15 +8,20 @@ import { windmill } from 'src/app/windmill';
 })
 export class WindmillComponent implements OnInit {
 
-  @Input() windmill: windmill | undefined;
+  @Input() windmill: windmill | any;
+  @Output() editItem = new EventEmitter<windmill>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  //showDetailWindmillModal(pWindmill : windmill)
-  //{
+  changeState(value:String){
+    this.windmill.state= value;
+  }
 
-  //}
+  showDetails(){
+    this.editItem.emit(this.windmill);
+  }
+ 
 }

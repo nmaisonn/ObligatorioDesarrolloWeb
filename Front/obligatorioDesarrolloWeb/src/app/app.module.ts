@@ -13,10 +13,16 @@ import { CreationViewComponent } from './components/creation-view/creation-view.
 import { FooterComponent } from './components/footer/footer.component';
 import { WindmillComponent } from './components/windmill/windmill.component';
 import { DetailWindmillModalComponent } from './components/detail-windmill-modal/detail-windmill-modal.component';
-import { FormsModule } from "@angular/forms";
 import { ModalDeletePartComponent } from './components/modales/modal-delete-part/modal-delete-part.component';
 import { ModalAddPartComponent } from './components/modales/modal-add-part/modal-add-part.component';
 import { WindmillPartCreationComponent } from './components/windmill-part-creation/windmill-part-creation.component';
+
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
+import { UserComponent } from './components/user/user.component';
+import { EditUserModalComponent } from './components/edit-user-modal/edit-user-modal.component';
+import { DeleteUserModalComponent } from './components/delete-user-modal/delete-user-modal.component';
 
 @NgModule({
   declarations: [
@@ -34,15 +40,22 @@ import { WindmillPartCreationComponent } from './components/windmill-part-creati
     ListComponent,
     CreationViewComponent,
     FooterComponent,
+
     ModalDeletePartComponent,
     ModalAddPartComponent,
-    WindmillPartCreationComponent
+    WindmillPartCreationComponent,
+
+    UserDashboardComponent,
+    UserComponent,
+    EditUserModalComponent,
+    DeleteUserModalComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
