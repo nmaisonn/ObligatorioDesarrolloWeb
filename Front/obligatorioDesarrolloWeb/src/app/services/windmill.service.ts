@@ -2,16 +2,23 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { windmill } from '../windmill';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { windmillPart } from '../windmillPart';
 
 @Injectable({
   providedIn: 'root'
 })
 export class WindmillService {
 
-  private webApiUrl = 'http://localhost:8090/aprovve';
+  private webApiUrl = 'http://localhost:8090/';
+  windmillsHardcodeados: windmill[] = []
 
 
   constructor(private http: HttpClient) { }
+
+  getWindmillsHardCode(): windmill[] {
+    this.cargarMolinosHardCodeados();
+    return this.windmillsHardcodeados;
+  }
 
   getWindmills(): Observable<windmill[]> {
     return this.http.get<windmill[]>(this.webApiUrl);
@@ -20,15 +27,109 @@ export class WindmillService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  /*
-  Ir a la API con el texto que se pasa, buscar en los estados de los molinos,
-  Si el estado coincide con el texto de parametro retorno un array de todos los molinos cuyo estado=pTexto
-  Sino retorno un array vacio.
-  */
-  findWindmills(pTexto:String):Observable<windmill[]>{
-    const url = `${this.webApiUrl}/${pTexto}`;
-    return this.http.get<windmill[]>(url,this.httpOptions);
+  cargarMolinosHardCodeados(): void {
+    let aspa1: windmillPart = {
+      id: "12344",
+      cat: 1,
+      picture: "../../../assets/aspa.jpg",
+      height: 5,
+      windResistance: 5,
+      material: "metal",
+      name: "aspa1",
+      inUse: false
+    }
+    let aspa2: windmillPart = {
+      id: "253008",
+      cat: 1,
+      picture: "../../../assets/aspa.jpg",
+      height: 5,
+      windResistance: 5,
+      material: "metal",
+      name: "aspa2",
+      inUse: false
+    }
+    let cuerpo1: windmillPart = {
+      id: "33333",
+      cat: 2,
+      picture: "../../../assets/aspa.jpg",
+      height: 10,
+      windResistance: 8,
+      material: "metal",
+      name: "cuerpo1",
+      inUse: false
+    }
+
+    let cuerpo2: windmillPart = {
+      id: "444444",
+      cat: 2,
+      picture: "../../../assets/aspa.jpg",
+      height: 10,
+      windResistance: 8,
+      material: "metal",
+      name: "cuerpo2",
+      inUse: false
+    }
+    let base1: windmillPart = {
+      id: "34455",
+      cat: 3,
+      picture: "../../../assets/aspa.jpg",
+      height: 3,
+      windResistance: 10,
+      material: "metal",
+      name: "base1",
+      inUse: false
+    }
+    
+    let base2: windmillPart = {
+      id: "55555",
+      cat: 3,
+      picture: "../../../assets/aspa.jpg",
+      height: 3,
+      windResistance: 10,
+      material: "metal",
+      name: "base2",
+      inUse: false
+    }
+
+    let xMolino1: windmill = {
+      name: "Molino1",
+      id: "1",
+      base:base1,
+      body:cuerpo1,
+      blade:aspa1,
+      state:"pendiente"
+    };
+    
+    let xMolino2: windmill = {
+      name: "Molino2",
+      id: "2",
+      base:base2,
+      body:cuerpo2,
+      blade:aspa2,
+      state:"Aprobado"
+    };
+    
+    let xMolino3: windmill = {
+      name: "Molino3",
+      id: "3",
+      base:base1,
+      body:cuerpo2,
+      blade:aspa1,
+      state:"Rechazado"
+    };
+    
+    let xMolino4: windmill = {
+      name: "Molino4",
+      id: "4",
+      base:base2,
+      body:cuerpo1,
+      blade:aspa2,
+      state:"Pendiente"
+    };
+    this.windmillsHardcodeados.push(xMolino1);
+    this.windmillsHardcodeados.push(xMolino2);
+    this.windmillsHardcodeados.push(xMolino3);
+    this.windmillsHardcodeados.push(xMolino4);
   }
-  
 }
 
