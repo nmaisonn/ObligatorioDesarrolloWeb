@@ -1,12 +1,10 @@
 <body>
-    <div id="board" class="container">
-        <div id="list" class="row">
-            <div *ngFor="let parte of windmillParts" class="col-sm-12 col-md-4 mb-3">
-                <app-windmill-part [coso]="parte"></app-windmill-part>
+    <div id="board" class="container-fluid">
+        <div id="list" class="row ">
+            <div *ngFor="let parte of windmillParts" class=" col-md-4 ">
+                <app-windmill-part-creation id="parte" [coso]="parte"></app-windmill-part-creation>
             </div>
         </div>
-    </div>
-    <div>
-        <app-modal></app-modal>
+        <!-- <app-modal (newItemEvent)="agregar($event)"></app-modal> -->
     </div>
 </body>

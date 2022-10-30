@@ -7,14 +7,16 @@ import { CreationComponent } from './components/creation/creation.component';
 import { CatalogComponent } from './components/catalog/catalog.component';
 import { WindmillPartComponent } from './components/windmill-part/windmill-part.component';
 import { ApproveComponent } from './components/approve/approve.component';
-import { ModalComponent } from './components/modal/modal.component';
 import { ListComponent } from './components/list/list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CardButtonsComponent } from './components/card-buttons/card-buttons.component';
 import { CreationViewComponent } from './components/creation-view/creation-view.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { WindmillComponent } from './components/windmill/windmill.component';
 import { DetailWindmillModalComponent } from './components/detail-windmill-modal/detail-windmill-modal.component';
+import { ModalDeletePartComponent } from './components/modales/modal-delete-part/modal-delete-part.component';
+import { ModalAddPartComponent } from './components/modales/modal-add-part/modal-add-part.component';
+import { WindmillPartCreationComponent } from './components/windmill-part-creation/windmill-part-creation.component';
+
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
@@ -35,11 +37,14 @@ import { DeleteUserModalComponent } from './components/delete-user-modal/delete-
     CatalogComponent,
     WindmillPartComponent,
     ApproveComponent,
-    ModalComponent,
     ListComponent,
-    CardButtonsComponent,
     CreationViewComponent,
     FooterComponent,
+
+    ModalDeletePartComponent,
+    ModalAddPartComponent,
+    WindmillPartCreationComponent,
+
     UserDashboardComponent,
     UserComponent,
     EditUserModalComponent,
@@ -51,7 +56,7 @@ import { DeleteUserModalComponent } from './components/delete-user-modal/delete-
     NgbModule,
     FormsModule,
     HttpClientModule
-    ],
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })
