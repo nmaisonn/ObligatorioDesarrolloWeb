@@ -58,7 +58,7 @@ app.post("/login", async (req, res) => {
 
             client.close()
 
-            res.send({ token })
+            res.send({ token, user: user.rol })
         })
 })
 
@@ -114,6 +114,50 @@ app.post('/crearUser', adminAuth, (req, res) => {
             client.close()
 
             res.send({ msg: "Usuario creado exitosamente!" })
+        }
+    )
+})
+
+app.post('/tests', (req, res) => {
+    MongoClient.connect(
+        process.env.DB_CONNECTION_STRING,
+        async (err, client) => {
+            if (err) {
+                client.close()
+                return console.log(err)
+            }
+            console.log('Connected to Database')
+            const db = client.db('dbObligatorio')
+            const usersCollection = db.collection('users')
+
+            const pipeline = [
+                {
+                    '$match': {
+                        'nombre': 'seba'
+                    }
+                }, {
+                    '$lookup': {
+                        'from': 'carreras',
+                        'localField': 'carrera',
+                        'foreignField': '_id',
+                        'as': 'result'
+                    }
+                }
+            ]
+
+            const user = await usersCollection.aggregate(pipeline)
+
+            let coso = await user.toArray()
+            coso = coso[0].result[0]
+
+            console.log(coso)
+
+            // const insertResult = await usersCollection.insertOne({ nombre: req.query.nombre, carrera: "ing_informatica" })
+            // console.log('Inserted document =>', insertResult)
+
+            client.close()
+
+            res.send({ coso })
         }
     )
 })
@@ -176,7 +220,7 @@ app.put('/editarUser', adminAuth, (req, res) => {
 
     if (!validator.isEmail(req.query.nuevoMail)) {
         return res.status(400).send({
-            error: "Debes ingresar un mail valido."
+            error: "Error al editar usuario."
         })
     }
 
@@ -222,7 +266,7 @@ app.put('/editarUser', adminAuth, (req, res) => {
                         },
                     },
                 )
-            // Caso editar solo el mail
+                // Caso editar solo el mail
             } else if (req.query.nuevoMail) {
                 editResult = await usersCollection.findOneAndUpdate(
                     { mail: req.query.mail },
@@ -232,7 +276,7 @@ app.put('/editarUser', adminAuth, (req, res) => {
                         },
                     },
                 )
-            // Caso editar solo el rol
+                // Caso editar solo el rol
             } else {
                 editResult = await usersCollection.findOneAndUpdate(
                     { mail: req.query.mail },
