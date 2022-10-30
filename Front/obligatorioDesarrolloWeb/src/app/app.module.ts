@@ -16,6 +16,7 @@ import { DetailWindmillModalComponent } from './components/detail-windmill-modal
 import { FormsModule } from "@angular/forms";
 import { ModalDeletePartComponent } from './components/modales/modal-delete-part/modal-delete-part.component';
 import { ModalAddPartComponent } from './components/modales/modal-add-part/modal-add-part.component';
+import { WindmillPartCreationComponent } from './components/windmill-part-creation/windmill-part-creation.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ModalAddPartComponent } from './components/modales/modal-add-part/modal
     CreationViewComponent,
     FooterComponent,
     ModalDeletePartComponent,
-    ModalAddPartComponent
+    ModalAddPartComponent,
+    WindmillPartCreationComponent
   ],
   imports: [
     BrowserModule,
