@@ -64,7 +64,7 @@ app.post("/login", async (req, res) => {
 
 // Endpoints de admins.
 // Crear users
-app.post('/crearUser', auth(["1"]), (req, res) => {
+app.post('/crearUser', auth(["1","2"]), (req, res) => {
     // Chequeo que se hayan pasado todos los campos.
     if (!req.query.mail || !req.query.pass || !req.query.rol) {
         return res.status(400).send({
@@ -119,7 +119,7 @@ app.post('/crearUser', auth(["1"]), (req, res) => {
 })
 
 // Borrar users.
-app.post('/borrarUser', auth(["1"]), (req, res) => {
+app.post('/borrarUser', auth(["1","2"]), (req, res) => {
     if (!req.query.mail) {
         return res.status(400).send({
             error: "Error al borrar usuario."
@@ -159,7 +159,7 @@ app.post('/borrarUser', auth(["1"]), (req, res) => {
 })
 
 // Editar users.
-app.put('/editarUser', auth(["1"]), (req, res) => {
+app.put('/editarUser', auth(["1","2"]), (req, res) => {
     // Chequeo que se haya enviado el mail del usuario.
     if (!req.query.mail) {
         return res.status(400).send({
@@ -254,7 +254,7 @@ app.put('/editarUser', auth(["1"]), (req, res) => {
 })
 
 // Listar users
-app.get('/listarUsers', auth(["1"]), async (req, res) => {
+app.get('/listarUsers', auth(["1","2"]), async (req, res) => {
     MongoClient.connect(
         process.env.DB_CONNECTION_STRING,
         async (err, client) => {
@@ -278,7 +278,7 @@ app.get('/listarUsers', auth(["1"]), async (req, res) => {
 
 // Endpoints de operarios
 // Crear pieza
-app.post("/crearPieza", auth(["2"]), (req, res) => {
+app.post("/crearPieza", auth(["1","2"]), (req, res) => {
     const { nombre, categoria, altura, resViento, material, img } = req.query
     if (!(nombre && categoria && altura && resViento && material && img)) {
         return res.status(400).send({
@@ -319,7 +319,7 @@ app.post("/crearPieza", auth(["2"]), (req, res) => {
 })
 
 // Borrar pieza
-app.post("/borrarPieza", auth(["2"]), (req, res) => {
+app.post("/borrarPieza", auth(["1","2"]), (req, res) => {
     const { nombre, categoria, altura, resViento, material } = req.query
     if (!(nombre && categoria && altura && resViento && material)) {
         return res.status(400).send({
@@ -360,12 +360,12 @@ app.post("/borrarPieza", auth(["2"]), (req, res) => {
 })
 
 // Editar pieza
-app.post("/editarPieza", auth(["2"]), (req, res) => {
+app.post("/editarPieza", auth(["1","2"]), (req, res) => {
 
 })
 
 // Listar piezas
-app.get("/listarPiezas", auth(["2"]), (req, res) => {
+app.get("/listarPiezas", auth(["1","2"]), (req, res) => {
     MongoClient.connect(
         process.env.DB_CONNECTION_STRING,
         async (err, client) => {
@@ -388,7 +388,7 @@ app.get("/listarPiezas", auth(["2"]), (req, res) => {
 })
 
 // Crear molino
-app.post("/crearDiseño", auth(["2"]), (req, res) => {
+app.post("/crearDiseño", auth(["1","2"]), (req, res) => {
     const { nombre, categoria, altura, resViento, material, img } = req.query
     if (!(nombre && categoria && altura && resViento && material && img)) {
         return res.status(400).send({
