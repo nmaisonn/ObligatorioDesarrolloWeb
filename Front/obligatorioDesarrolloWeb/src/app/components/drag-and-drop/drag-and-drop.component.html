@@ -1,0 +1,39 @@
+<div>
+    <div class="board">
+        <h2>Aspas</h2>
+        <div>
+            <div id="aspaList" cdkDropList [cdkDropListData]="aspaList" class="card-list col-sm-4"
+                cdkDropListConnectedTo="windmillParts" (cdkDropListDropped)="drop($event)"
+                [cdkDropListEnterPredicate]="predicateAspa">
+                <div class="card-item" *ngFor="let item of aspaList" [cdkDragData]="item" cdkDrag>
+                    <app-windmill-part-creation id="item" [coso]="item"></app-windmill-part-creation>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="board">
+        <h2>Cuerpo</h2>
+        <div>
+            <div id="cuerpoList" cdkDropList [cdkDropListData]="cuerpoList" class="card-list col-sm-4"
+                cdkDropListConnectedTo="windmillParts" (cdkDropListDropped)="drop($event)"
+                [cdkDropListEnterPredicate]="predicateCuerpo">
+                <div class="card-item" *ngFor="let item of cuerpoList" cdkDrag [cdkDragData]="item">
+                    <app-windmill-part-creation id="item" [coso]="item"></app-windmill-part-creation>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="board">
+        <h2>Base</h2>
+        <div>
+            <div id="baseList" cdkDropList [cdkDropListData]="baseList" class="card-list col-sm-4"
+                cdkDropListConnectedTo="windmillParts" (cdkDropListDropped)="drop($event)"
+                [cdkDropListEnterPredicate]="predicateBase">
+                <div class="card-item" *ngFor="let item of baseList" cdkDrag [cdkDragData]="item">
+                    <app-windmill-part-creation id="item" [coso]="item"></app-windmill-part-creation>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
