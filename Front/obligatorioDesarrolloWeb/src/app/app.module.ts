@@ -9,7 +9,6 @@ import { WindmillPartComponent } from './components/windmill-part/windmill-part.
 import { ApproveComponent } from './components/approve/approve.component';
 import { ListComponent } from './components/list/list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { CreationViewComponent } from './components/creation-view/creation-view.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { WindmillComponent } from './components/windmill/windmill.component';
 import { DetailWindmillModalComponent } from './components/detail-windmill-modal/detail-windmill-modal.component';
@@ -23,6 +22,8 @@ import { UserDashboardComponent } from './components/user-dashboard/user-dashboa
 import { UserComponent } from './components/user/user.component';
 import { EditUserModalComponent } from './components/edit-user-modal/edit-user-modal.component';
 import { DeleteUserModalComponent } from './components/delete-user-modal/delete-user-modal.component';
+import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -38,24 +39,23 @@ import { DeleteUserModalComponent } from './components/delete-user-modal/delete-
     WindmillPartComponent,
     ApproveComponent,
     ListComponent,
-    CreationViewComponent,
     FooterComponent,
-
     ModalDeletePartComponent,
     ModalAddPartComponent,
     WindmillPartCreationComponent,
-
     UserDashboardComponent,
     UserComponent,
     EditUserModalComponent,
-    DeleteUserModalComponent
+    DeleteUserModalComponent,
+    DragAndDropComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    DragDropModule
   ],
   providers: [],
   bootstrap: [AppComponent]

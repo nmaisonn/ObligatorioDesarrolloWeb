@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreationViewComponent } from './creation-view.component';
+import { DragAndDropComponent } from './drag-and-drop.component';
 
-describe('CreationViewComponent', () => {
-  let component: CreationViewComponent;
-  let fixture: ComponentFixture<CreationViewComponent>;
+describe('DragAndDropComponent', () => {
+  let component: DragAndDropComponent;
+  let fixture: ComponentFixture<DragAndDropComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ CreationViewComponent ]
+      declarations: [ DragAndDropComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CreationViewComponent);
+    fixture = TestBed.createComponent(DragAndDropComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
