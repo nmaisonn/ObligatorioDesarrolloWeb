@@ -1,14 +1,20 @@
 const jwt = require('jsonwebtoken')
 
-const auth = async (req, res, next) => {
-    try {
-        const token = req.header('Authorization').replace('Bearer ', '')
-        const decoded = jwt.verify(token, process.env.JWT_SECRET)
-        console.log(decoded)
-
-        next()
-    } catch (e) {
-        res.status(401).send({ error: 'Please authenticate.' })
+const auth = (roles) => {
+    return async (req, res, next) => {
+        try {
+            const token = req.header('Authorization').replace('Bearer ', '')
+            const decoded = jwt.verify(token, process.env.JWT_SECRET)
+            
+            if (!roles.includes(decoded.rol)) {
+                throw new Error()
+            }
+    
+            next()
+        } catch (e) {
+            console.log(e)
+            res.status(401).send({ error: 'Falta autenticación.' })
+        }
     }
 }
 

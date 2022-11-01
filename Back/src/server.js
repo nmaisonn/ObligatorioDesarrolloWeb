@@ -4,9 +4,9 @@ const validator = require("validator")
 const bcrypt = require("bcrypt")
 const jwt = require("jsonwebtoken")
 const MongoClient = require('mongodb').MongoClient
+const dbo = require("../bd/connection")
 
 const auth = require("../middleware/auth");
-const adminAuth = require("../middleware/adminAuth")
 
 require("dotenv").config()
 
@@ -58,13 +58,13 @@ app.post("/login", async (req, res) => {
 
             client.close()
 
-            res.send({ token, user: user.rol })
+            res.send({ token, user: { mail: user.mail, rol: user.rol } })
         })
 })
 
 // Endpoints de admins.
 // Crear users
-app.post('/crearUser', adminAuth, (req, res) => {
+app.post('/crearUser', auth(["1"]), (req, res) => {
     // Chequeo que se hayan pasado todos los campos.
     if (!req.query.mail || !req.query.pass || !req.query.rol) {
         return res.status(400).send({
@@ -118,52 +118,8 @@ app.post('/crearUser', adminAuth, (req, res) => {
     )
 })
 
-app.post('/tests', (req, res) => {
-    MongoClient.connect(
-        process.env.DB_CONNECTION_STRING,
-        async (err, client) => {
-            if (err) {
-                client.close()
-                return console.log(err)
-            }
-            console.log('Connected to Database')
-            const db = client.db('dbObligatorio')
-            const usersCollection = db.collection('users')
-
-            const pipeline = [
-                {
-                    '$match': {
-                        'nombre': 'seba'
-                    }
-                }, {
-                    '$lookup': {
-                        'from': 'carreras',
-                        'localField': 'carrera',
-                        'foreignField': '_id',
-                        'as': 'result'
-                    }
-                }
-            ]
-
-            const user = await usersCollection.aggregate(pipeline)
-
-            let coso = await user.toArray()
-            coso = coso[0].result[0]
-
-            console.log(coso)
-
-            // const insertResult = await usersCollection.insertOne({ nombre: req.query.nombre, carrera: "ing_informatica" })
-            // console.log('Inserted document =>', insertResult)
-
-            client.close()
-
-            res.send({ coso })
-        }
-    )
-})
-
 // Borrar users.
-app.post('/borrarUser', adminAuth, (req, res) => {
+app.post('/borrarUser', auth(["1"]), (req, res) => {
     if (!req.query.mail) {
         return res.status(400).send({
             error: "Error al borrar usuario."
@@ -203,7 +159,7 @@ app.post('/borrarUser', adminAuth, (req, res) => {
 })
 
 // Editar users.
-app.put('/editarUser', adminAuth, (req, res) => {
+app.put('/editarUser', auth(["1"]), (req, res) => {
     // Chequeo que se haya enviado el mail del usuario.
     if (!req.query.mail) {
         return res.status(400).send({
@@ -220,7 +176,7 @@ app.put('/editarUser', adminAuth, (req, res) => {
 
     if (!validator.isEmail(req.query.nuevoMail)) {
         return res.status(400).send({
-            error: "Error al editar usuario."
+            error: "Debes ingresar un mail valido"
         })
     }
 
@@ -298,7 +254,7 @@ app.put('/editarUser', adminAuth, (req, res) => {
 })
 
 // Listar users
-app.get('/listarUsers', adminAuth, async (req, res) => {
+app.get('/listarUsers', auth(["1"]), async (req, res) => {
     MongoClient.connect(
         process.env.DB_CONNECTION_STRING,
         async (err, client) => {
@@ -318,6 +274,221 @@ app.get('/listarUsers', adminAuth, async (req, res) => {
             res.send({ users })
         }
     )
+})
+
+// Endpoints de operarios
+// Crear pieza
+app.post("/crearPieza", auth(["2"]), (req, res) => {
+    const { nombre, categoria, altura, resViento, material, img } = req.query
+    if (!(nombre && categoria && altura && resViento && material && img)) {
+        return res.status(400).send({
+            error: "Faltan parametros."
+        })
+    }
+
+    MongoClient.connect(
+        process.env.DB_CONNECTION_STRING,
+        async (err, client) => {
+            if (err) {
+                client.close()
+                return console.log(err)
+            }
+            console.log('Connected to Database')
+            const db = client.db('dbObligatorio')
+            const partsCollection = db.collection('windmill-parts')
+
+            // Chequear que la parte no exista.
+            const part = await partsCollection.findOne({ nombre, categoria, altura, "resistencia eolica": resViento, material })
+
+            if (part) {
+                client.close()
+                return res.status(400).send({
+                    error: "Pieza ya existente."
+                })
+            }
+
+
+            const insertResult = await partsCollection.insertOne({ nombre, categoria, altura, "resistencia eolica": resViento, material, img: { nombre: img.nombre, ext: img.ext } })
+            console.log('Inserted document =>', insertResult)
+
+            client.close()
+
+            res.send({ msg: "Pieza creada exitosamente!" })
+        }
+    )
+})
+
+// Borrar pieza
+app.post("/borrarPieza", auth(["2"]), (req, res) => {
+    const { nombre, categoria, altura, resViento, material } = req.query
+    if (!(nombre && categoria && altura && resViento && material)) {
+        return res.status(400).send({
+            error: "Faltan parametros."
+        })
+    }
+
+    MongoClient.connect(
+        process.env.DB_CONNECTION_STRING,
+        async (err, client) => {
+            if (err) {
+                client.close()
+                return console.log(err)
+            }
+            console.log('Connected to Database')
+            const db = client.db('dbObligatorio')
+            const partsCollection = db.collection('windmill-parts')
+
+            // Chequear que la parte exista
+            const part = await partsCollection.findOne({ nombre, categoria, altura, "resistencia eolica": resViento, material })
+
+            if (!part) {
+                client.close()
+                return res.status(400).send({
+                    error: "Pieza no existente."
+                })
+            }
+
+
+            const deleteResult = await partsCollection.deleteOne({ nombre, categoria, altura, "resistencia eolica": resViento, material })
+            console.log('Deleted document =>', deleteResult)
+
+            client.close()
+
+            res.send({ msg: "Pieza borrada con exito!" })
+        }
+    )
+})
+
+// Editar pieza
+app.post("/editarPieza", auth(["2"]), (req, res) => {
+
+})
+
+// Listar piezas
+app.get("/listarPiezas", auth(["2"]), (req, res) => {
+    MongoClient.connect(
+        process.env.DB_CONNECTION_STRING,
+        async (err, client) => {
+            if (err) {
+                client.close()
+                return console.log(err)
+            }
+            console.log('Connected to Database')
+            const db = client.db('dbObligatorio')
+            const partsCollection = db.collection('windmill-parts')
+
+            // Chequear que el usuario exista.
+            const parts = await partsCollection.find().project({ _id: 0, pass: 0 }).toArray()
+
+            client.close()
+
+            res.send({ parts })
+        }
+    )
+})
+
+// Crear molino
+app.post("/crearDiseño", auth(["2"]), (req, res) => {
+    const { nombre, categoria, altura, resViento, material, img } = req.query
+    if (!(nombre && categoria && altura && resViento && material && img)) {
+        return res.status(400).send({
+            error: "Faltan parametros."
+        })
+    }
+
+    MongoClient.connect(
+        process.env.DB_CONNECTION_STRING,
+        async (err, client) => {
+            if (err) {
+                client.close()
+                return console.log(err)
+            }
+            console.log('Connected to Database')
+            const db = client.db('dbObligatorio')
+            const partsCollection = db.collection('windmill-parts')
+
+            // Chequear que la parte no exista.
+            const part = await partsCollection.findOne({ nombre, categoria, altura, "resistencia eolica": resViento, material })
+
+            if (part) {
+                client.close()
+                return res.status(400).send({
+                    error: "Pieza ya existente."
+                })
+            }
+
+
+            const insertResult = await partsCollection.insertOne({ nombre, categoria, altura, "resistencia eolica": resViento, material, img: { nombre: img.nombre, ext: img.ext } })
+            console.log('Inserted document =>', insertResult)
+
+            client.close()
+
+            res.send({ msg: "Pieza creada exitosamente!" })
+        }
+    )
+})
+
+// Test agregar doc referenciando otro doc.
+app.post('/tests', (req, res) => {
+    MongoClient.connect(
+        process.env.DB_CONNECTION_STRING,
+        async (err, client) => {
+            if (err) {
+                client.close()
+                return console.log(err)
+            }
+            console.log('Connected to Database')
+            const db = client.db('dbObligatorio')
+            const usersCollection = db.collection('users')
+
+            const pipeline = [
+                {
+                    '$match': {
+                        'nombre': 'seba'
+                    }
+                }, {
+                    '$lookup': {
+                        'from': 'carreras',
+                        'localField': 'carrera',
+                        'foreignField': '_id',
+                        'as': 'result'
+                    }
+                }
+            ]
+
+            const user = await usersCollection.aggregate(pipeline)
+
+            let coso = await user.toArray()
+            coso = coso[0].result[0]
+
+            console.log(coso)
+
+            // const insertResult = await usersCollection.insertOne({ nombre: req.query.nombre, carrera: "ing_informatica" })
+            // console.log('Inserted document =>', insertResult)
+
+            client.close()
+
+            res.send({ coso })
+        }
+    )
+})
+
+// Test de la bd connection.
+app.get("/otroTest", async (req, res) => {
+    const dbConnect = await dbo.getDb();
+
+    console.log(dbConnect)
+
+    dbConnect
+        .collection("users")
+        .find({}).limit(50)
+        .toArray(function (err, result) {
+            if (err) {
+                res.status(400).send("Error fetching listings!");
+            } else {
+                res.json(result);
+            }
+        });
 })
 
 app.listen(port, () => {
