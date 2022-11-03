@@ -12,7 +12,8 @@ import { ListComponent } from './components/list/list.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CreationViewComponent } from './components/creation-view/creation-view.component';
 import { FooterComponent } from './components/footer/footer.component';
-
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,8 +30,10 @@ import { FooterComponent } from './components/footer/footer.component';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
-    NgbModule
+    NgbModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
