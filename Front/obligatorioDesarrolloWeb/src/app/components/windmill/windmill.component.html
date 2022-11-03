@@ -1,0 +1,13 @@
+<div class="card w-100 card-border mb-5" *ngIf="windmill">
+    <h5 class="card-header">{{windmill.id}}</h5>
+    <div *ngIf="windmill" class="card-body">
+        <p class="card-text">Nombre del Molino:{{windmill.name}}</p>
+        <p class="card-text">Aspa: {{windmill.blade.name}} </p>
+        <p class="card-text">Cuerpo: {{windmill.body.name}} </p>
+        <p class="card-text">Base: {{windmill.base.name}} </p>
+        <p class="card-text">Estado: {{windmill.state}} </p>
+    </div>
+    <div class="card-footer">
+        <button id="detalles" data-bs-toggle="modal" data-bs-target="#staticBackdropAgregar" (click)="showDetails()">Auditar</button>
+    </div>
+</div>

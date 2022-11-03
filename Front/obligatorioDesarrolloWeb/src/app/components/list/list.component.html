@@ -1,9 +1,21 @@
-
-    <div id="board" class="container">
-        <div id="list" class="row">
-            <div *ngFor="let parte of windmillParts" class="col-sm-12 col-md-4 mb-3">
-                <app-windmill-part  [coso]="parte" ></app-windmill-part>
+<!--
+<body>
+    <div id="board" class="container-fluid">
+        <div id="list" class="row ">
+            <div *ngFor="let parte of windmillParts" class=" col-md-4 ">
+                <app-windmill-part-creation id="parte" [coso]="parte"></app-windmill-part-creation>
             </div>
         </div>
+        <!-- <app-modal (newItemEvent)="agregar($event)"></app-modal>
     </div>
-
+</body>
+-->
+<div class="board">
+    <h2>Partes de molino</h2>
+    <div id="windmillParts" cdkDropList [cdkDropListData]="windmillParts" class="example-list"
+        cdkDropListConnectedTo="aspaList, baseList, cuerpoList" (cdkDropListDropped)="drop($event)">
+        <div class="card-item" *ngFor="let part of windmillParts" [cdkDragData]="part" cdkDrag>
+            <app-windmill-part-creation id="part" [coso]="part"></app-windmill-part-creation>
+        </div>
+    </div>
+</div>

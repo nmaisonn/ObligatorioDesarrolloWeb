@@ -1,8 +1,16 @@
 <body class="d-flex flex-column min-vh-100">
-    <app-list></app-list>
-    <div>
-        <button id="agregar" class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-            Agregar
-        </button>
-    </div> 
+
+    <body>
+        <div id="board" class="container">
+            <div id="list" class="row">
+                <div *ngFor="let parte of windmillParts" class="col-sm-12 col-md-4 mb-3">
+                    <app-windmill-part [coso]="parte"></app-windmill-part>
+                </div>
+            </div>
+        </div>
+        <button id="agregar" class="btn btn-lg btn-light" (click)="open()">Agregar</button>
+        <div>
+            <!-- <app-modal (newItemEvent)="agregar($event)"></app-modal> -->
+        </div>
+    </body>
 </body>

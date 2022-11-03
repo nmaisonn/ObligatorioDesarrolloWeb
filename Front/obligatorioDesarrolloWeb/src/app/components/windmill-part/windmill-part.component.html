@@ -1,16 +1,22 @@
-<div  id="pieza" class="parte col-sm-12 col-md-4">
-    <div class="card-body text-success" id="clase1">
-      <div *ngIf="coso" class="card-title"> 
-        <h5> {{coso.name}}</h5>
-      </div>
-      <div *ngIf="coso" class="card-text">
-        <p>Id: {{coso.id}}</p>
-        <p>Material: {{coso.material}}</p>
-        <p>Height: {{coso.height}}</p>
-        <p>Wind Resistance: {{coso.windResistance}}</p>
-      </div>
-      <button id="borrar"  (click)="borrarNota()" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Borrar
-      </button>
-      <button id="editar" (click)="editNote()" data-bs-toggle="modal" data-bs-target="#staticBackdrop2">Editar</button>
+<div class="card">
+  <div class="picture" *ngIf="coso">
+    <img src="{{coso.picture}}" class="img-fluid rounded-start" alt="...">
+  </div>
+  <div *ngIf="coso" class="card-body">
+    <div>
+      <h5> {{coso.name}}</h5>
+      <p>Id: {{coso.id}}</p>
+      <p>Material: {{coso.material}}</p>
+      <p>Height: {{coso.height}}</p>
+      <p>Wind Resistance: {{coso.windResistance}}</p>
     </div>
+    <div>
+      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+    </div>
+    <div>
+      <button id="delete" (click)="borrarNota()" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Borrar
+      </button>
+      <button id="edit" (click)="editNote()" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Editar</button>
+    </div>
+  </div>
 </div>
