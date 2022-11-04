@@ -24,6 +24,7 @@ import { EditUserModalComponent } from './components/edit-user-modal/edit-user-m
 import { DeleteUserModalComponent } from './components/delete-user-modal/delete-user-modal.component';
 import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CreateUserComponent } from './components/create-user/create-user.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     UserComponent,
     EditUserModalComponent,
     DeleteUserModalComponent,
-    DragAndDropComponent
+    DragAndDropComponent,
+    CreateUserComponent
   ],
   imports: [
     BrowserModule,
