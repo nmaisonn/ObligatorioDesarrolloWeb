@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   loginUser(mail: string, pass: string) {
-    console.log(mail)
     this._login.loginUser(mail, pass).subscribe(
       (res) => console.log(res),
       (err) => console.log(err),
