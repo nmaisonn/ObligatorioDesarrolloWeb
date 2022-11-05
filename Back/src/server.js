@@ -276,7 +276,7 @@ app.get('/listarUsers', auth(['1']), async (req, res) => {
     // Chequear que el usuario exista.
     const users = await usersCollection
       .find()
-      .project({ _id: 0, pass: 0 })
+      .project({ pass: 0 })
       .toArray()
 
     client.close()
