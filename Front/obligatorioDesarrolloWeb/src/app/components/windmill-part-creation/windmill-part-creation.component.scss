@@ -1,0 +1,42 @@
+.card {
+    padding: 0.5rem;
+    font-family: Georgia, serif;
+    background-color: #e7ecef;
+    margin-left: 0rem;
+    margin-right: 0rem;
+    width: 100%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+
+}
+
+.card:hover {
+    transform: scale(1.10);
+    position: relative;
+    z-index: 5;
+}
+
+h5 {
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 1rem;
+    color: #001219;
+}
+
+p {
+    margin: 0em;
+    margin: 0px;
+}
+
+img {
+    border-radius: 0.5rem;
+    width: 10rem;
+}
+
+body {
+    background-color: #e7ecef;
+}
+
+.card-body {
+    padding: 0.5rem;
+}
