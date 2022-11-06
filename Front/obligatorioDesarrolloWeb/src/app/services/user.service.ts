@@ -20,9 +20,11 @@ export class UserService {
     return this.usuariosHardcodeados;
   }
 
-  getWindmills(): Observable<user[]> {
-    return this.http.get<user[]>(this.webApiUrl);
+  getUsers(): Observable<user[]> {
+    var url= this.webApiUrl+"listarUsuarios"
+    return this.http.get<user[]>(this.webApiUrl,/*{headers:}*/);
   }
+ 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
