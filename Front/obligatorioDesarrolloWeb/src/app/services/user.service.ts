@@ -21,8 +21,8 @@ export class UserService {
   }
 
   getUsers(): Observable<user[]> {
-    var url= this.webApiUrl+"listarUsuarios"
-    return this.http.get<user[]>(this.webApiUrl,/*{headers:}*/);
+    var url= this.webApiUrl+"listarUsers"
+    return this.http.get<user[]>(this.webApiUrl);
   }
  
   httpOptions = {
@@ -65,7 +65,15 @@ export class UserService {
     this.usuariosHardcodeados.push(xUsuario4);
   }
 
+  deleteUser(pUsuario:user):void{
+    let url = this.webApiUrl + "borrarUser";
+    this.http.post<any>(url,{mail:pUsuario.mail});
+  }
 
+  editUser(pUsuario: user,pNuevoMail:String,pNuevoRol:String):void{
+    let url = this.webApiUrl + "editarUser";
+    this.http.post<any>(url,{ mail:pUsuario.mail,nuevoMail:pNuevoMail,rol:pNuevoRol});
+  }
 
 }
 
