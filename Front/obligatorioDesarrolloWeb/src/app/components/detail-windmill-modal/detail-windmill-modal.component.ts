@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output,Inject} from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { WindmillService } from 'src/app/services/windmill.service';
 import { windmill } from 'src/app/windmill';
 
 @Component({
@@ -8,19 +10,27 @@ import { windmill } from 'src/app/windmill';
 })
 export class DetailWindmillModalComponent implements OnInit {
 
-  @Input() molino : windmill| undefined;
-  @Output() newItemEvent = new EventEmitter<string>();
+//  @Input() molino : windmill| undefined;
+  molino:windmill| any;
 
-  constructor() { }
+  constructor(public dialogRef: MatDialogRef<DetailWindmillModalComponent>, @Inject(MAT_DIALOG_DATA) public data: windmill,private windmillService: WindmillService)  { 
+    this.molino=data;
+  }
 
   ngOnInit(): void {
   }
 
   approveWindmill(){
-    this.newItemEvent.emit("Aprobado");
+    let id:String =this.molino?.id;
+    this.windmillService.approve(id);
   }
 
   rejectedWindmill(){
-    this.newItemEvent.emit("Rechazado");
+    let id:String =this.molino?.id;
+    this.windmillService.reject(id);
+  }
+
+  closeModal() {
+    this.dialogRef.close();
   }
 }

@@ -1,26 +1,20 @@
-<!-- Detalles Molino -->
-<div class="modal fade" id="staticBackdropDelete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
-    aria-labelledby="staticBackdropDelete" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header fm">
-                <h5 class="modal-title " id="staticBackdropDelete">Editar Usuario</h5>
-                <button type="button" class="btn btn-close fr" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body" *ngIf="usuario">
-                <p class="card-text">Mail: {{usuario.mail}} </p>
-                <input type="text">
-                <p class="card-text">Rol: {{usuario.rol}} </p>
-                <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-                    <option selected>Elegir una opcion</option>
-                    <option value="1">Administrador</option>
-                    <option value="2">Operario</option>
-                    <option value="3">Auditor</option>
-                  </select>           
-            </div>
-            <div class="modal-footer">                
-                <button type="button" class="btn btn-danger" aria-multiselectable="Close" data-bs-dismiss="modal" aria-label="Close">Editar</button> 
-            </div>
-        </div>
+<div class="modal-content-wrapper">
+    <div class="modal-header fm">
+        <h5 class="modal-title " id="staticBackdropDelete">Editar Usuario</h5>
+        <button type="button" class="btn btn-close fr" data-bs-dismiss="modal" aria-label="Close" (click)="closeModal()"></button>
+    </div>
+    <div class="modal-body" *ngIf="usuario">
+        <p class="card-text">Mail: {{usuario.mail}} </p>
+        <input type="text" id="mail" [(ngModel)]="nuevoMail">
+        <p class="card-text">Rol: {{usuario.rol}} </p>
+        <select id="rol" class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="nuevoRol">
+            <option selected>Elegir una opcion</option>
+            <option value="1">Administrador</option>
+            <option value="2">Operario</option>
+            <option value="3">Auditor</option>
+        </select>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="editUser(nuevoMail,nuevoRol)">Editar</button>
     </div>
 </div>
