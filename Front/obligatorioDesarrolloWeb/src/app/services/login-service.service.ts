@@ -5,12 +5,15 @@ import { HttpClient } from '@angular/common/http'
   providedIn: 'root',
 })
 export class LoginServiceService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   loginUser(mail: string, pass: string) {
     return this.http.post<any>(
-      'http://localhost:8080/login?mail=' + mail + '&pass=' + pass,
-      {},
+      'http://localhost:8080/login',
+      {
+        mail,
+        pass
+      },
     )
   }
 }
