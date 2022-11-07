@@ -4,7 +4,6 @@ const validator = require('validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const MongoClient = require('mongodb').MongoClient
-const dbo = require('../bd/connection')
 const cors = require('cors')
 
 const auth = require('../middleware/auth')
@@ -510,23 +509,23 @@ app.post('/tests', (req, res) => {
 })
 
 // Test de la bd connection.
-app.get('/otroTest', async (req, res) => {
-  const dbConnect = await dbo.getDb()
+// app.get('/otroTest', async (req, res) => {
+  // const dbConnect = await dbo.getDb()
 
-  console.log(dbConnect)
+//   console.log(dbConnect)
 
-  dbConnect
-    .collection('users')
-    .find({})
-    .limit(50)
-    .toArray(function (err, result) {
-      if (err) {
-        res.status(400).send('Error fetching listings!')
-      } else {
-        res.json(result)
-      }
-    })
-})
+//   dbConnect
+//     .collection('users')
+//     .find({})
+//     .limit(50)
+//     .toArray(function (err, result) {
+//       if (err) {
+//         res.status(400).send('Error fetching listings!')
+//       } else {
+//         res.json(result)
+//       }
+//     })
+// })
 
 app.listen(port, () => {
   console.log('Server is up on port ' + port)
