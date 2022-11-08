@@ -24,6 +24,7 @@ export class ModalAddPartComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
   goBack(): void {
     this.location.back();
   }
@@ -33,8 +34,9 @@ export class ModalAddPartComponent implements OnInit {
   }
   constructor(config: NgbModalConfig, private modalService: NgbModal, private location: Location, private route: ActivatedRoute) {
     // customize default values of modals used by this component tree
-    config.backdrop = 'static';
+    config.backdrop = "static";
     config.keyboard = false;
+
   }
 
   addNewItem(pname: string, pcategory: string, pheight: number, pwind: number, pmaterial: string, ppicture: string) {
@@ -50,9 +52,5 @@ export class ModalAddPartComponent implements OnInit {
     }
     this.newItemEvent.emit(newPart);
   }
-
-  submitted = false;
-
-  onSubmit() { this.submitted = true; }
 
 }
