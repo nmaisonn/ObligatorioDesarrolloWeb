@@ -11,11 +11,11 @@ import { Location } from '@angular/common';
 })
 export class ModalAddWindmillPartComponent implements OnInit {
 
-  @Output() deleteNote = new EventEmitter<string>();
+
   @Output() newItemEvent = new EventEmitter<windmillPart>();
 
   newName: string = '';
-  newCategory: string = '';
+  newCategory: string = "";
   newPicture: string = "";
   newHeight: number = 0;
   newWind: number = 0;
@@ -33,10 +33,6 @@ export class ModalAddWindmillPartComponent implements OnInit {
     this.location.back();
   }
 
-  deleteModal() {
-    this.deleteNote.emit();
-  }
-
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
       return 'by pressing ESC';
@@ -47,9 +43,20 @@ export class ModalAddWindmillPartComponent implements OnInit {
     }
   }
   addNewItem(pname: string, pcategory: string, pheight: number, pwind: number, pmaterial: string, ppicture: string) {
+
+    let numberCategory: number = 0;
+    if (pcategory === "base") {
+      numberCategory = 1;
+    } else if (pcategory === "cuerpo") {
+      numberCategory = 2;
+    } else if (pcategory === "aspa") {
+      numberCategory = 3;
+    }
+
+
     let newPart: windmillPart = {
       id: "123", //cambiar esto y ver como hacer
-      cat: 1, // ver que hacer con esto
+      cat: numberCategory, // ver que hacer con esto
       picture: ppicture,
       height: pheight,
       windResistance: pwind,

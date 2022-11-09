@@ -1,14 +1,15 @@
 <ng-template #modalDelete let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+        <h4 class="modal-title" id="modal-basic-title">Algo mas va aca</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
     </div>
     <div class="modal-body">
-        <p>Hello, World!</p>
+        <p>Desea borrar esta pieza?</p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark" (click)="c('Save click')">Save</button>
+        <button type="button" class="btn btn-outline-dark" (click)="deleteModal()">Aceptar</button>
     </div>
+    <!-- (click)="c('Save click')" -->
 </ng-template>
 <button id="delete" (click)="open(modalDelete)" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Borrar
 </button>

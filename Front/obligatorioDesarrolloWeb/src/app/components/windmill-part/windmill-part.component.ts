@@ -12,7 +12,8 @@ import { ModalDeletePartComponent } from '../modales/modal-delete-part/modal-del
 })
 export class WindmillPartComponent implements OnInit {
 
-
+  @Output() deleteFromCatalogo = new EventEmitter<windmillPart>();
+  @Output() editFromCatalogo = new EventEmitter<windmillPart>();
   @Input() coso: windmillPart | undefined;
 
 
@@ -21,8 +22,11 @@ export class WindmillPartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  editNote(): void {
-
+  editWindmillPart(): void {
+    this.editFromCatalogo.emit(this.coso)
+  }
+  deleteWindmillPart() {
+    this.deleteFromCatalogo.emit(this.coso);
   }
 
 }

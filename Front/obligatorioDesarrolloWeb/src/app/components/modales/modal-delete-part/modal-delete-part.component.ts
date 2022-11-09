@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
@@ -8,6 +8,7 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModalDeletePartComponent implements OnInit {
 
+  @Output() deletePart = new EventEmitter<any>();
   constructor(config: NgbModalConfig, private modalService: NgbModal) {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
@@ -19,5 +20,9 @@ export class ModalDeletePartComponent implements OnInit {
 
   open(modalDelete: any): void {
     this.modalService.open(modalDelete);
+  }
+
+  deleteModal() {
+    this.deletePart.emit();
   }
 }
