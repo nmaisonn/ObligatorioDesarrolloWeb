@@ -17,4 +17,7 @@ export class ModalDeletePartComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  open(modalDelete: any): void {
+    this.modalService.open(modalDelete);
+  }
 }

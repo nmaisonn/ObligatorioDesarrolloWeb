@@ -8,14 +8,13 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 import { WindmillPartComponent } from './components/windmill-part/windmill-part.component';
 import { ApproveComponent } from './components/approve/approve.component';
 import { ListComponent } from './components/list/list.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './components/footer/footer.component';
 import { WindmillComponent } from './components/windmill/windmill.component';
 import { DetailWindmillModalComponent } from './components/detail-windmill-modal/detail-windmill-modal.component';
 import { ModalDeletePartComponent } from './components/modales/modal-delete-part/modal-delete-part.component';
 import { ModalAddPartComponent } from './components/modales/modal-add-part/modal-add-part.component';
 import { WindmillPartCreationComponent } from './components/windmill-part-creation/windmill-part-creation.component';
-
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
@@ -24,6 +23,8 @@ import { EditUserModalComponent } from './components/edit-user-modal/edit-user-m
 import { DeleteUserModalComponent } from './components/delete-user-modal/delete-user-modal.component';
 import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ModalAddWindmillPartComponent } from './components/modales/modal-add-windmill-part/modal-add-windmill-part.component';
+import { ModalEditWindmillPartComponent } from './components/modales/modal-edit-windmill-part/modal-edit-windmill-part.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,9 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     UserComponent,
     EditUserModalComponent,
     DeleteUserModalComponent,
-    DragAndDropComponent
+    DragAndDropComponent,
+    ModalAddWindmillPartComponent,
+    ModalEditWindmillPartComponent
   ],
   imports: [
     BrowserModule,

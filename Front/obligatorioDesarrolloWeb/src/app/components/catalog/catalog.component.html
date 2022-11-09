@@ -1,4 +1,4 @@
-<body class="d-flex flex-column min-vh-100">
+<div class="catalogo d-flex flex-column min-vh-100">
     <div id="board" class="container">
         <div id="list" class="row">
             <div *ngFor="let parte of windmillParts" class="col-sm-12 col-md-4 mb-3">
@@ -6,8 +6,5 @@
             </div>
         </div>
     </div>
-    <button id="agregar" class="btn btn-lg btn-light" (click)="open()">Agregar</button>
-    <div>
-        <app-modal-add-part id="modal1"></app-modal-add-part>
-    </div>
-</body>
+    <app-modal-add-windmill-part (newItemEvent)="add($event)"></app-modal-add-windmill-part>
+</div>

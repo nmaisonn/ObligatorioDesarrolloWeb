@@ -9,19 +9,8 @@ import { windmillPart } from 'src/app/windmillPart';
 })
 export class DragAndDropComponent implements OnInit {
 
-  //public listNumbers1: number[] | undefined;
-  //public listNumbers2: number[] | undefined;
 
-  public baseList: windmillPart[] = [{
-    id: "12344",
-    cat: 1,
-    picture: "../../../assets/aspa.jpg",
-    height: 5,
-    windResistance: 5,
-    material: "metal",
-    name: "aspa",
-    inUse: false
-  }];
+  public baseList: windmillPart[] = [];
   public aspaList: windmillPart[] = [];
   public cuerpoList: windmillPart[] = [];
 
