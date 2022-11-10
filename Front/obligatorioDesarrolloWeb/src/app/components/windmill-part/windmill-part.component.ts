@@ -3,7 +3,7 @@ import { windmillPart } from 'src/app/windmillPart';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalDeletePartComponent } from '../modales/modal-delete-part/modal-delete-part.component';
+
 
 @Component({
   selector: 'app-windmill-part',
@@ -13,7 +13,7 @@ import { ModalDeletePartComponent } from '../modales/modal-delete-part/modal-del
 export class WindmillPartComponent implements OnInit {
 
   @Output() deleteFromCatalogo = new EventEmitter<windmillPart>();
-  @Output() editFromCatalogo = new EventEmitter<windmillPart>();
+  @Output() editFromCatalogo = new EventEmitter<windmillPart[]>();
   @Input() coso: windmillPart | undefined;
 
 
@@ -22,8 +22,12 @@ export class WindmillPartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  editWindmillPart(): void {
-    this.editFromCatalogo.emit(this.coso)
+  editWindmillPart(newPart: windmillPart): void {
+    let editWindmills: windmillPart[] = [];
+    if (this.coso != undefined) {
+      editWindmills = [newPart, this.coso];
+    }
+    this.editFromCatalogo.emit(editWindmills)
   }
   deleteWindmillPart() {
     this.deleteFromCatalogo.emit(this.coso);

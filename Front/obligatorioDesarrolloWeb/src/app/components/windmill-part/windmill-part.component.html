@@ -15,7 +15,7 @@
     </div>
     <div>
       <app-modal-delete-part (deletePart)="deleteWindmillPart()"></app-modal-delete-part>
-      <app-modal-edit-windmill-part (editPart)="editWindmillPart()" [windmillPartEdit]="coso">
+      <app-modal-edit-windmill-part (editPart)="editWindmillPart($event)" [windmillPartEdit]="coso">
       </app-modal-edit-windmill-part>
     </div>
   </div>

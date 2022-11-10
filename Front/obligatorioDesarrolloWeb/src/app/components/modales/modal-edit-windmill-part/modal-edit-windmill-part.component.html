@@ -1,41 +1,39 @@
 <ng-template #modalEdit let-c="close" let-d="dismiss">
     <div class="modal-header">
-        <h4 class="modal-title" id="modal-basic-title">Hi there!</h4>
+        <h4 class="modal-title" id="modal-basic-title">Editar pieza</h4>
         <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
     </div>
     <div class="modal-body" *ngIf="windmillPartEdit">
-        <p>
-            <label for=" name">Nombre: </label>
-            <input type="text" id="name" [(ngModel)]="newName">
-        </p>
-        <p>
-            <label for="category">Categoría: </label>
-            <select name="category" id="category" [(ngModel)]="newCategory">
-                <option value="base">Base</option>
-                <option value="aspa">Aspa</option>
-                <option value="cuerpo">Cuerpo</option>
-            </select>
-        </p>
-        <p>
-            <label for="height">Altura: </label>
-            <input type="number" id="height" [(ngModel)]="newHeight" placeholder="{{windmillPartEdit.height}}">
-        </p>
-        <p>
-            <label for="wind">Resistencia viento: </label>
-            <input type="number" id="wind" [(ngModel)]="newWind">
-        </p>
-        <p>
-            <label for="material">Material: </label>
-            <input type="text" id="material" [(ngModel)]="newMaterial">
-        </p>
-        <p>
-            <label for="picture">Imagen URL: </label>
-            <input type="url" id="picture" [(ngModel)]="newPicture" value="{{windmillPartEdit.picture}}">
-        </p>
+        <form action="">
+            <p>
+                <label for="name">Nombre: </label>
+                <input type="text" id="name" [(ngModel)]="newName" value="{{windmillPartEdit.name}}">
+            </p>
+            <p>
+                <label for="category">Categoría: </label>
+                <input name="category" id="category" value="categoria" readonly>
+            </p>
+            <p>
+                <label for="height">Altura: </label>
+                <input type="number" id="height" [(ngModel)]="newHeight" value="{{windmillPartEdit.height}}">
+            </p>
+            <p>
+                <label for="wind">Resistencia viento: </label>
+                <input type="number" id="wind" [(ngModel)]="newWind" value="{{windmillPartEdit.windResistance}}">
+            </p>
+            <p>
+                <label for="material">Material: </label>
+                <input type="text" id="material" [(ngModel)]="newMaterial" value="{{windmillPartEdit.material}}">
+            </p>
+            <p>
+                <label for="picture">Imagen URL: </label>
+                <input type="url" id="picture" [(ngModel)]="newPicture" value="{{windmillPartEdit.picture}}">
+            </p>
+        </form>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark"
-            (click)="editModal(newName, newCategory, newHeight, newWind, newMaterial, newPicture)"> Save</button>
+            (click)="editModal(newName, newHeight, newWind, newMaterial, newPicture)"> Save</button>
     </div>
 </ng-template>
 <button id="edit" (click)="open(modalEdit)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Editar</button>

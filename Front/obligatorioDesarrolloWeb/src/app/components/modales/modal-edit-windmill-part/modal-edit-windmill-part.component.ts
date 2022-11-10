@@ -32,8 +32,18 @@ export class ModalEditWindmillPartComponent implements OnInit {
     this.modalService.open(modalEdit);
   }
 
-  editModal(pname: string, pcategory: string, pheight: number, pwind: number, pmaterial: string, ppicture: string) {
-    this.editPart.emit();
+  editModal(pname: string, pheight: number, pwind: number, pmaterial: string, ppicture: string) {
+    let newPart: windmillPart = {
+      id: "123", //cambiar esto y ver como hacer
+      cat: 100, // ver que hacer con esto
+      picture: ppicture,
+      height: pheight,
+      windResistance: pwind,
+      material: pmaterial,
+      name: pname,
+      inUse: false,
+    }
+    this.editPart.emit(newPart);
   }
 
 }
