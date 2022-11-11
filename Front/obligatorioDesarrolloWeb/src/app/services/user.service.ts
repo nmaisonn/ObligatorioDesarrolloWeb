@@ -20,9 +20,11 @@ export class UserService {
     return this.usuariosHardcodeados;
   }
 
-  getWindmills(): Observable<user[]> {
+  getUsers(): Observable<user[]> {
+    var url= this.webApiUrl+"listarUsers"
     return this.http.get<user[]>(this.webApiUrl);
   }
+ 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -63,7 +65,15 @@ export class UserService {
     this.usuariosHardcodeados.push(xUsuario4);
   }
 
+  deleteUser(pUsuario:user):void{
+    let url = this.webApiUrl + "borrarUser";
+    this.http.post<any>(url,{mail:pUsuario.mail});
+  }
 
+  editUser(pUsuario: user,pNuevoMail:String,pNuevoRol:String):void{
+    let url = this.webApiUrl + "editarUser";
+    this.http.post<any>(url,{ mail:pUsuario.mail,nuevoMail:pNuevoMail,rol:pNuevoRol});
+  }
 
 }
 

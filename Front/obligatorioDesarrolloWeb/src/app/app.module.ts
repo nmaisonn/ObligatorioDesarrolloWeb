@@ -10,21 +10,25 @@ import { ApproveComponent } from './components/approve/approve.component';
 import { ListComponent } from './components/list/list.component';
 import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './components/footer/footer.component';
+import { FormsModule } from '@angular/forms';
 import { WindmillComponent } from './components/windmill/windmill.component';
 import { DetailWindmillModalComponent } from './components/detail-windmill-modal/detail-windmill-modal.component';
 import { ModalDeletePartComponent } from './components/modales/modal-delete-part/modal-delete-part.component';
 import { ModalAddPartComponent } from './components/modales/modal-add-part/modal-add-part.component';
 import { WindmillPartCreationComponent } from './components/windmill-part-creation/windmill-part-creation.component';
-import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserComponent } from './components/user/user.component';
 import { EditUserModalComponent } from './components/edit-user-modal/edit-user-modal.component';
 import { DeleteUserModalComponent } from './components/delete-user-modal/delete-user-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ModalAddWindmillPartComponent } from './components/modales/modal-add-windmill-part/modal-add-windmill-part.component';
 import { ModalEditWindmillPartComponent } from './components/modales/modal-edit-windmill-part/modal-edit-windmill-part.component';
+import { CreateUserComponent } from './components/create-user/create-user.component';
 
 @NgModule({
   declarations: [
@@ -50,14 +54,19 @@ import { ModalEditWindmillPartComponent } from './components/modales/modal-edit-
     DeleteUserModalComponent,
     DragAndDropComponent,
     ModalAddWindmillPartComponent,
-    ModalEditWindmillPartComponent
+    ModalEditWindmillPartComponent,
+    CreateUserComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule,
     DragDropModule
   ],
   providers: [],

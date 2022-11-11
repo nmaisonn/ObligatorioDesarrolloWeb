@@ -3,6 +3,7 @@
         <div class="row">
             <h3 class="text-center h1">Listado de usuarios</h3>
             <div class="col-sm-12 col-md-4" *ngFor = "let usuario of users">
+                <br>
                 <app-user [usuario]="usuario" (editItem)="editUser($event)" (deleteItem)="deleteUser($event)" ></app-user>
             </div>
         </div>
