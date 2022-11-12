@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { windmillPart } from 'src/app/windmillPart';
 import { Location } from '@angular/common';
+import { ListService } from 'src/app/services/list.service';
 
 @Component({
   selector: 'app-modal-add-windmill-part',
@@ -24,7 +25,7 @@ export class ModalAddWindmillPartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private modalService: NgbModal, private location: Location, private route: ActivatedRoute) { }
+  constructor(private modalService: NgbModal, private location: Location, private route: ActivatedRoute, private listService: ListService) { }
 
   open(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
@@ -32,6 +33,36 @@ export class ModalAddWindmillPartComponent implements OnInit {
   goBack(): void {
     this.location.back();
   }
+
+
+  // addForm = new FormGroup({
+
+  //   newName: new FormControl('', Validators.required),
+  //   newCategory: new FormControl('', Validators.required),
+  //   newPicture: new FormControl('', Validators.required),
+  //   newHeight: new FormControl('', Validators.required),
+  //   newWind: new FormControl('', Validators.required),
+  //   newMaterial: new FormControl('', Validators.required)
+  // })
+
+  // newWindmillPart() {
+
+  //   let objectForm = this.addForm.value;
+
+  //   if (objectForm.newCategory === "base") {
+  //     this.addForm.value.newCategory = "1"
+  //   } else if (objectForm.newCategory === "cuerpo") {
+  //     this.addForm.value.newCategory = "2"
+  //   } else if (objectForm.newCategory === "aspa") {
+  //     this.addForm.value.newCategory = "3"
+  //   }
+
+  //   //Pasar al servicio un windmillPart o un objeto???
+
+  //   //this.newItemEvent.emit(this.addForm);
+  // }
+
+
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -64,7 +95,8 @@ export class ModalAddWindmillPartComponent implements OnInit {
       name: pname,
       inUse: false,
     }
-    this.newItemEvent.emit(newPart);
+
+    this.listService.addWindmillPart(newPart)
   }
 
 }

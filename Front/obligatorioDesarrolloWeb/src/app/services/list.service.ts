@@ -22,7 +22,7 @@ export class ListService {
 
   }
 
-  editWindmillPart(part: windmillPart[]) {
-
+  editWindmillPart(part: windmillPart) {
+    console.log(part)
   }
 }

@@ -31,7 +31,7 @@ export class DragAndDropComponent implements OnInit {
         $event.previousIndex,
         $event.currentIndex
       )
-    } else { //lo muevo de lista
+    } else if ($event.container.data.length < 1) { //lo muevo de lista
       transferArrayItem(
         $event.previousContainer.data, //de donde viene
         $event.container.data,
@@ -43,17 +43,17 @@ export class DragAndDropComponent implements OnInit {
   }
 
   predicateAspa(item: CdkDrag<windmillPart>) {
-    //return this.aspaList.length < 1 && item.data.cat === 1;
-    return true;
+
+    return item.data.cat === 1;
   }
   predicateCuerpo(item: CdkDrag<windmillPart>) {
     //return this.cuerpoList.length < 1 && item.data.cat === 2;
-    return true;
+    return item.data.cat === 2;
   }
 
   predicateBase(item: CdkDrag<windmillPart>) {
     //return this.baseList.length <= 1 && item.data.cat === 3;
-    return true;
+    return item.data.cat === 3;
   }
 
 

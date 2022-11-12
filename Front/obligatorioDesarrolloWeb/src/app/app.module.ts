@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 import { WindmillComponent } from './components/windmill/windmill.component';
 import { DetailWindmillModalComponent } from './components/detail-windmill-modal/detail-windmill-modal.component';
 import { ModalDeletePartComponent } from './components/modales/modal-delete-part/modal-delete-part.component';
-import { ModalAddPartComponent } from './components/modales/modal-add-part/modal-add-part.component';
 import { WindmillPartCreationComponent } from './components/windmill-part-creation/windmill-part-creation.component';
 import { HttpClientModule } from '@angular/common/http';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
@@ -29,6 +28,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ModalAddWindmillPartComponent } from './components/modales/modal-add-windmill-part/modal-add-windmill-part.component';
 import { ModalEditWindmillPartComponent } from './components/modales/modal-edit-windmill-part/modal-edit-windmill-part.component';
 import { CreateUserComponent } from './components/create-user/create-user.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,6 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
     ListComponent,
     FooterComponent,
     ModalDeletePartComponent,
-    ModalAddPartComponent,
     WindmillPartCreationComponent,
     UserDashboardComponent,
     UserComponent,
@@ -67,7 +66,8 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
-    DragDropModule
+    DragDropModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

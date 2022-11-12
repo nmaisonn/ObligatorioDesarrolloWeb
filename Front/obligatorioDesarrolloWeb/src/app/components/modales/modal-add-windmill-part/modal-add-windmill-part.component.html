@@ -4,9 +4,10 @@
         <button type="button" class="btn-close" aria-label="Close" (click)="d('Cross click')"></button>
     </div>
     <div class="modal-body">
+        <!-- <form [formGroup]="addForm" (ngSubmit)="newWindmillPart()"> -->
         <p>
             <label for=" name">Nombre: </label>
-            <input type="text" id="name" [(ngModel)]="newName">
+            <input type="text" id="name" name="newName" [(ngModel)]="newName">
         </p>
         <p>
             <label for="category">Categoría: </label>
@@ -30,12 +31,14 @@
         </p>
         <p>
             <label for="picture">Imagen URL: </label>
-            <input type="url" id="picture" [(ngModel)]="newPicture">
+            <input type="file" id="picture" class="file-upload" [(ngModel)]="newPicture"
+                onchange="console.log(event.target.files)">
         </p>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-outline-dark"
-            (click)="addNewItem(newName, newCategory, newHeight, newWind, newMaterial, newPicture)"> Save</button>
+            (click)="addNewItem(newName,newCategory, newHeight,newWind, newMaterial, newPicture)" data-dismiss="modal">
+            Save</button>
     </div>
 </ng-template>
 

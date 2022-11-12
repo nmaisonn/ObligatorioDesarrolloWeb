@@ -13,7 +13,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 export class WindmillPartComponent implements OnInit {
 
   @Output() deleteFromCatalogo = new EventEmitter<windmillPart>();
-  @Output() editFromCatalogo = new EventEmitter<windmillPart[]>();
+  @Output() editFromCatalogo = new EventEmitter<windmillPart>();
   @Input() coso: windmillPart | undefined;
 
 
@@ -23,11 +23,14 @@ export class WindmillPartComponent implements OnInit {
   }
 
   editWindmillPart(newPart: windmillPart): void {
-    let editWindmills: windmillPart[] = [];
     if (this.coso != undefined) {
-      editWindmills = [newPart, this.coso];
+      this.coso.height = newPart.height;
+      this.coso.name = newPart.name;
+      this.coso.windResistance = newPart.windResistance;
+      this.coso.picture = newPart.picture;
+      this.coso.material = newPart.material;
     }
-    this.editFromCatalogo.emit(editWindmills)
+    this.editFromCatalogo.emit(this.coso)
   }
   deleteWindmillPart() {
     this.deleteFromCatalogo.emit(this.coso);

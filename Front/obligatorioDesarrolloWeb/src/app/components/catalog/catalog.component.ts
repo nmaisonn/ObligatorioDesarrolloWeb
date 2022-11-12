@@ -31,7 +31,7 @@ export class CatalogComponent implements OnInit {
     this.listService.deleteWindmillPart(deletePart);
   }
 
-  editCatalogo(editPart: windmillPart[]) {
+  editCatalogo(editPart: windmillPart) {
     this.listService.editWindmillPart(editPart);
   }
 
