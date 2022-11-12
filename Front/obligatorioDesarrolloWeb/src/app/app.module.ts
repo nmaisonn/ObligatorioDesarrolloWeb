@@ -15,7 +15,7 @@ import { WindmillComponent } from './components/windmill/windmill.component';
 import { DetailWindmillModalComponent } from './components/detail-windmill-modal/detail-windmill-modal.component';
 import { ModalDeletePartComponent } from './components/modales/modal-delete-part/modal-delete-part.component';
 import { WindmillPartCreationComponent } from './components/windmill-part-creation/windmill-part-creation.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserComponent } from './components/user/user.component';
 import { EditUserModalComponent } from './components/edit-user-modal/edit-user-modal.component';
@@ -25,10 +25,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CreateUserComponent } from './components/create-user/create-user.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ModalAddWindmillPartComponent } from './components/modales/modal-add-windmill-part/modal-add-windmill-part.component';
 import { ModalEditWindmillPartComponent } from './components/modales/modal-edit-windmill-part/modal-edit-windmill-part.component';
-import { CreateUserComponent } from './components/create-user/create-user.component';
-import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -66,10 +66,9 @@ import { ReactiveFormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
-    DragDropModule,
-    ReactiveFormsModule
+    DragDropModule
   ],
-  providers: [],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
