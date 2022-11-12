@@ -5,10 +5,13 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const MongoClient = require('mongodb').MongoClient
 const cors = require('cors')
+const sgMail = require("@sendgrid/mail")
 
 const auth = require('../middleware/auth')
 
 require('dotenv').config()
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
 
 const app = express()
 const port = process.env.PORT || 8080
@@ -26,7 +29,7 @@ app.use(cors(corsOptions))
 
 // Login de users.
 app.post('/login', async (req, res) => {
-  const {mail, pass} = req.body
+  const { mail, pass } = req.body
   if (!mail || !pass) {
     return res.status(400).send({
       error: 'Necesitas ingresar todos los campos.',
@@ -73,10 +76,63 @@ app.post('/login', async (req, res) => {
   })
 })
 
+// Olvido de contraseña
+app.post("/forgotPass", async (req, res) => {
+  const { mail } = req.body
+  const newPass = Math.ceil(Math.random() * (1000000 - 100000) + 100000)
+  console.log(newPass)
+  const cryptedPass = await bcrypt.hash(newPass.toString(), 8)
+  console.log(cryptedPass)
+
+  MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
+    if (err) {
+      client.close()
+      return console.log(err)
+    }
+    console.log('Connected to Database')
+    const db = client.db('dbObligatorio')
+    const usersCollection = db.collection('users')
+
+    // Chequear que el usuario a editar exista.
+    const user = await usersCollection.findOne({ mail })
+    if (!user) {
+      client.close()
+      return res.status(400).send({
+        error: 'Error al editar usuario.',
+      })
+    }
+
+    let editResult = await usersCollection.findOneAndUpdate(
+      { mail },
+      {
+        $set: {
+          pass: cryptedPass
+        },
+      },
+    )
+
+    console.log('Edited document =>', editResult)
+
+    client.close()
+
+    const msg = {
+      to: mail, // Change to your recipient
+      from: 'jojoteam.webdev@gmail.com', // Change to your verified sender
+      subject: 'Cambio de contraseña',
+      html: `Hola ${mail}! Esta es tu nueva contraseña: <strong>${newPass}</strong>. No olvides cambiarla una vez accedas a la cuenta.`
+    }
+    sgMail.send(msg).catch((error) => {
+      res.send(error)
+    })
+
+    res.send({ msg: 'Revisa el mail que enviamos con tu nueva contraseña.' })
+  })
+})
+
 // Endpoints de admins.
 // Crear users
 app.post('/crearUser', auth(['1']), (req, res) => {
-  const {mail, pass, rol} = req.body
+  const { mail, pass, rol } = req.body
   // Chequeo que se hayan pasado todos los campos.
   if (!mail || !pass || !rol) {
     return res.status(400).send({
@@ -133,7 +189,7 @@ app.post('/crearUser', auth(['1']), (req, res) => {
 
 // Borrar users.
 app.post('/borrarUser', auth(['1']), (req, res) => {
-  const {mail} = req.body
+  const { mail } = req.body
   if (!mail) {
     return res.status(400).send({
       error: 'Error al borrar usuario.',
@@ -173,7 +229,7 @@ app.post('/borrarUser', auth(['1']), (req, res) => {
 
 // Editar users.
 app.put('/editarUser', auth(['1']), (req, res) => {
-  const {mail, nuevoMail, rol} = req.body
+  const { mail, nuevoMail, rol } = req.body
   // Chequeo que se haya enviado el mail del usuario.
   if (!mail) {
     return res.status(400).send({
@@ -390,7 +446,7 @@ app.post('/borrarPieza', auth(['1', '2']), (req, res) => {
 })
 
 // Editar pieza
-app.post('/editarPieza', auth(['1', '2']), (req, res) => {})
+app.post('/editarPieza', auth(['1', '2']), (req, res) => { })
 
 // Listar piezas
 app.get('/listarPiezas', auth(['1', '2']), (req, res) => {
@@ -510,7 +566,7 @@ app.post('/tests', (req, res) => {
 
 // Test de la bd connection.
 // app.get('/otroTest', async (req, res) => {
-  // const dbConnect = await dbo.getDb()
+// const dbConnect = await dbo.getDb()
 
 //   console.log(dbConnect)
 
