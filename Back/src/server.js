@@ -8,6 +8,7 @@ const dbo = require('../bd/connection')
 const cors = require('cors')
 
 const auth = require('../middleware/auth')
+const { ObjectId } = require('mongodb')
 
 require('dotenv').config()
 
@@ -274,10 +275,7 @@ app.get('/listarUsers', auth(['1']), async (req, res) => {
     const usersCollection = db.collection('users')
 
     // Chequear que el usuario exista.
-    const users = await usersCollection
-      .find()
-      .project({ pass: 0 })
-      .toArray()
+    const users = await usersCollection.find().project({ pass: 0 }).toArray()
 
     client.close()
 
@@ -338,8 +336,8 @@ app.post('/crearPieza', auth(['1', '2']), (req, res) => {
 
 // Borrar pieza
 app.post('/borrarPieza', auth(['1', '2']), (req, res) => {
-  const { nombre, categoria, altura, resViento, material } = req.query
-  if (!(nombre && categoria && altura && resViento && material)) {
+  const { _id } = req.query
+  if (!_id) {
     return res.status(400).send({
       error: 'Faltan parametros.',
     })
@@ -355,13 +353,7 @@ app.post('/borrarPieza', auth(['1', '2']), (req, res) => {
     const partsCollection = db.collection('windmill-parts')
 
     // Chequear que la parte exista
-    const part = await partsCollection.findOne({
-      nombre,
-      categoria,
-      altura,
-      'resistencia eolica': resViento,
-      material,
-    })
+    const part = await partsCollection.findOne({ _id: ObjectId(_id) })
 
     if (!part) {
       client.close()
@@ -370,13 +362,7 @@ app.post('/borrarPieza', auth(['1', '2']), (req, res) => {
       })
     }
 
-    const deleteResult = await partsCollection.deleteOne({
-      nombre,
-      categoria,
-      altura,
-      'resistencia eolica': resViento,
-      material,
-    })
+    const deleteResult = await partsCollection.deleteOne({ _id: ObjectId(_id) })
     console.log('Deleted document =>', deleteResult)
 
     client.close()
@@ -386,7 +372,14 @@ app.post('/borrarPieza', auth(['1', '2']), (req, res) => {
 })
 
 // Editar pieza
-app.post('/editarPieza', auth(['1', '2']), (req, res) => {})
+app.post('/editarPieza', auth(['1', '2']), (req, res) => {
+  const { _id } = req.query
+  if (!_id) {
+    return res.status(400).send({
+      error: 'Faltan parametros.',
+    })
+  }
+})
 
 // Listar piezas
 app.get('/listarPiezas', auth(['1', '2']), (req, res) => {
@@ -400,10 +393,7 @@ app.get('/listarPiezas', auth(['1', '2']), (req, res) => {
     const partsCollection = db.collection('windmill-parts')
 
     // Chequear que el usuario exista.
-    const parts = await partsCollection
-      .find()
-      .project({ _id: 0, pass: 0 })
-      .toArray()
+    const parts = await partsCollection.find().toArray()
 
     client.close()
 
@@ -413,8 +403,8 @@ app.get('/listarPiezas', auth(['1', '2']), (req, res) => {
 
 // Crear molino
 app.post('/crearDiseño', auth(['1', '2']), (req, res) => {
-  const { nombre, categoria, altura, resViento, material, img } = req.query
-  if (!(nombre && categoria && altura && resViento && material && img)) {
+  const { _idBase, _idCuerpo, _idAspa, img } = req.query
+  if (!(_idBase && _idCuerpo && _idAspa && img)) {
     return res.status(400).send({
       error: 'Faltan parametros.',
     })
@@ -427,10 +417,10 @@ app.post('/crearDiseño', auth(['1', '2']), (req, res) => {
     }
     console.log('Connected to Database')
     const db = client.db('dbObligatorio')
-    const partsCollection = db.collection('windmill-parts')
+    const windmillsCollection = db.collection('windmills')
 
     // Chequear que la parte no exista.
-    const part = await partsCollection.findOne({
+    const part = await windmillsCollection.findOne({
       nombre,
       categoria,
       altura,
@@ -461,8 +451,12 @@ app.post('/crearDiseño', auth(['1', '2']), (req, res) => {
   })
 })
 
-// Test agregar doc referenciando otro doc.
-app.post('/tests', (req, res) => {
+// CREAR CON REFERENCIA A 3 COSOS
+app.post('/testingXD', async (req, res) => {
+  const _id1 = "6366ca9918ef5cf8a3aa3f1d"
+  const _id2 = "6366cb6818ef5cf8a3aa3f1e"
+  const _id3 = "6366cb7418ef5cf8a3aa3f1f"
+
   MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
     if (err) {
       client.close()
@@ -470,57 +464,61 @@ app.post('/tests', (req, res) => {
     }
     console.log('Connected to Database')
     const db = client.db('dbObligatorio')
-    const usersCollection = db.collection('users')
+    const partsCollection = db.collection('users')
 
-    const pipeline = [
-      {
-        $match: {
-          nombre: 'seba',
-        },
-      },
-      {
-        $lookup: {
-          from: 'carreras',
-          localField: 'carrera',
-          foreignField: '_id',
-          as: 'result',
-        },
-      },
-    ]
-
-    const user = await usersCollection.aggregate(pipeline)
-
-    let coso = await user.toArray()
-    coso = coso[0].result[0]
-
-    console.log(coso)
-
-    // const insertResult = await usersCollection.insertOne({ nombre: req.query.nombre, carrera: "ing_informatica" })
-    // console.log('Inserted document =>', insertResult)
+    const insertResult = await partsCollection.insertOne({"carrera1":_id1,"carrera2":_id2,"carrera3":_id3})
+    console.log('Inserted document =>', insertResult)
 
     client.close()
 
-    res.send({ coso })
+    res.send({ msg: 'Pieza creada exitosamente!' })
   })
 })
 
-// Test de la bd connection.
-app.get('/otroTest', async (req, res) => {
-  const dbConnect = await dbo.getDb()
+// OBTENER 3 COSOS
+app.get("/quierotraer",async (req,res)=>{
+  MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
+    if (err) {
+      client.close()
+      return console.log(err)
+    }
+    console.log('Connected to Database')
+    const db = client.db('dbObligatorio')
+    const alumnos = db.collection('alumnos')
 
-  console.log(dbConnect)
-
-  dbConnect
-    .collection('users')
-    .find({})
-    .limit(50)
-    .toArray(function (err, result) {
-      if (err) {
-        res.status(400).send('Error fetching listings!')
-      } else {
-        res.json(result)
+    const user = await alumnos.aggregate([
+      { $unwind: {path: "$carreras"}},
+      {
+        "$project": {
+          "coso": {
+            "$toObjectId": "$carreras",
+          },
+        }
+      },
+      {
+        "$lookup": {
+          "from": "carreras",
+          "localField": "coso",
+          "foreignField": "_id",
+          "as": "carrerita"
+        }
+      },
+      {
+        "$project":{
+          coso: 0,
+          _id: 0
+        }
       }
-    })
+    ])
+
+    let resultadoFinal = await user.toArray()
+
+    console.log(resultadoFinal[0].carrerita[0].nombre)
+
+    client.close()
+
+    res.send({ resultadoFinal })
+  })
 })
 
 app.listen(port, () => {
