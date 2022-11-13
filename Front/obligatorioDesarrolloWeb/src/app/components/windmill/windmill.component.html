@@ -8,6 +8,6 @@
         <p class="card-text">Estado: {{windmill.state}} </p>
     </div>
     <div class="card-footer">
-        <button id="detalles" data-bs-toggle="modal" data-bs-target="#staticBackdropLabeldetail" (click)="showDetails()">Auditar</button>
+        <app-detail-windmill-modal  [molino]="windmill"></app-detail-windmill-modal>
     </div>
 </div>

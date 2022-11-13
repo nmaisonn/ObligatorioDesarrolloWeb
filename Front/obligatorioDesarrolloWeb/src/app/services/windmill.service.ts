@@ -28,11 +28,14 @@ export class WindmillService {
   };
 
   approve(pId:String):void {
+    console.log("Llego a aprobar" +pId);
     let url = this.webApiUrl + "approve/approve?molino=" + pId;
     this.http.post<any>(url,{});
 
   }
   reject(pId:String):void {
+    console.log("Llego a rechazar" +pId);
+
     let url = this.webApiUrl + "approve/reject?molino=" + pId;
     this.http.post<any>(url,{});
   }

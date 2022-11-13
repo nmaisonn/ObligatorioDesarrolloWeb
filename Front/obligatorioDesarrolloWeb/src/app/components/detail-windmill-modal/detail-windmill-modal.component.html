@@ -1,14 +1,52 @@
 <!-- Detalles Molino -->
-<div class="modal-content-wrapper">
+<ng-template #modalDetails let-c="close" let-d="dismiss">
     <div class="modal-header fm">
         <h5 class="modal-title " id="staticBackdropLabelAgregar">Detalles del Molino</h5>
-        <button type="button" class="btn btn-close fr" data-bs-dismiss="modal" aria-label="Close"  (click)="closeModal()"></button>
+        <button type="button" class="btn btn-close fr" data-bs-dismiss="modalDetails" aria-label="Close"></button>
     </div>
     <div class="modal-body" *ngIf="molino">
-        <p class="card-text">Nombre del Molino:{{molino.name}}</p>
-        <p class="card-text">Aspa: {{molino.blade.name}} </p>
-        <p class="card-text">Cuerpo: {{molino.body.name}} </p>
-        <p class="card-text">Base: {{molino.base.name}} </p>
+        <h1>{{molino.name}}</h1>
+        <div class="row">
+            <div class="col-sm-12 col-md-4">
+                <div class="row">
+                    <h3 class="text-center h1">Aspa: {{molino.blade.name}}</h3>
+                </div>
+                <div class="row">
+                    <img src="{{molino.blade.picture}}">
+                </div>
+                <div class="row">
+                    <p>Altura: {{molino.blade.height}}</p>
+                    <p>Resistencia al viento: {{molino.blade.windResistance}}</p>
+                    <p>Material: {{molino.blade.material}}</p>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <div class="row">
+                    <h3 class="text-center h1">Cuerpo: {{molino.body.name}}</h3>
+                </div>
+                <div class="row">
+                    <img src="{{molino.body.picture}}">
+                </div>
+                <div class="row">
+                    <p>Altura: {{molino.body.height}}</p>
+                    <p>Resistencia al viento: {{molino.body.windResistance}}</p>
+                    <p>Material: {{molino.body.material}}</p>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4">
+                <div class="row">
+                    <h3 class="text-center h1">Base: {{molino.base.name}}</h3>
+                </div>
+                <div class="row">
+                    <img src="{{molino.base.picture}}">
+                </div>
+                <div class="row">
+                    <p>Altura: {{molino.base.height}}</p>
+                    <p>Resistencia al viento: {{molino.base.windResistance}}</p>
+                    <p>Material: {{molino.base.material}}</p>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-success" (click)="approveWindmill();"
@@ -17,4 +55,5 @@
         <button type="button" class="btn btn-warning" (click)="rejectedWindmill()"
             aria-multiselectable="close">Rechazar</button>
     </div>
-</div>
+</ng-template>
+<button id=" edit" (click)="open(modalDetails)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Auditar</button>

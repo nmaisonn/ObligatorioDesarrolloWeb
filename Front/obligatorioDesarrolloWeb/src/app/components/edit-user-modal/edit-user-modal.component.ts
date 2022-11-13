@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserService } from 'src/app/services/user.service';
 import { user } from 'src/app/user';
 
@@ -10,22 +11,24 @@ import { user } from 'src/app/user';
 })
 export class EditUserModalComponent implements OnInit {
 
+  @Input() usuario : user | any;
+
   nuevoMail:String = '';
   nuevoRol:String = '';
-  usuario : user | any;
-
-  constructor(public dialogRef: MatDialogRef<EditUserModalComponent>, @Inject(MAT_DIALOG_DATA) public data: user,private userService: UserService) {
-    this.usuario = data;
+  
+  constructor(private userService: UserService,private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
+    
   }
   
-  closeModal() {
-    this.dialogRef.close();
+  editUser(pNuevoMail:String,pNuevoRol:String){
+    console.log(pNuevoMail,pNuevoRol);
+    this.userService.editUser(this.usuario,this.nuevoMail,this.nuevoRol);
   }
 
-  editUser(pNuevoMail:String,pNuevoRol:String){
-    this.userService.editUser(this.usuario,pNuevoMail,pNuevoRol);
+  open(modalEdit: any): void {
+    this.modalService.open(modalEdit);
   }
 }

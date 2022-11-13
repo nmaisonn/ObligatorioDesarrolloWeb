@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output,Inject} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { WindmillService } from 'src/app/services/windmill.service';
 import { windmill } from 'src/app/windmill';
 
@@ -10,11 +11,10 @@ import { windmill } from 'src/app/windmill';
 })
 export class DetailWindmillModalComponent implements OnInit {
 
-//  @Input() molino : windmill| undefined;
-  molino:windmill| any;
 
-  constructor(public dialogRef: MatDialogRef<DetailWindmillModalComponent>, @Inject(MAT_DIALOG_DATA) public data: windmill,private windmillService: WindmillService)  { 
-    this.molino=data;
+  @Input() molino: windmill | any;
+
+  constructor(private windmillService: WindmillService,private modalService: NgbModal)  { 
   }
 
   ngOnInit(): void {
@@ -30,7 +30,8 @@ export class DetailWindmillModalComponent implements OnInit {
     this.windmillService.reject(id);
   }
 
-  closeModal() {
-    this.dialogRef.close();
+  open(modalEdit: any): void {
+    this.modalService.open(modalEdit);
   }
+
 }

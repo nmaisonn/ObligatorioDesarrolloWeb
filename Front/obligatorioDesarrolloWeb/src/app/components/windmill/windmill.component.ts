@@ -9,19 +9,12 @@ import { windmill } from 'src/app/windmill';
 export class WindmillComponent implements OnInit {
 
   @Input() windmill: windmill | any;
-  @Output() editItem = new EventEmitter<windmill>();
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
-  changeState(value:String){
-    this.windmill.state= value;
-  }
-
-  showDetails(){
-    this.editItem.emit(this.windmill);
-  }
+  
  
 }

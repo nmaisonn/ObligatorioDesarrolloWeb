@@ -21,7 +21,7 @@ export class UserDashboardComponent implements OnInit {
   dialogConfigDelete = new MatDialogConfig();
   modalDialogDelete: MatDialogRef<DeleteUserModalComponent, any> | undefined;
 
-  constructor(private userService: UserService, private modalService: NgbModal, public matDialogEdit: MatDialog,public matDialogDelete: MatDialog) { }
+  constructor(private userService: UserService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.getUserHardCode();
@@ -36,27 +36,4 @@ export class UserDashboardComponent implements OnInit {
     this.userService.getUsers()
       .subscribe(response => this.users = response);
   }
-
-  
-  editUser(pUsuario:user){
-    this.dialogConfigEdit.id = "detail-modal-component";
-    this.dialogConfigEdit.height = "500px";
-    this.dialogConfigEdit.width = "650px";
-    this.dialogConfigEdit.autoFocus=true;
-    this.dialogConfigEdit.data = pUsuario;
-    this.modalDialogEdit = this.matDialogEdit.open(EditUserModalComponent, this.dialogConfigEdit);
-
-    this.modalService.open(EditUserModalComponent);
-  }
-  
-  deleteUser(pUsuario:user){
-    this.dialogConfigDelete.id = "detail-modal-component";
-    this.dialogConfigDelete.height = "500px";
-    this.dialogConfigDelete.width = "650px";
-    this.dialogConfigDelete.autoFocus=true;
-    this.dialogConfigDelete.data = pUsuario;
-    this.modalDialogDelete = this.matDialogDelete.open(DeleteUserModalComponent, this.dialogConfigDelete);
-  }
-
-
 }

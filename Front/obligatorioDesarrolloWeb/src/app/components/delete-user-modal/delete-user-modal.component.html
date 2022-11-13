@@ -1,8 +1,7 @@
-<div class="modal-content-wrapper">
+<ng-template #modalDeleteUser let-c="close" let-d="dismiss">
     <div class="modal-header fm">
         <h5 class="modal-title " id="staticBackdropDelete">Eliminar Usuario</h5>
-        <button type="button" class="btn btn-close fr" data-bs-dismiss="modal" aria-label="Close"
-            (click)="closeModal()"></button>
+        <button type="button" class="btn btn-close fr" data-bs-dismiss="modalDeleteUser" aria-label="Close"></button>
     </div>
     <div class="modal-body" *ngIf="usuario">
         <p class="card-text">Mail: {{usuario.mail}} </p>
@@ -11,4 +10,5 @@
     <div class="modal-footer">
         <button type="button" class="btn btn-danger" (click)="deleteUser()">Borrar</button>
     </div>
-</div>
+</ng-template>
+<button id=" edit" (click)="open(modalDeleteUser)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Eliminar</button>
