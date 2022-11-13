@@ -22,9 +22,13 @@ import { UserDashboardComponent } from './components/user-dashboard/user-dashboa
 import { UserComponent } from './components/user/user.component';
 import { EditUserModalComponent } from './components/edit-user-modal/edit-user-modal.component';
 import { DeleteUserModalComponent } from './components/delete-user-modal/delete-user-modal.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CreateUserComponent } from './components/create-user/create-user.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +53,8 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
     EditUserModalComponent,
     DeleteUserModalComponent,
     DragAndDropComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -58,6 +63,9 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
     NgbModule,
     FormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatDialogModule,
     DragDropModule
   ],
   providers: [],

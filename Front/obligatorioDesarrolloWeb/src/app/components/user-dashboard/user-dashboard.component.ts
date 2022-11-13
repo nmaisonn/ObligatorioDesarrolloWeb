@@ -27,7 +27,7 @@ export class UserDashboardComponent implements OnInit {
   }
 
   getUsers(): void {
-    this.userService.getWindmills()
+    this.userService.getUsers()
       .subscribe(response => this.users = response);
   }
 

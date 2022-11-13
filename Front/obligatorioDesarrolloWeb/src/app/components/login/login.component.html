@@ -6,6 +6,7 @@
     <form id="formulario">
       <input [(ngModel)]="mail" name="mail" type="text" placeholder="Email" />
       <input [(ngModel)]="pass" name="pass" type="password" placeholder="Contraseña" />
+      <a href="/forgotPass">He olvidado la contraseña</a>
       <button (click)="loginUser(mail,pass)">Login</button>
     </form>
   </div>

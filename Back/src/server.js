@@ -4,18 +4,21 @@ const validator = require('validator')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const MongoClient = require('mongodb').MongoClient
-const dbo = require('../bd/connection')
 const cors = require('cors')
+const sgMail = require("@sendgrid/mail")
 
 const auth = require('../middleware/auth')
 const { ObjectId } = require('mongodb')
 
 require('dotenv').config()
 
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
 const app = express()
 const port = process.env.PORT || 8080
 
 const publicDirPath = path.join(__dirname, '../public')
+app.use(express.json());
 app.use(express.static(publicDirPath))
 
 var corsOptions = {
@@ -27,7 +30,8 @@ app.use(cors(corsOptions))
 
 // Login de users.
 app.post('/login', async (req, res) => {
-  if (!req.query.mail || !req.query.pass) {
+  const { mail, pass } = req.body
+  if (!mail || !pass) {
     return res.status(400).send({
       error: 'Necesitas ingresar todos los campos.',
     })
@@ -42,7 +46,7 @@ app.post('/login', async (req, res) => {
     const db = client.db('dbObligatorio')
     const usersCollection = db.collection('users')
 
-    const user = await usersCollection.findOne({ mail: req.query.mail })
+    const user = await usersCollection.findOne({ mail })
 
     if (!user) {
       client.close()
@@ -51,7 +55,7 @@ app.post('/login', async (req, res) => {
       })
     }
 
-    const isMatch = await bcrypt.compare(req.query.pass, user.pass)
+    const isMatch = await bcrypt.compare(pass, user.pass)
 
     if (!isMatch) {
       client.close()
@@ -73,23 +77,77 @@ app.post('/login', async (req, res) => {
   })
 })
 
+// Olvido de contraseña
+app.post("/forgotPass", async (req, res) => {
+  const { mail } = req.body
+  const newPass = Math.ceil(Math.random() * (1000000 - 100000) + 100000)
+  console.log(newPass)
+  const cryptedPass = await bcrypt.hash(newPass.toString(), 8)
+  console.log(cryptedPass)
+
+  MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
+    if (err) {
+      client.close()
+      return console.log(err)
+    }
+    console.log('Connected to Database')
+    const db = client.db('dbObligatorio')
+    const usersCollection = db.collection('users')
+
+    // Chequear que el usuario a editar exista.
+    const user = await usersCollection.findOne({ mail })
+    if (!user) {
+      client.close()
+      return res.status(400).send({
+        error: 'Error al editar usuario.',
+      })
+    }
+
+    let editResult = await usersCollection.findOneAndUpdate(
+      { mail },
+      {
+        $set: {
+          pass: cryptedPass
+        },
+      },
+    )
+
+    console.log('Edited document =>', editResult)
+
+    client.close()
+
+    const msg = {
+      to: mail, // Change to your recipient
+      from: 'jojoteam.webdev@gmail.com', // Change to your verified sender
+      subject: 'Cambio de contraseña',
+      html: `Hola ${mail}! Esta es tu nueva contraseña: <strong>${newPass}</strong>. No olvides cambiarla una vez accedas a la cuenta.`
+    }
+    sgMail.send(msg).catch((error) => {
+      res.send(error)
+    })
+
+    res.send({ msg: 'Revisa el mail que enviamos con tu nueva contraseña.' })
+  })
+})
+
 // Endpoints de admins.
 // Crear users
 app.post('/crearUser', auth(['1']), (req, res) => {
+  const { mail, pass, rol } = req.body
   // Chequeo que se hayan pasado todos los campos.
-  if (!req.query.mail || !req.query.pass || !req.query.rol) {
+  if (!mail || !pass || !rol) {
     return res.status(400).send({
       error: 'Necesitas ingresar todos los campos.',
     })
   }
 
-  if (!validator.isEmail(req.query.mail)) {
+  if (!validator.isEmail(mail)) {
     return res.status(400).send({
       error: 'El mail ingresado, no es válido.',
     })
   }
 
-  if (req.query.rol < 1 || req.query.rol > 3) {
+  if (rol < 1 || rol > 3) {
     return res.status(400).send({
       error: 'El rol debe estar dentro del rango aceptado.',
     })
@@ -105,7 +163,7 @@ app.post('/crearUser', auth(['1']), (req, res) => {
     const usersCollection = db.collection('users')
 
     // Chequear que el mail no exista.
-    const user = await usersCollection.findOne({ mail: req.query.mail })
+    const user = await usersCollection.findOne({ mail })
 
     if (user) {
       client.close()
@@ -115,12 +173,12 @@ app.post('/crearUser', auth(['1']), (req, res) => {
     }
 
     // Creo el pass hasheado
-    const password = await bcrypt.hash(req.query.pass, 8)
+    const password = await bcrypt.hash(pass, 8)
 
     const insertResult = await usersCollection.insertOne({
-      mail: req.query.mail,
+      mail,
       pass: password,
-      rol: req.query.rol,
+      rol
     })
     console.log('Inserted document =>', insertResult)
 
@@ -132,7 +190,8 @@ app.post('/crearUser', auth(['1']), (req, res) => {
 
 // Borrar users.
 app.post('/borrarUser', auth(['1']), (req, res) => {
-  if (!req.query.mail) {
+  const { mail } = req.body
+  if (!mail) {
     return res.status(400).send({
       error: 'Error al borrar usuario.',
     })
@@ -148,7 +207,7 @@ app.post('/borrarUser', auth(['1']), (req, res) => {
     const usersCollection = db.collection('users')
 
     // Chequear que el usuario exista.
-    const user = await usersCollection.findOne({ mail: req.query.mail })
+    const user = await usersCollection.findOne({ mail })
 
     if (!user) {
       client.close()
@@ -159,7 +218,7 @@ app.post('/borrarUser', auth(['1']), (req, res) => {
 
     // Borro el usuario que encontre.
     const deleteResult = await usersCollection.deleteOne({
-      mail: req.query.mail,
+      mail,
     })
     console.log('Deleted document =>', deleteResult)
 
@@ -171,21 +230,22 @@ app.post('/borrarUser', auth(['1']), (req, res) => {
 
 // Editar users.
 app.put('/editarUser', auth(['1']), (req, res) => {
+  const { mail, nuevoMail, rol } = req.body
   // Chequeo que se haya enviado el mail del usuario.
-  if (!req.query.mail) {
+  if (!mail) {
     return res.status(400).send({
       error: 'Error al editar usuario',
     })
   }
 
   // Ninguno de los campos fue enviado.
-  if (!(req.query.nuevoMail || req.query.rol)) {
+  if (!(nuevoMail || rol)) {
     return res.send({
       msg: 'Usuario editado exitosamente',
     })
   }
 
-  if (!validator.isEmail(req.query.nuevoMail)) {
+  if (!validator.isEmail(nuevoMail)) {
     return res.status(400).send({
       error: 'Debes ingresar un mail valido',
     })
@@ -202,7 +262,7 @@ app.put('/editarUser', auth(['1']), (req, res) => {
 
     // Chequear que el mail nuevo no exista.
     const mailExistente = await usersCollection.findOne({
-      mail: req.query.nuevoMail,
+      mail: nuevoMail,
     })
     if (mailExistente) {
       client.close()
@@ -212,7 +272,7 @@ app.put('/editarUser', auth(['1']), (req, res) => {
     }
 
     // Chequear que el usuario a editar exista.
-    const user = await usersCollection.findOne({ mail: req.query.mail })
+    const user = await usersCollection.findOne({ mail })
     if (!user) {
       client.close()
       return res.status(400).send({
@@ -223,33 +283,33 @@ app.put('/editarUser', auth(['1']), (req, res) => {
     // Edito el usuario que encontre.
     let editResult
     // Caso editar ambos campos
-    if (req.query.nuevoMail && req.query.rol) {
+    if (nuevoMail && rol) {
       editResult = await usersCollection.findOneAndUpdate(
-        { mail: req.query.mail },
+        { mail },
         {
           $set: {
-            mail: req.query.nuevoMail,
-            rol: req.query.rol,
+            mail: nuevoMail,
+            rol,
           },
         },
       )
       // Caso editar solo el mail
-    } else if (req.query.nuevoMail) {
+    } else if (nuevoMail) {
       editResult = await usersCollection.findOneAndUpdate(
-        { mail: req.query.mail },
+        { mail },
         {
           $set: {
-            mail: req.query.nuevoMail,
+            mail: nuevoMail,
           },
         },
       )
       // Caso editar solo el rol
     } else {
       editResult = await usersCollection.findOneAndUpdate(
-        { mail: req.query.mail },
+        { mail },
         {
           $set: {
-            rol: req.query.rol,
+            rol,
           },
         },
       )
@@ -286,7 +346,7 @@ app.get('/listarUsers', auth(['1']), async (req, res) => {
 // Endpoints de operarios
 // Crear pieza
 app.post('/crearPieza', auth(['1', '2']), (req, res) => {
-  const { nombre, categoria, altura, resViento, material, img } = req.query
+  const { nombre, categoria, altura, resViento, material, img } = req.body
   if (!(nombre && categoria && altura && resViento && material && img)) {
     return res.status(400).send({
       error: 'Faltan parametros.',
@@ -338,6 +398,7 @@ app.post('/crearPieza', auth(['1', '2']), (req, res) => {
 app.post('/borrarPieza', auth(['1', '2']), (req, res) => {
   const { _id } = req.query
   if (!_id) {
+
     return res.status(400).send({
       error: 'Faltan parametros.',
     })
