@@ -14,9 +14,9 @@
       <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
     </div>
     <div>
-      <app-modal-delete-part (deletePart)="deleteWindmillPart()"></app-modal-delete-part>
-      <app-modal-edit-windmill-part (editPart)="editWindmillPart($event)" [windmillPartEdit]="coso">
-      </app-modal-edit-windmill-part>
+      <button id="delete" (click)="borrarNota()" data-bs-toggle="modal" data-bs-target="#staticBackdrop1">Borrar
+      </button>
+      <button id="edit" (click)="editNote()" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Editar</button>
     </div>
   </div>
 </div>

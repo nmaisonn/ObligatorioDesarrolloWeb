@@ -8,13 +8,15 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 import { WindmillPartComponent } from './components/windmill-part/windmill-part.component';
 import { ApproveComponent } from './components/approve/approve.component';
 import { ListComponent } from './components/list/list.component';
-import { NgbModalModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { WindmillComponent } from './components/windmill/windmill.component';
 import { DetailWindmillModalComponent } from './components/detail-windmill-modal/detail-windmill-modal.component';
 import { ModalDeletePartComponent } from './components/modales/modal-delete-part/modal-delete-part.component';
+import { ModalAddPartComponent } from './components/modales/modal-add-part/modal-add-part.component';
 import { WindmillPartCreationComponent } from './components/windmill-part-creation/windmill-part-creation.component';
+
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserComponent } from './components/user/user.component';
@@ -27,8 +29,6 @@ import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.c
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
-import { ModalAddWindmillPartComponent } from './components/modales/modal-add-windmill-part/modal-add-windmill-part.component';
-import { ModalEditWindmillPartComponent } from './components/modales/modal-edit-windmill-part/modal-edit-windmill-part.component';
 
 @NgModule({
   declarations: [
@@ -46,14 +46,13 @@ import { ModalEditWindmillPartComponent } from './components/modales/modal-edit-
     ListComponent,
     FooterComponent,
     ModalDeletePartComponent,
+    ModalAddPartComponent,
     WindmillPartCreationComponent,
     UserDashboardComponent,
     UserComponent,
     EditUserModalComponent,
     DeleteUserModalComponent,
     DragAndDropComponent,
-    ModalAddWindmillPartComponent,
-    ModalEditWindmillPartComponent,
     CreateUserComponent
   ],
   imports: [
@@ -68,7 +67,7 @@ import { ModalEditWindmillPartComponent } from './components/modales/modal-edit-
     MatDialogModule,
     DragDropModule
   ],
-  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }],
+  providers: [{provide:HTTP_INTERCEPTORS, useClass:TokenInterceptorService,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

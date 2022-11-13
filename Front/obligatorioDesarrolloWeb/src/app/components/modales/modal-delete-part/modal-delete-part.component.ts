@@ -1,5 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-modal-delete-part',
@@ -8,21 +7,9 @@ import { NgbModal, NgbModalConfig } from '@ng-bootstrap/ng-bootstrap';
 })
 export class ModalDeletePartComponent implements OnInit {
 
-  @Output() deletePart = new EventEmitter<any>();
-  constructor(config: NgbModalConfig, private modalService: NgbModal) {
-    // customize default values of modals used by this component tree
-    config.backdrop = 'static';
-    config.keyboard = false;
-  }
+  constructor() { }
 
   ngOnInit(): void {
   }
 
-  open(modalDelete: any): void {
-    this.modalService.open(modalDelete);
-  }
-
-  deleteModal() {
-    this.deletePart.emit();
-  }
 }
