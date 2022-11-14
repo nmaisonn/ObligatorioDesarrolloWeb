@@ -17,7 +17,7 @@ import { ModalDeletePartComponent } from './components/modales/modal-delete-part
 import { ModalAddPartComponent } from './components/modales/modal-add-part/modal-add-part.component';
 import { WindmillPartCreationComponent } from './components/windmill-part-creation/windmill-part-creation.component';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { UserComponent } from './components/user/user.component';
 import { EditUserModalComponent } from './components/edit-user-modal/edit-user-modal.component';
@@ -29,6 +29,7 @@ import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.c
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { TokenInterceptorService } from './services/token-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
     MatDialogModule,
     DragDropModule
   ],
-  providers: [],
+  providers: [{provide:HTTP_INTERCEPTORS, useClass:TokenInterceptorService,multi:true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

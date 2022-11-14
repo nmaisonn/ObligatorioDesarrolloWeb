@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/services/user.service';
 import { user } from 'src/app/user';
 
 @Component({
@@ -8,13 +11,24 @@ import { user } from 'src/app/user';
 })
 export class EditUserModalComponent implements OnInit {
 
+  @Input() usuario : user | any;
+
+  nuevoMail:String = '';
+  nuevoRol:String = '';
   
-  @Input() usuario : user | undefined;
-  @Output() newItemEvent = new EventEmitter<user>();
-
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(private userService: UserService,private modalService: NgbModal) {
   }
 
+  ngOnInit(): void {
+    
+  }
+  
+  editUser(pNuevoMail:String,pNuevoRol:String){
+    console.log(pNuevoMail,pNuevoRol);
+    this.userService.editUser(this.usuario,this.nuevoMail,this.nuevoRol);
+  }
+
+  open(modalEdit: any): void {
+    this.modalService.open(modalEdit);
+  }
 }

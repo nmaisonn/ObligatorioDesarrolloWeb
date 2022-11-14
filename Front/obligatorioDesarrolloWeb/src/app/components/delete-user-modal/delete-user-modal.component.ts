@@ -1,4 +1,7 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { UserService } from 'src/app/services/user.service';
 import { user } from 'src/app/user';
 
 @Component({
@@ -8,13 +11,21 @@ import { user } from 'src/app/user';
 })
 export class DeleteUserModalComponent implements OnInit {
 
-  
-  @Input() usuario : user | undefined;
-  @Output() newItemEvent = new EventEmitter<boolean>();
+  @Input() usuario : user | any;
 
-  constructor() { }
+  constructor(private userService: UserService,private modalService: NgbModal) {
+  }
 
   ngOnInit(): void {
   }
 
+ 
+
+  deleteUser(){
+    this.userService.deleteUser(this.usuario);
+  }
+  
+  open(modalEliminar: any): void {
+    this.modalService.open(modalEliminar);
+  }
 }

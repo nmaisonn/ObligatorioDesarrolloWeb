@@ -4,9 +4,8 @@
         <p class="card-text">Mail: {{usuario.mail}} </p>
         <p class="card-text">Rol: {{usuario.rol}} </p>
         <div class="card-footer">
-            <button id="detalles" data-bs-toggle="modal" data-bs-target="#staticBackdropEditar" (click)="editUser()">Editar</button>
-            <button id="detalles" data-bs-toggle="modal" data-bs-target="#staticBackdropDelete" (click)="deleteUser()">Eliminar</button>
-
+           <app-edit-user-modal [usuario]="usuario"></app-edit-user-modal>
+           <app-delete-user-modal [usuario]="usuario"></app-delete-user-modal>
         </div>
     </div>
 </div> 

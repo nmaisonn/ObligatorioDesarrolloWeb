@@ -10,23 +10,9 @@ import { windmill } from 'src/app/windmill';
 export class UserComponent implements OnInit {
 
   @Input() usuario: user | any;
-  @Output() editItem = new EventEmitter<user>();
-  @Output() deleteItem = new EventEmitter<user>();
-
-  
+    
   constructor() { }
 
   ngOnInit(): void {
   }
-
-  editUser():void{
-    this.editItem.emit(this.usuario);
-
-  }
-
-  deleteUser():void{
-    this.deleteItem.emit(this.usuario);
-
-  }
-
 }

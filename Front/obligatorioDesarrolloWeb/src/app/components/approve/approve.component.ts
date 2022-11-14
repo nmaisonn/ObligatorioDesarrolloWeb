@@ -15,6 +15,7 @@ export class ApproveComponent implements OnInit {
 
   windmills: windmill[] = [];
   textoBuscado: string = "";
+
   dialogConfig = new MatDialogConfig();
   modalDialog: MatDialogRef<DetailWindmillModalComponent, any> | undefined;
 
@@ -52,11 +53,11 @@ export class ApproveComponent implements OnInit {
   }
 
   showDetails(pWindmill: windmill) {
-    //this.modalService.open(DetailWindmillModalComponent);
-
     this.dialogConfig.id = "detail-modal-component";
     this.dialogConfig.height = "500px";
     this.dialogConfig.width = "650px";
+    this.dialogConfig.autoFocus=true;
+    this.dialogConfig.data = pWindmill;
     this.modalDialog = this.matDialog.open(DetailWindmillModalComponent, this.dialogConfig);
   }
 }
