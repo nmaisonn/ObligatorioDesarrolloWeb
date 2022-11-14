@@ -28,6 +28,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DragAndDropComponent } from './components/drag-and-drop/drag-and-drop.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CreateUserComponent } from './components/create-user/create-user.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 
 @NgModule({
@@ -53,7 +54,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     EditUserModalComponent,
     DeleteUserModalComponent,
     DragAndDropComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     BrowserModule,

@@ -8,14 +8,16 @@ import { ApproveComponent } from './components/approve/approve.component';
 import { UserComponent } from './components/user/user.component';
 import { UserDashboardComponent } from './components/user-dashboard/user-dashboard.component';
 import { CreateUserComponent } from "./components/create-user/create-user.component";
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: "creation", component: CreationComponent },
   { path: 'catalog', component: CatalogComponent },
-  { path: 'approve', component:ApproveComponent},
-  { path: 'userList',component:UserDashboardComponent},
-  { path: 'createUser', component:CreateUserComponent}
+  { path: 'approve', component: ApproveComponent },
+  { path: 'userList', component: UserDashboardComponent },
+  { path: 'createUser', component: CreateUserComponent },
+  { path: "forgotPass", component: ForgotPasswordComponent }
 ];
 
 @NgModule({
