@@ -16,16 +16,11 @@ import { DetailWindmillModalComponent } from '../detail-windmill-modal/detail-wi
 export class UserDashboardComponent implements OnInit {
 
   users: user[] = [];
-  dialogConfigEdit = new MatDialogConfig();
-  modalDialogEdit: MatDialogRef<EditUserModalComponent, any> | undefined;
-  dialogConfigDelete = new MatDialogConfig();
-  modalDialogDelete: MatDialogRef<DeleteUserModalComponent, any> | undefined;
 
   constructor(private userService: UserService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
-    this.getUserHardCode();
-    //this.getUsers();
+    this.getUsers();
   }
 
   getUserHardCode():void{
@@ -34,6 +29,13 @@ export class UserDashboardComponent implements OnInit {
 
   getUsers(): void {
     this.userService.getUsers()
-      .subscribe(response => this.users = response);
+      .subscribe((res) => {
+        console.log(res)
+        this.users = res.users;
+      }
+        
+        
+        
+        );
   }
 }

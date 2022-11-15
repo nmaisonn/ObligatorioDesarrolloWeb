@@ -20,9 +20,10 @@ export class UserService {
     return this.usuariosHardcodeados;
   }
 
-  getUsers(): Observable<user[]> {
+  getUsers(){
     var url= this.webApiUrl+"listarUsers"
-    return this.http.get<user[]>(this.webApiUrl);
+    let respuesta = this.http.get<any>(url);
+    return respuesta;
   }
  
   httpOptions = {
@@ -70,9 +71,13 @@ export class UserService {
     this.http.post<any>(url,{mail:pUsuario.mail});
   }
 
-  editUser(pUsuario: user,pNuevoMail:String,pNuevoRol:String):void{
+  editUser(pUsuario: user,pNuevoMail:String,pNuevoRol:String){
+    console.log(pUsuario);
+    console.log(pNuevoMail);
+    console.log(pNuevoRol);
+    const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
     let url = this.webApiUrl + "editarUser";
-    this.http.post<any>(url,{ mail:pUsuario.mail,nuevoMail:pNuevoMail,rol:pNuevoRol});
+    return this.http.put<any>(url,{ mail:pUsuario.mail,nuevoMail:pNuevoMail,rol:pNuevoRol},{headers});
   }
 
   createUser(mail: string, pass: string, rol: string) {
