@@ -23,10 +23,6 @@ export class UserDashboardComponent implements OnInit {
     this.getUsers();
   }
 
-  getUserHardCode():void{
-    this.users = this.userService.getUserHardCode();
-  }
-
   getUsers(): void {
     this.userService.getUsers()
       .subscribe((res) => {

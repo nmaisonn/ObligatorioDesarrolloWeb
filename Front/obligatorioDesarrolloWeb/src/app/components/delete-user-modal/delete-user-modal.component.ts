@@ -22,7 +22,10 @@ export class DeleteUserModalComponent implements OnInit {
  
 
   deleteUser(){
-    this.userService.deleteUser(this.usuario);
+    this.userService.deleteUser(this.usuario).subscribe((res)=>{
+      console.log(res)
+      window.location.reload()
+    });
   }
   
   open(modalEliminar: any): void {
