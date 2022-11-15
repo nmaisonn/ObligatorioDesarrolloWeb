@@ -15,4 +15,18 @@ export class ListService {
   addWindmillPart(part: windmillPart) {
     PARTES.push(part);
   }
+
+  deleteWindmillPart(part: windmillPart) {
+    let index = PARTES.findIndex(d => d.name === part.name); //find index in your array
+    PARTES.splice(index, 1);//remove element from array
+
+  }
+
+  editWindmillPart(part: windmillPart) {
+    console.log(part)
+  }
+
+  addWindmill(aspa: windmillPart, base: windmillPart, cuerpo: windmillPart) {
+    console.log(aspa, cuerpo, base);
+  }
 }

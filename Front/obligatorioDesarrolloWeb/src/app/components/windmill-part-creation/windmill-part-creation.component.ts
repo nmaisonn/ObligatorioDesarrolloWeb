@@ -8,7 +8,8 @@ import { windmillPart } from 'src/app/windmillPart';
 })
 export class WindmillPartCreationComponent implements OnInit {
 
-  @Input() coso: windmillPart | undefined;
+  @Input() coso: windmillPart | any;
+
   constructor() { }
 
   ngOnInit(): void {

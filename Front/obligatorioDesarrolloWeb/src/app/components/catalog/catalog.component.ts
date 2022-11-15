@@ -3,7 +3,7 @@ import { windmillPart } from 'src/app/windmillPart';
 import { PARTES } from 'src/app/partes';
 import { ListService } from 'src/app/services/list.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalAddPartComponent } from '../modales/modal-add-part/modal-add-part.component';
+
 
 @Component({
   selector: 'app-catalog',
@@ -14,13 +14,13 @@ export class CatalogComponent implements OnInit {
 
   windmillParts: windmillPart[] = [];
 
-  constructor(private listService: ListService, private modalService: NgbModal) { }
+  constructor(private listService: ListService) { }
 
   ngOnInit(): void {
     this.getWindmillParts();
   }
 
-  agregar(part: windmillPart) {
+  add(part: windmillPart) {
     this.listService.addWindmillPart(part);
 
   }
@@ -28,11 +28,11 @@ export class CatalogComponent implements OnInit {
     this.windmillParts = this.listService.getWindmillParts();
 
   }
-
-  open() {
-    this.modalService.open(ModalAddPartComponent);
+  deleteCatalogo(deletePart: windmillPart) {
+    this.listService.deleteWindmillPart(deletePart);
   }
-
-
+  editCatalogo(editPart: windmillPart) {
+    this.listService.editWindmillPart(editPart);
+  }
 
 }
