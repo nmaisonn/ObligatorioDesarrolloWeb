@@ -84,19 +84,7 @@ export class ModalAddWindmillPartComponent implements OnInit {
       numberCategory = 3;
     }
 
-
-    let newPart: windmillPart = {
-      id: "123", //cambiar esto y ver como hacer
-      cat: numberCategory, // ver que hacer con esto
-      picture: ppicture,
-      height: pheight,
-      windResistance: pwind,
-      material: pmaterial,
-      name: pname,
-      inUse: false,
-    }
-
-    this.listService.addWindmillPart(newPart)
+    this.listService.addWindmillPart(pname, numberCategory, pheight, pwind, pmaterial, ppicture).subscribe();
   }
 
 }

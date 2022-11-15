@@ -19,20 +19,8 @@ export class CatalogComponent implements OnInit {
   ngOnInit(): void {
     this.getWindmillParts();
   }
-
-  add(part: windmillPart) {
-    this.listService.addWindmillPart(part);
-
-  }
   getWindmillParts(): void {
-    this.windmillParts = this.listService.getWindmillParts();
-
-  }
-  deleteCatalogo(deletePart: windmillPart) {
-    this.listService.deleteWindmillPart(deletePart);
-  }
-  editCatalogo(editPart: windmillPart) {
-    this.listService.editWindmillPart(editPart);
+    this.listService.getWindmillParts().subscribe(windmillParts => this.windmillParts = windmillParts);
   }
 
 }

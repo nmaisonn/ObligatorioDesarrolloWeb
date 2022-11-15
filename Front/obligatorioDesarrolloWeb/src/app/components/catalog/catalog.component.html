@@ -2,10 +2,9 @@
     <div id="board" class="container">
         <div id="list" class="row">
             <div *ngFor="let parte of windmillParts" class="col-sm-12 col-md-4 mb-3">
-                <app-windmill-part (deleteFromCatalogo)="deleteCatalogo($event)"
-                    (editFromCatalogo)="editCatalogo($event)" [coso]="parte"></app-windmill-part>
+                <app-windmill-part [coso]="parte"></app-windmill-part>
             </div>
         </div>
     </div>
-    <app-modal-add-windmill-part (newItemEvent)="add($event)"></app-modal-add-windmill-part>
+    <app-modal-add-windmill-part></app-modal-add-windmill-part>
 </div>
