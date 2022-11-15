@@ -15,24 +15,19 @@ export class ListComponent implements OnInit {
 
   windmillParts: windmillPart[] = [];
 
-  constructor(private listService: ListService, private modalService: NgbModal) { }
+  constructor(private listService: ListService) { }
 
   ngOnInit(): void {
     this.getWindmillParts();
   }
 
-  agregar(part: windmillPart) {
-    this.listService.addWindmillPart(part);
 
-  }
   getWindmillParts(): void {
     this.windmillParts = this.listService.getWindmillParts();
 
   }
 
-  open() {
-    this.modalService.open(ModalAddPartComponent);
-  }
+
 
   drop($event: CdkDragDrop<windmillPart[]>) {
     // //Obtenemos el elemento

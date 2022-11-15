@@ -8,7 +8,7 @@ import { CatalogComponent } from './components/catalog/catalog.component';
 import { WindmillPartComponent } from './components/windmill-part/windmill-part.component';
 import { ApproveComponent } from './components/approve/approve.component';
 import { ListComponent } from './components/list/list.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule, NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './components/footer/footer.component';
 import { FormsModule } from '@angular/forms';
 import { WindmillComponent } from './components/windmill/windmill.component';
@@ -30,6 +30,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
+import { ModalEditWindmillPartComponent } from './components/modales/modal-edit-windmill-part/modal-edit-windmill-part.component';
+import { ModalAddWindmillPartComponent } from './components/modales/modal-add-windmill-part/modal-add-windmill-part.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     DeleteUserModalComponent,
     DragAndDropComponent,
     CreateUserComponent,
-    ForgotPasswordComponent
+    ForgotPasswordComponent,
+    ModalEditWindmillPartComponent,
+    ModalAddWindmillPartComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +73,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
     MatDialogModule,
     DragDropModule
   ],
-  providers: [{provide:HTTP_INTERCEPTORS, useClass:TokenInterceptorService,multi:true}],
+  providers: [{ provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

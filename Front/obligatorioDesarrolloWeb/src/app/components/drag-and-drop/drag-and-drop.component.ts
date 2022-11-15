@@ -9,19 +9,7 @@ import { windmillPart } from 'src/app/windmillPart';
 })
 export class DragAndDropComponent implements OnInit {
 
-  //public listNumbers1: number[] | undefined;
-  //public listNumbers2: number[] | undefined;
-
-  public baseList: windmillPart[] = [{
-    id: "12344",
-    cat: 1,
-    picture: "../../../assets/aspa.jpg",
-    height: 5,
-    windResistance: 5,
-    material: "metal",
-    name: "aspa",
-    inUse: false
-  }];
+  public baseList: windmillPart[] = [];
   public aspaList: windmillPart[] = [];
   public cuerpoList: windmillPart[] = [];
 
@@ -42,7 +30,7 @@ export class DragAndDropComponent implements OnInit {
         $event.previousIndex,
         $event.currentIndex
       )
-    } else { //lo muevo de lista
+    } else if ($event.container.data.length < 1) { //lo muevo de lista
       transferArrayItem(
         $event.previousContainer.data, //de donde viene
         $event.container.data,
@@ -54,17 +42,14 @@ export class DragAndDropComponent implements OnInit {
   }
 
   predicateAspa(item: CdkDrag<windmillPart>) {
-    //return this.aspaList.length < 1 && item.data.cat === 1;
-    return true;
+    return item.data.cat === 1;
   }
   predicateCuerpo(item: CdkDrag<windmillPart>) {
-    //return this.cuerpoList.length < 1 && item.data.cat === 2;
-    return true;
+    return item.data.cat === 2;
   }
 
   predicateBase(item: CdkDrag<windmillPart>) {
-    //return this.baseList.length <= 1 && item.data.cat === 3;
-    return true;
+    return item.data.cat === 3;
   }
 
 

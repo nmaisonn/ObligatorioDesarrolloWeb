@@ -10,12 +10,16 @@
     </div>
 </body>
 -->
-<div class="board">
-    <h2>Partes de molino</h2>
-    <div id="windmillParts" cdkDropList [cdkDropListData]="windmillParts" class="example-list"
-        cdkDropListConnectedTo="aspaList, baseList, cuerpoList" (cdkDropListDropped)="drop($event)">
-        <div class="card-item" *ngFor="let part of windmillParts" [cdkDragData]="part" cdkDrag>
-            <app-windmill-part-creation id="part" [coso]="part"></app-windmill-part-creation>
+<div>
+    <div class="board">
+        <h2>Partes de molino</h2>
+        <div>
+            <div id="windmillParts" cdkDropList [cdkDropListData]="windmillParts" class="card-list"
+                cdkDropListConnectedTo="aspaList, baseList, cuerpoList" (cdkDropListDropped)="drop($event)">
+                <div class="card-item" *ngFor="let part of windmillParts" [cdkDragData]="part" cdkDrag>
+                    <app-windmill-part-creation id="part" [coso]="part"></app-windmill-part-creation>
+                </div>
+            </div>
         </div>
     </div>
 </div>
