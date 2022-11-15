@@ -14,7 +14,6 @@ import { FormsModule } from '@angular/forms';
 import { WindmillComponent } from './components/windmill/windmill.component';
 import { DetailWindmillModalComponent } from './components/detail-windmill-modal/detail-windmill-modal.component';
 import { ModalDeletePartComponent } from './components/modales/modal-delete-part/modal-delete-part.component';
-import { ModalAddPartComponent } from './components/modales/modal-add-part/modal-add-part.component';
 import { WindmillPartCreationComponent } from './components/windmill-part-creation/windmill-part-creation.component';
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -49,7 +48,6 @@ import { ModalAddWindmillPartComponent } from './components/modales/modal-add-wi
     ListComponent,
     FooterComponent,
     ModalDeletePartComponent,
-    ModalAddPartComponent,
     WindmillPartCreationComponent,
     UserDashboardComponent,
     UserComponent,

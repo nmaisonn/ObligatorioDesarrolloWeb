@@ -3,7 +3,7 @@ import { windmillPart } from 'src/app/windmillPart';
 import { PARTES } from 'src/app/partes';
 import { ListService } from 'src/app/services/list.service';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ModalAddPartComponent } from '../modales/modal-add-part/modal-add-part.component';
+
 
 @Component({
   selector: 'app-catalog',
