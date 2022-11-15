@@ -14,7 +14,7 @@ export class WindmillPartComponent implements OnInit {
 
   @Output() deleteFromCatalogo = new EventEmitter<windmillPart>();
   @Output() editFromCatalogo = new EventEmitter<windmillPart>();
-  @Input() coso: windmillPart | undefined;
+  @Input() coso: windmillPart | any;
 
 
   constructor(private location: Location, private route: ActivatedRoute, private modalService: NgbModal) { }
