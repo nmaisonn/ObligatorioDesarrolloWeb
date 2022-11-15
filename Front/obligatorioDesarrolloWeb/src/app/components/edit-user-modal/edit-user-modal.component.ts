@@ -25,7 +25,12 @@ export class EditUserModalComponent implements OnInit {
   
   editUser(pNuevoMail:String,pNuevoRol:String){
     console.log(pNuevoMail,pNuevoRol);
-    this.userService.editUser(this.usuario,this.nuevoMail,this.nuevoRol);
+    this.userService.editUser(this.usuario,this.nuevoMail,this.nuevoRol).subscribe((res)=>{
+      console.log(res)
+      window.location.reload()
+    },(err)=>{
+      console.log(err)
+    });
   }
 
   open(modalEdit: any): void {
