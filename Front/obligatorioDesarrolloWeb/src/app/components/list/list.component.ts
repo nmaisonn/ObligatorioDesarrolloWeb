@@ -22,7 +22,7 @@ export class ListComponent implements OnInit {
 
 
   getWindmillParts(): void {
-    this.windmillParts = this.listService.getWindmillParts();
+    this.listService.getWindmillParts().subscribe(windmillParts => this.windmillParts = windmillParts);
 
   }
 
