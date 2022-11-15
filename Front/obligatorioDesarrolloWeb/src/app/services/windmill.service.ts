@@ -27,17 +27,21 @@ export class WindmillService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  approve(pId:String):void {
-    console.log("Llego a aprobar" +pId);
+  approve(pId: String): void {
+    console.log("Llego a aprobar" + pId);
     let url = this.webApiUrl + "approve/approve?molino=" + pId;
-    this.http.post<any>(url,{});
+    this.http.post<any>(url, {});
 
   }
-  reject(pId:String):void {
-    console.log("Llego a rechazar" +pId);
+  reject(pId: String): void {
+    console.log("Llego a rechazar" + pId);
 
     let url = this.webApiUrl + "approve/reject?molino=" + pId;
-    this.http.post<any>(url,{});
+    this.http.post<any>(url, {});
+  }
+
+  addWindmill(aspa: windmillPart, base: windmillPart, cuerpo: windmillPart) {
+    console.log(aspa, cuerpo, base);
   }
 
   cargarMolinosHardCodeados(): void {
@@ -92,7 +96,7 @@ export class WindmillService {
       name: "base1",
       inUse: false
     }
-    
+
     let base2: windmillPart = {
       id: "55555",
       cat: 3,
@@ -107,37 +111,37 @@ export class WindmillService {
     let xMolino1: windmill = {
       name: "Molino1",
       id: "1",
-      base:base1,
-      body:cuerpo1,
-      blade:aspa1,
-      state:"pendiente"
+      base: base1,
+      body: cuerpo1,
+      blade: aspa1,
+      state: "pendiente"
     };
-    
+
     let xMolino2: windmill = {
       name: "Molino2",
       id: "2",
-      base:base2,
-      body:cuerpo2,
-      blade:aspa2,
-      state:"Aprobado"
+      base: base2,
+      body: cuerpo2,
+      blade: aspa2,
+      state: "Aprobado"
     };
-    
+
     let xMolino3: windmill = {
       name: "Molino3",
       id: "3",
-      base:base1,
-      body:cuerpo2,
-      blade:aspa1,
-      state:"Rechazado"
+      base: base1,
+      body: cuerpo2,
+      blade: aspa1,
+      state: "Rechazado"
     };
-    
+
     let xMolino4: windmill = {
       name: "Molino4",
       id: "4",
-      base:base2,
-      body:cuerpo1,
-      blade:aspa2,
-      state:"Pendiente"
+      base: base2,
+      body: cuerpo1,
+      blade: aspa2,
+      state: "Pendiente"
     };
     this.windmillsHardcodeados.push(xMolino1);
     this.windmillsHardcodeados.push(xMolino2);
