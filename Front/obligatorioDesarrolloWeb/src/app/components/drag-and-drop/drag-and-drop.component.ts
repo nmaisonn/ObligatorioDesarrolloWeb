@@ -1,6 +1,7 @@
 import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
 import { windmillPart } from 'src/app/windmillPart';
+import { ListService } from 'src/app/services/list.service';
 
 @Component({
   selector: 'app-drag-and-drop',
@@ -13,7 +14,7 @@ export class DragAndDropComponent implements OnInit {
   public aspaList: windmillPart[] = [];
   public cuerpoList: windmillPart[] = [];
 
-  constructor() { }
+  constructor(private listService: ListService) { }
 
   ngOnInit(): void {
     this.aspaList = [];
@@ -52,5 +53,16 @@ export class DragAndDropComponent implements OnInit {
     return item.data.cat === 3;
   }
 
+  agregarMolino() {
+    if (this.aspaList.length === 1 && this.baseList.length === 1 && this.cuerpoList.length == 1) {
+      let aspa = this.aspaList.pop();
+      let base = this.baseList.pop();
+      let cuerpo = this.cuerpoList.pop();
+
+      if (aspa != undefined && cuerpo != undefined && base != undefined) {
+        this.listService.addWindmill(aspa, base, cuerpo);
+      }
+    }
+  }
 
 }

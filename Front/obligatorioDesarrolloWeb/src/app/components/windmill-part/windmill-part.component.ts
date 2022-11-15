@@ -1,4 +1,4 @@
-import { Component, OnInit, Input ,  Output, EventEmitter} from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { windmillPart } from 'src/app/windmillPart';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
@@ -10,14 +10,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class WindmillPartComponent implements OnInit {
 
+  @Output() deleteFromCatalogo = new EventEmitter<windmillPart>();
+  @Output() editFromCatalogo = new EventEmitter<windmillPart>();
+  @Input() coso: windmillPart | any;
 
-  @Input() coso: windmillPart | undefined;
-
-  constructor( private location: Location,private route: ActivatedRoute) { }
+  constructor(private location: Location, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
   }
-  
+
   borrarNota(): void {
 
   }

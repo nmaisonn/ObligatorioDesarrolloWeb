@@ -25,4 +25,8 @@ export class ListService {
   editWindmillPart(part: windmillPart) {
     console.log(part)
   }
+
+  addWindmill(aspa: windmillPart, base: windmillPart, cuerpo: windmillPart) {
+    console.log(aspa, cuerpo, base);
+  }
 }
