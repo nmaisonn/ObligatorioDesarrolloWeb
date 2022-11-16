@@ -367,7 +367,7 @@ app.post('/crearPieza', auth(['1', '2']), (req, res) => {
       nombre,
       categoria,
       altura,
-      'resistencia eolica': resViento,
+      'resistenciaEolica': resViento,
       material,
     })
 
@@ -382,7 +382,7 @@ app.post('/crearPieza', auth(['1', '2']), (req, res) => {
       nombre,
       categoria,
       altura,
-      'resistencia eolica': resViento,
+      'resistenciaEolica': resViento,
       material,
       img: { nombre: img.nombre, ext: img.ext },
     })
@@ -503,9 +503,10 @@ app.get('/listarPiezas', auth(['1', '2']), (req, res) => {
 })
 
 // Crear molino
-app.post('/crearDiseño', auth(['1', '2']), (req, res) => {
-  const { _idBase, _idCuerpo, _idAspa, img } = req.query
-  if (!(_idBase && _idCuerpo && _idAspa && img)) {
+app.post('/crearMolino', auth(['1', '2']), (req, res) => {
+  console.log(req.body)
+  const { _idBase, _idCuerpo, _idAspa } = req.body
+  if (!(_idBase && _idCuerpo && _idAspa)) {
     return res.status(400).send({
       error: 'Faltan parametros.',
     })
@@ -520,35 +521,17 @@ app.post('/crearDiseño', auth(['1', '2']), (req, res) => {
     const db = client.db('dbObligatorio')
     const windmillsCollection = db.collection('windmills')
 
-    // Chequear que la parte no exista.
-    const part = await windmillsCollection.findOne({
-      nombre,
-      categoria,
-      altura,
-      'resistencia eolica': resViento,
-      material,
-    })
-
-    if (part) {
-      client.close()
-      return res.status(400).send({
-        error: 'Pieza ya existente.',
-      })
-    }
-
-    const insertResult = await partsCollection.insertOne({
-      nombre,
-      categoria,
-      altura,
-      'resistencia eolica': resViento,
-      material,
-      img: { nombre: img.nombre, ext: img.ext },
+    const insertResult = await windmillsCollection.insertOne({
+      base: _idBase,
+      cuerpo: _idCuerpo,
+      aspa: _idAspa,
+      estado: "pendiente"
     })
     console.log('Inserted document =>', insertResult)
 
     client.close()
 
-    res.send({ msg: 'Pieza creada exitosamente!' })
+    res.send({ msg: 'Molino creado exitosamente!' })
   })
 })
 
