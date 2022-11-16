@@ -30,7 +30,11 @@ export class WindmillPartComponent implements OnInit {
   // }
 
   deleteWindmillPart() {
-    this.listService.deleteWindmillPart(this.coso)
+    console.log(this.coso)
+    this.listService.deleteWindmillPart(this.coso._id).subscribe((res)=>{
+      console.log(res)
+      window.location.reload()
+    })
 
   }
 }
