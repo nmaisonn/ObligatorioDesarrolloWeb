@@ -20,7 +20,10 @@ export class CatalogComponent implements OnInit {
     this.getWindmillParts();
   }
   getWindmillParts(): void {
-    this.listService.getWindmillParts().subscribe(windmillParts => this.windmillParts = windmillParts);
+    this.listService.getWindmillParts().subscribe(res => {
+      console.log(res)
+      this.windmillParts = res.parts
+    });
   }
 
 }

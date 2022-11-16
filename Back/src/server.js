@@ -396,7 +396,7 @@ app.post('/crearPieza', auth(['1', '2']), (req, res) => {
 
 // Borrar pieza
 app.post('/borrarPieza', auth(['1', '2']), (req, res) => {
-  const { _id } = req.query
+  const { _id } = req.body
   if (!_id) {
 
     return res.status(400).send({
@@ -434,12 +434,52 @@ app.post('/borrarPieza', auth(['1', '2']), (req, res) => {
 
 // Editar pieza
 app.post('/editarPieza', auth(['1', '2']), (req, res) => {
-  const { _id } = req.query
-  if (!_id) {
+  const { part } = req.body
+  if (!part._id) {
     return res.status(400).send({
       error: 'Faltan parametros.',
     })
   }
+
+  MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
+    if (err) {
+      client.close()
+      return console.log(err)
+    }
+    console.log('Connected to Database')
+    const db = client.db('dbObligatorio')
+    const partsCollection = db.collection('windmill-parts')
+
+    const _id = part._id
+
+    // Chequear que el usuario a editar exista.
+    const partBD = await partsCollection.findOne({ _id: ObjectId(_id) })
+    if (!partBD) {
+      client.close()
+      return res.status(400).send({
+        error: 'Error al editar pieza.',
+      })
+    }
+
+    const editResult = await partsCollection.findOneAndUpdate(
+      { _id: ObjectId(_id)},
+      {
+        $set: {
+          nombre: part.name,
+          altura:part.height,
+          "resitencia eolica":part.windResistance,
+          material: part.material,
+          img:part.picture
+        },
+      },
+    )
+
+    console.log('Edited document =>', editResult)
+
+    client.close()
+
+    res.send({ msg: 'Pieza editada exitosamente!' })
+  })
 })
 
 // Listar piezas
@@ -527,7 +567,7 @@ app.post('/testingXD', async (req, res) => {
     const db = client.db('dbObligatorio')
     const partsCollection = db.collection('users')
 
-    const insertResult = await partsCollection.insertOne({"carrera1":_id1,"carrera2":_id2,"carrera3":_id3})
+    const insertResult = await partsCollection.insertOne({ "carrera1": _id1, "carrera2": _id2, "carrera3": _id3 })
     console.log('Inserted document =>', insertResult)
 
     client.close()
@@ -537,7 +577,7 @@ app.post('/testingXD', async (req, res) => {
 })
 
 // OBTENER 3 COSOS
-app.get("/quierotraer",async (req,res)=>{
+app.get("/quierotraer", async (req, res) => {
   MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
     if (err) {
       client.close()
@@ -548,7 +588,7 @@ app.get("/quierotraer",async (req,res)=>{
     const alumnos = db.collection('alumnos')
 
     const user = await alumnos.aggregate([
-      { $unwind: {path: "$carreras"}},
+      { $unwind: { path: "$carreras" } },
       {
         "$project": {
           "coso": {
@@ -565,7 +605,7 @@ app.get("/quierotraer",async (req,res)=>{
         }
       },
       {
-        "$project":{
+        "$project": {
           coso: 0,
           _id: 0
         }

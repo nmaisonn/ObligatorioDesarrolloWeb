@@ -73,18 +73,21 @@ export class ModalAddWindmillPartComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  addNewItem(pname: string, pcategory: string, pheight: number, pwind: number, pmaterial: string, ppicture: string) {
+  addNewItem(nombre: string, categoria: string, altura: number, resViento: number, material: string, img: string) {
 
-    let numberCategory: number = 0;
-    if (pcategory === "base") {
-      numberCategory = 1;
-    } else if (pcategory === "cuerpo") {
-      numberCategory = 2;
-    } else if (pcategory === "aspa") {
-      numberCategory = 3;
+    let numberCategory: string = "";
+    if (categoria === "base") {
+      numberCategory = "1";
+    } else if (categoria === "cuerpo") {
+      numberCategory = "2";
+    } else if (categoria === "aspa") {
+      numberCategory = "3";
     }
 
-    this.listService.addWindmillPart(pname, numberCategory, pheight, pwind, pmaterial, ppicture).subscribe();
+    this.listService.addWindmillPart(nombre, numberCategory, altura.toString(), resViento.toString(), material, img).subscribe((res)=>{
+      console.log(res)
+      window.location.reload()
+    });
   }
 
 }

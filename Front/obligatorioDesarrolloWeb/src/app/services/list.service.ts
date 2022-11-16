@@ -12,24 +12,24 @@ export class ListService {
 
   getWindmillParts() {
     const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
-    return this.http.get<any>(
-      'http://localhost:8080/listarPiezas', { headers });
+    let respuesta = this.http.get<any>('http://localhost:8080/listarPiezas', { headers });
+    return respuesta
   }
-  addWindmillPart(name: string, category: number, height: number, wind: number, material: string, img: string) {
+  addWindmillPart(nombre: string, categoria: string, altura: string, resViento: string, material: string, img: string) {
     // PARTES.push(part);
 
     const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
     return this.http.post<any>(
-      'http://localhost:8080/crearPieza', { name, category, height, wind, material, img }, { headers }
+      'http://localhost:8080/crearPieza', { nombre, categoria, altura, resViento, material, img }, { headers }
     )
   }
 
-  deleteWindmillPart(part: windmillPart) {
+  deleteWindmillPart(_id: string) {
     const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
+    console.log(_id)
     return this.http.post<any>(
-      'http://localhost:8080/borrarPieza', { part }, { headers }
+      'http://localhost:8080/borrarPieza', { _id:_id }, { headers }
     )
-
   }
 
   editWindmillPart(part: windmillPart) {
