@@ -41,7 +41,10 @@ export class WindmillService {
   }
 
   addWindmill(aspa: windmillPart, base: windmillPart, cuerpo: windmillPart) {
-    console.log(aspa, cuerpo, base);
+    const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
+    return this.http.post<any>(
+      'http://localhost:8080/crearDiseño', { aspa, base, cuerpo }, { headers }
+    )
   }
 
   cargarMolinosHardCodeados(): void {
