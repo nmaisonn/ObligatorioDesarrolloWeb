@@ -62,7 +62,10 @@ export class ModalEditWindmillPartComponent implements OnInit {
     this.windmillPartEdit.windResistance = pwind;
     this.windmillPartEdit.material = pmaterial;
     this.windmillPartEdit.picture = ppicture;
-    this.listService.editWindmillPart(this.windmillPartEdit).subscribe();
+    this.listService.editWindmillPart(this.windmillPartEdit).subscribe((res)=>{
+      console.log(res)
+      window.location.reload()
+    });
   }
 
 }
