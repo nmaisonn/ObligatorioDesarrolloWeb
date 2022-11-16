@@ -40,11 +40,10 @@ export class WindmillService {
     this.http.post<any>(url, {});
   }
 
-  addWindmill(aspa: windmillPart, base: windmillPart, cuerpo: windmillPart) {
+  addWindmill(aspa: any, base: any, cuerpo: any) {
     const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
-    return this.http.post<any>(
-      'http://localhost:8080/crearDiseño', { aspa, base, cuerpo }, { headers }
-    )
+    const url = this.webApiUrl + "crearMolino"
+    return this.http.post<any>(url, { _idBase: base._id, _idCuerpo: cuerpo._id, _idAspa: aspa._id }, { headers })
   }
 
   cargarMolinosHardCodeados(): void {

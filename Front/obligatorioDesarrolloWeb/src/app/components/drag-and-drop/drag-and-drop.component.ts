@@ -42,15 +42,15 @@ export class DragAndDropComponent implements OnInit {
 
   }
 
-  predicateAspa(item: CdkDrag<windmillPart>) {
-    return item.data.cat === 1;
+  predicateBase(item: any) {
+    return parseInt(item.data.categoria) === 1;
   }
-  predicateCuerpo(item: CdkDrag<windmillPart>) {
-    return item.data.cat === 2;
+  predicateCuerpo(item: any) {
+    return parseInt(item.data.categoria) === 2;
   }
 
-  predicateBase(item: CdkDrag<windmillPart>) {
-    return item.data.cat === 3;
+  predicateAspa(item: any) {
+    return parseInt(item.data.categoria) === 3;
   }
 
   agregarMolino() {
@@ -60,7 +60,9 @@ export class DragAndDropComponent implements OnInit {
       let cuerpo = this.cuerpoList.pop();
 
       if (aspa != undefined && cuerpo != undefined && base != undefined) {
-        this.windmillService.addWindmill(aspa, base, cuerpo).subscribe();
+        this.windmillService.addWindmill(aspa, base, cuerpo).subscribe((res) => {
+          console.log(res)
+        });
       }
     }
   }
