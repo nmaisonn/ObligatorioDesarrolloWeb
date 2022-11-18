@@ -462,14 +462,14 @@ app.post('/editarPieza', auth(['1', '2']), (req, res) => {
     }
 
     const editResult = await partsCollection.findOneAndUpdate(
-      { _id: ObjectId(_id)},
+      { _id: ObjectId(_id) },
       {
         $set: {
           nombre: part.name,
-          altura:part.height,
-          "resitencia eolica":part.windResistance,
+          altura: part.height,
+          "resitencia eolica": part.windResistance,
           material: part.material,
-          img:part.picture
+          img: part.picture
         },
       },
     )
@@ -527,6 +527,33 @@ app.post('/crearMolino', auth(['1', '2']), (req, res) => {
       aspa: _idAspa,
       estado: "pendiente"
     })
+
+    let editResult = await partsCollection.findOneAndUpdate(
+      { _id: ObjectId(_idBase) },
+      {
+        $set: {
+          inUse: true
+        },
+      },
+    )
+
+    editResult = await partsCollection.findOneAndUpdate(
+      { _id: ObjectId(_idCuerpo) },
+      {
+        $set: {
+          inUse: true
+        },
+      },
+    )
+
+    editResult = await partsCollection.findOneAndUpdate(
+      { _id: ObjectId(_idAspa) },
+      {
+        $set: {
+          inUse: true
+        },
+      },
+    )
     console.log('Inserted document =>', insertResult)
 
     client.close()

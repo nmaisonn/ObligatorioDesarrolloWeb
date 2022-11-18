@@ -11,15 +11,16 @@ export class LoginComponent implements OnInit {
   mail: string = ''
   pass: string = ''
 
-  constructor(private _login: LoginServiceService, private router: Router) {}
+  constructor(private _login: LoginServiceService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   loginUser(mail: string, pass: string) {
+    console.log("HOLA")
     this._login.loginUser(mail, pass).subscribe(
       (res) => {
         console.log(res)
-        localStorage.setItem("token",res.token)
+        localStorage.setItem("token", res.token)
         if (res.user.rol == "1") {
           this.router.navigate(["/createUser"])
         } else if (res.user.rol == "2") {
