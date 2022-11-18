@@ -385,6 +385,7 @@ app.post('/crearPieza', auth(['1', '2']), (req, res) => {
       'resistenciaEolica': resViento,
       material,
       img: { nombre: img.nombre, ext: img.ext },
+      inUse: false
     })
     console.log('Inserted document =>', insertResult)
 
