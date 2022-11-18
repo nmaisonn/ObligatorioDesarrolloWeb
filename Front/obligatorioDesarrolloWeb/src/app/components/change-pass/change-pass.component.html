@@ -1,0 +1,12 @@
+<div id="container">
+    <div id="login">
+        <h2>Recuperación de contraseña</h2>
+        <h3>Ingrese el mail de la cuenta</h3>
+        <form id="formulario">
+            <input [(ngModel)]="currentPass" name="currentPass" type="password" placeholder="Contraseña actual" />
+            <input [(ngModel)]="newPass1" name="newPass1" type="password" placeholder="Nueva contraseña" />
+            <input [(ngModel)]="newPass2" name="newPass2" type="password" placeholder="Repita la nueva contraseña" />
+            <button (click)="changePass(currentPass,newPass1,newPass2)">Enviar</button>
+        </form>
+    </div>
+</div>
