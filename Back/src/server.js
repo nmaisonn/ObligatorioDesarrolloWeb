@@ -572,6 +572,7 @@ app.post('/crearMolino', auth(['1', '2']), (req, res) => {
     console.log('Connected to Database')
     const db = client.db('dbObligatorio')
     const windmillsCollection = db.collection('windmills')
+    const partsCollection = db.collection("windmill-parts")
 
     const insertResult = await windmillsCollection.insertOne({
       base: _idBase,
@@ -579,7 +580,41 @@ app.post('/crearMolino', auth(['1', '2']), (req, res) => {
       aspa: _idAspa,
       estado: "pendiente"
     })
+
     console.log('Inserted document =>', insertResult)
+
+    let editResult = await partsCollection.findOneAndUpdate(
+      { _id: ObjectId(_idBase) },
+      {
+        $set: {
+          inUse:true
+        },
+      },
+    )
+
+    console.log("Edited document => ", editResult)
+
+    editResult = await partsCollection.findOneAndUpdate(
+      { _id: ObjectId(_idCuerpo) },
+      {
+        $set: {
+          inUse:true
+        },
+      },
+    )
+
+    console.log("Edited document => ", editResult)
+
+    editResult = await partsCollection.findOneAndUpdate(
+      { _id: ObjectId(_idAspa) },
+      {
+        $set: {
+          inUse:true
+        },
+      },
+    )
+
+    console.log("Edited document => ", editResult)
 
     client.close()
 
