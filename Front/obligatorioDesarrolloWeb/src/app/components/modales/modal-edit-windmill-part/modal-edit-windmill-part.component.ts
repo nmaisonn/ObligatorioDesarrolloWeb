@@ -29,6 +29,7 @@ export class ModalEditWindmillPartComponent implements OnInit {
 
 
   }
+
   ngOnInit(): void {
     this.newName = this.windmillPartEdit.name;
     this.newCategory = this.windmillPartEdit.cat;
