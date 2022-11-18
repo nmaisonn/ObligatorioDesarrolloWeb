@@ -20,6 +20,7 @@ export class LoginComponent implements OnInit {
       (res) => {
         console.log(res)
         localStorage.setItem("token",res.token)
+        localStorage.setItem("mail",res.user.mail)
         if (res.user.rol == "1") {
           this.router.navigate(["/createUser"])
         } else if (res.user.rol == "2") {
