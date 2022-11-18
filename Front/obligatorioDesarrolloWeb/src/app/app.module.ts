@@ -33,6 +33,8 @@ import { ModalEditWindmillPartComponent } from './components/modales/modal-edit-
 import { ModalAddWindmillPartComponent } from './components/modales/modal-add-windmill-part/modal-add-windmill-part.component';
 import { ChangePassComponent } from './components/change-pass/change-pass.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,

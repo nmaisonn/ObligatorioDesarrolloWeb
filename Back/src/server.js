@@ -580,7 +580,7 @@ app.post('/crearMolino', auth(['1', '2']), (req, res) => {
       aspa: _idAspa,
       estado: "pendiente"
     })
-
+    
     console.log('Inserted document =>', insertResult)
 
     let editResult = await partsCollection.findOneAndUpdate(

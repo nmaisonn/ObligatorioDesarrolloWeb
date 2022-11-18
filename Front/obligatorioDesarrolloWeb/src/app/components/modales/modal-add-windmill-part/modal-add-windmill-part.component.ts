@@ -4,6 +4,8 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { windmillPart } from 'src/app/windmillPart';
 import { Location } from '@angular/common';
 import { ListService } from 'src/app/services/list.service';
+//import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-modal-add-windmill-part',
@@ -35,34 +37,6 @@ export class ModalAddWindmillPartComponent implements OnInit {
   }
 
 
-  // addForm = new FormGroup({
-
-  //   newName: new FormControl('', Validators.required),
-  //   newCategory: new FormControl('', Validators.required),
-  //   newPicture: new FormControl('', Validators.required),
-  //   newHeight: new FormControl('', Validators.required),
-  //   newWind: new FormControl('', Validators.required),
-  //   newMaterial: new FormControl('', Validators.required)
-  // })
-
-  // newWindmillPart() {
-
-  //   let objectForm = this.addForm.value;
-
-  //   if (objectForm.newCategory === "base") {
-  //     this.addForm.value.newCategory = "1"
-  //   } else if (objectForm.newCategory === "cuerpo") {
-  //     this.addForm.value.newCategory = "2"
-  //   } else if (objectForm.newCategory === "aspa") {
-  //     this.addForm.value.newCategory = "3"
-  //   }
-
-  //   //Pasar al servicio un windmillPart o un objeto???
-
-  //   //this.newItemEvent.emit(this.addForm);
-  // }
-
-
 
   private getDismissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -83,11 +57,13 @@ export class ModalAddWindmillPartComponent implements OnInit {
     } else if (categoria === "aspa") {
       numberCategory = "3";
     }
+    //this._snackBar.open("hola");
 
-    this.listService.addWindmillPart(nombre, numberCategory, altura.toString(), resViento.toString(), material, img).subscribe((res)=>{
+    this.listService.addWindmillPart(nombre, numberCategory, altura.toString(), resViento.toString(), material, img).subscribe((res) => {
       console.log(res)
       window.location.reload()
     });
+
   }
 
 }

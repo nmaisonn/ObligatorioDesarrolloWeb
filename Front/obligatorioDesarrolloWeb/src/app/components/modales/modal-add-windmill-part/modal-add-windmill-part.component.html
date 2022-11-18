@@ -35,10 +35,11 @@
         </p>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-outline-dark"
+        <button mat-stroked-button type="button" class="btn btn-outline-dark"
             (click)="addNewItem(newName,newCategory, newHeight,newWind, newMaterial, newPicture)" data-dismiss="modal">
             Save</button>
+
     </div>
 </ng-template>
 
-<button class="btn btn-lg btn-outline-primary" (click)="open(myModal)">Agregar</button>
+<button class="btn btn-lg" (click)="open(myModal)">Agregar</button>

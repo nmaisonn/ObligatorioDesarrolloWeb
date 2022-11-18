@@ -60,7 +60,7 @@ export class DragAndDropComponent implements OnInit {
       let cuerpo = this.cuerpoList.pop();
 
       if (aspa != undefined && cuerpo != undefined && base != undefined) {
-        this.windmillService.addWindmill(aspa, base, cuerpo).subscribe((res)=>{
+        this.windmillService.addWindmill(aspa, base, cuerpo).subscribe((res) => {
           console.log(res)
         });
       }

@@ -11,11 +11,12 @@ export class LoginComponent implements OnInit {
   mail: string = ''
   pass: string = ''
 
-  constructor(private _login: LoginServiceService, private router: Router) {}
+  constructor(private _login: LoginServiceService, private router: Router) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   loginUser(mail: string, pass: string) {
+    console.log("HOLA")
     this._login.loginUser(mail, pass).subscribe(
       (res) => {
         console.log(res)
