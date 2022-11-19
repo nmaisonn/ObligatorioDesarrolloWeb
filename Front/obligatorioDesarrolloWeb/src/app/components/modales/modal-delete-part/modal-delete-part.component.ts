@@ -24,6 +24,7 @@ export class ModalDeletePartComponent implements OnInit {
 
   deleteModal() {
     this.deletePart.emit();
+    this.modalService.dismissAll();
   }
 
 }

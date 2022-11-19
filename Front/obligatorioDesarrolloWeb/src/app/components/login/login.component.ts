@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { LoginServiceService } from 'src/app/services/login-service.service'
 import { Router } from '@angular/router';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -20,8 +21,8 @@ export class LoginComponent implements OnInit {
     this._login.loginUser(mail, pass).subscribe(
       (res) => {
         console.log(res)
-        localStorage.setItem("token",res.token)
-        localStorage.setItem("mail",res.user.mail)
+        localStorage.setItem("token", res.token)
+        localStorage.setItem("mail", res.user.mail)
         if (res.user.rol == "1") {
           this.router.navigate(["/createUser"])
         } else if (res.user.rol == "2") {

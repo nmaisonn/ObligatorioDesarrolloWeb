@@ -11,23 +11,24 @@ import { user } from 'src/app/user';
 })
 export class DeleteUserModalComponent implements OnInit {
 
-  @Input() usuario : user | any;
+  @Input() usuario: user | any;
 
-  constructor(private userService: UserService,private modalService: NgbModal) {
+  constructor(private userService: UserService, private modalService: NgbModal) {
   }
 
   ngOnInit(): void {
   }
 
- 
 
-  deleteUser(){
-    this.userService.deleteUser(this.usuario).subscribe((res)=>{
+
+  deleteUser() {
+    this.userService.deleteUser(this.usuario).subscribe((res) => {
       console.log(res)
       window.location.reload()
     });
+    this.modalService.dismissAll();
   }
-  
+
   open(modalEliminar: any): void {
     this.modalService.open(modalEliminar);
   }

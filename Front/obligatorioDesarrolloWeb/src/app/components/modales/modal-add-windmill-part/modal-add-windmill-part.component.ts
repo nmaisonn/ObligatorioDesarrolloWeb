@@ -33,10 +33,6 @@ export class ModalAddWindmillPartComponent implements OnInit {
   open(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
   }
-  goBack(): void {
-    this.location.back();
-  }
-
 
 
   private getDismissReason(reason: any): string {
@@ -64,6 +60,8 @@ export class ModalAddWindmillPartComponent implements OnInit {
       console.log(res)
       window.location.reload()
     });
+
+    this.modalService.dismissAll();
 
     this._snackBar.open("hola", "hola", {
       duration: 10000,

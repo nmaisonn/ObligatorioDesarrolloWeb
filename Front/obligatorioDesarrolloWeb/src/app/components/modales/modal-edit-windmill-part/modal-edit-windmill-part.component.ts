@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { NgbModalConfig, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { windmillPart } from 'src/app/windmillPart';
 import { ListService } from 'src/app/services/list.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -22,7 +23,7 @@ export class ModalEditWindmillPartComponent implements OnInit {
   newWind: number = 0;
   newMaterial: string = "";
 
-  constructor(config: NgbModalConfig, private modalService: NgbModal, private listService: ListService,) {
+  constructor(config: NgbModalConfig, private modalService: NgbModal, private listService: ListService, private _snackBar: MatSnackBar) {
     // customize default values of modals used by this component tree
     config.backdrop = 'static';
     config.keyboard = false;
@@ -31,41 +32,35 @@ export class ModalEditWindmillPartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.newName = this.windmillPartEdit.name;
-    this.newCategory = this.windmillPartEdit.cat;
-    this.newPicture = this.windmillPartEdit.picture;
-    this.newHeight = this.windmillPartEdit.height;
-    this.newWind = this.windmillPartEdit.windResistance;
+    this.newName = this.windmillPartEdit.nombre;
+    this.newCategory = this.windmillPartEdit.categori;
+    this.newPicture = this.windmillPartEdit.img;
+    this.newHeight = this.windmillPartEdit.altura;
+    this.newWind = this.windmillPartEdit.resistenciaEolica;
     this.newMaterial = this.windmillPartEdit.material
   }
 
-  // editForm = new FormGroup({
-  //   newName: new FormControl(this.windmillPartEdit.name),
-  //   newCategory: new FormControl(this.windmillPartEdit.cat), //Como hacer para que no de error el valor del windmillPart.
-  //   newPicture: new FormControl(this.windmillPartEdit.picture),
-  //   newHeight: new FormControl(),
-  //   newWind: new FormControl(),
-  //   newMaterial: new FormControl("hola")
-  // })
+
 
   open(modalEdit: any): void {
+    console.log(this.windmillPartEdit)
     this.modalService.open(modalEdit);
   }
 
-  // editWindmill() {
-  //   this.listService.editWindmillPart(this.windmillPartEdit);
-  // }
 
   editModal(pname: string, pheight: number, pwind: number, pmaterial: string, ppicture: string) {
-
     this.windmillPartEdit.name = pname;
     this.windmillPartEdit.height = pheight;
     this.windmillPartEdit.windResistance = pwind;
     this.windmillPartEdit.material = pmaterial;
     this.windmillPartEdit.picture = ppicture;
-    this.listService.editWindmillPart(this.windmillPartEdit).subscribe((res)=>{
+    this.listService.editWindmillPart(this.windmillPartEdit).subscribe((res) => {
       console.log(res)
       window.location.reload()
+    });
+    this.modalService.dismissAll();
+    this._snackBar.open("hola", "hola", {
+      duration: 7000,
     });
   }
 
