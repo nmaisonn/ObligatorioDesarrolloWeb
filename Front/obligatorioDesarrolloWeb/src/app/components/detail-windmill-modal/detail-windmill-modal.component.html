@@ -5,45 +5,45 @@
         <button type="button" class="btn btn-close fr" data-bs-dismiss="modalDetails" aria-label="Close"></button>
     </div>
     <div class="modal-body" *ngIf="molino">
-        <h1>{{molino.name}}</h1>
+        <h1>{{molino._id}}</h1>
         <div class="row">
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4" *ngIf="aspa">
                 <div class="row">
-                    <h3 class="text-center h1">Aspa: {{molino.blade.name}}</h3>
+                    <h3 class="text-center h1">Aspa: {{aspa.nombre}}</h3>
                 </div>
                 <div class="row">
-                    <img src="{{molino.blade.picture}}">
+                    <img src="{{aspa.img}}">
                 </div>
                 <div class="row">
-                    <p>Altura: {{molino.blade.height}}</p>
-                    <p>Resistencia al viento: {{molino.blade.windResistance}}</p>
-                    <p>Material: {{molino.blade.material}}</p>
-                </div>
-            </div>
-            <div class="col-sm-12 col-md-4">
-                <div class="row">
-                    <h3 class="text-center h1">Cuerpo: {{molino.body.name}}</h3>
-                </div>
-                <div class="row">
-                    <img src="{{molino.body.picture}}">
-                </div>
-                <div class="row">
-                    <p>Altura: {{molino.body.height}}</p>
-                    <p>Resistencia al viento: {{molino.body.windResistance}}</p>
-                    <p>Material: {{molino.body.material}}</p>
+                    <p>Altura: {{aspa.altura}}</p>
+                    <p>Resistencia al viento: {{aspa.resistenciaEolica}}</p>
+                    <p>Material: {{aspa.material}}</p>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4">
+            <div class="col-sm-12 col-md-4" *ngIf="cuerpo">
                 <div class="row">
-                    <h3 class="text-center h1">Base: {{molino.base.name}}</h3>
+                    <h3 class="text-center h1">Cuerpo: {{cuerpo.nombre}}</h3>
                 </div>
                 <div class="row">
-                    <img src="{{molino.base.picture}}">
+                    <img src="{{cuerpo.img}}">
                 </div>
                 <div class="row">
-                    <p>Altura: {{molino.base.height}}</p>
-                    <p>Resistencia al viento: {{molino.base.windResistance}}</p>
-                    <p>Material: {{molino.base.material}}</p>
+                    <p>Altura: {{cuerpo.altura}}</p>
+                    <p>Resistencia al viento: {{cuerpo.resistenciaEolica}}</p>
+                    <p>Material: {{cuerpo.material}}</p>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4" *ngIf="base">
+                <div class="row">
+                    <h3 class="text-center h1">Base: {{base.nombre}}</h3>
+                </div>
+                <div class="row">
+                    <img src="{{base.img}}">
+                </div>
+                <div class="row">
+                    <p>Altura: {{base.altura}}</p>
+                    <p>Resistencia al viento: {{base.resistenciaEolica}}</p>
+                    <p>Material: {{base.material}}</p>
                 </div>
             </div>
         </div>

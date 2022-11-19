@@ -555,7 +555,6 @@ app.get('/listarPiezas', auth(['1', '2']), (req, res) => {
 
 // Crear molino
 app.post('/crearMolino', auth(['1', '2']), (req, res) => {
-  console.log(req.body)
   const { _idBase, _idCuerpo, _idAspa } = req.body
   if (!(_idBase && _idCuerpo && _idAspa)) {
     return res.status(400).send({
@@ -642,6 +641,36 @@ app.get('/listarMolinos', auth(['1', '3']), (req, res) => {
     client.close()
 
     res.send({ resultadoFinal })
+  })
+})
+
+app.post("/cambiarEstado",auth(['1', '3']),(req,res)=>{
+  const {flag, _id} = req.body
+  let estado
+
+  flag ? estado = "aprobado" : estado = "rechazado"
+
+  MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
+    if (err) {
+      client.close()
+      return console.log(err)
+    }
+    console.log('Connected to Database')
+    const db = client.db('dbObligatorio')
+    const windmillsCollection = db.collection('windmills')
+
+    const molino = await windmillsCollection.findOneAndUpdate(
+      { _id: ObjectId(_id) },
+      {
+        $set: {
+          estado
+        },
+      },
+    )
+
+    client.close()
+
+    res.send({ msg:"Estado del molino cambiado correctamente." })
   })
 })
 
