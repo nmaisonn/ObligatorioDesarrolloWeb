@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const MongoClient = require('mongodb').MongoClient
 const cors = require('cors')
-const sgMail = require("@sendgrid/mail")
+const sgMail = require('@sendgrid/mail')
 
 const auth = require('../middleware/auth')
 const { ObjectId } = require('mongodb')
@@ -18,7 +18,7 @@ const app = express()
 const port = process.env.PORT || 8080
 
 const publicDirPath = path.join(__dirname, '../public')
-app.use(express.json());
+app.use(express.json())
 app.use(express.static(publicDirPath))
 
 var corsOptions = {
@@ -78,7 +78,7 @@ app.post('/login', async (req, res) => {
 })
 
 // Olvido de contraseña
-app.post("/forgotPass", async (req, res) => {
+app.post('/forgotPass', async (req, res) => {
   const { mail } = req.body
   const newPass = Math.ceil(Math.random() * (1000000 - 100000) + 100000)
   const cryptedPass = await bcrypt.hash(newPass.toString(), 8)
@@ -105,7 +105,7 @@ app.post("/forgotPass", async (req, res) => {
       { mail },
       {
         $set: {
-          pass: cryptedPass
+          pass: cryptedPass,
         },
       },
     )
@@ -118,7 +118,7 @@ app.post("/forgotPass", async (req, res) => {
       to: mail, // Change to your recipient
       from: 'jojoteam.webdev@gmail.com', // Change to your verified sender
       subject: 'Cambio de contraseña',
-      html: `Hola ${mail}! Esta es tu nueva contraseña: <strong>${newPass}</strong>. No olvides cambiarla una vez accedas a la cuenta.`
+      html: `Hola ${mail}! Esta es tu nueva contraseña: <strong>${newPass}</strong>. No olvides cambiarla una vez accedas a la cuenta.`,
     }
     sgMail.send(msg).catch((error) => {
       res.send(error)
@@ -128,7 +128,7 @@ app.post("/forgotPass", async (req, res) => {
   })
 })
 
-app.post("/actualizarPass", auth(["1", "2", "3"]), async (req, res) => {
+app.post('/actualizarPass', auth(['1', '2', '3']), async (req, res) => {
   const { mail, currentPass, newPass1, newPass2 } = req.body
   console.log(mail, currentPass, newPass1, newPass2)
   if (newPass1 !== newPass2) {
@@ -177,7 +177,7 @@ app.post("/actualizarPass", auth(["1", "2", "3"]), async (req, res) => {
 
     client.close()
 
-    res.send({ msg: "Contraseña cambiada con éxito." })
+    res.send({ msg: 'Contraseña cambiada con éxito.' })
   })
 })
 
@@ -229,7 +229,7 @@ app.post('/crearUser', auth(['1']), (req, res) => {
     const insertResult = await usersCollection.insertOne({
       mail,
       pass: password,
-      rol
+      rol,
     })
     console.log('Inserted document =>', insertResult)
 
@@ -418,7 +418,7 @@ app.post('/crearPieza', auth(['1', '2']), (req, res) => {
       nombre,
       categoria,
       altura,
-      'resistenciaEolica': resViento,
+      resistenciaEolica: resViento,
       material,
     })
 
@@ -433,10 +433,10 @@ app.post('/crearPieza', auth(['1', '2']), (req, res) => {
       nombre,
       categoria,
       altura,
-      'resistenciaEolica': resViento,
+      resistenciaEolica: resViento,
       material,
       img: { nombre: img.nombre, ext: img.ext },
-      inUse: false
+      inUse: false,
     })
     console.log('Inserted document =>', insertResult)
 
@@ -450,7 +450,6 @@ app.post('/crearPieza', auth(['1', '2']), (req, res) => {
 app.post('/borrarPieza', auth(['1', '2']), (req, res) => {
   const { _id } = req.body
   if (!_id) {
-
     return res.status(400).send({
       error: 'Faltan parametros.',
     })
@@ -519,9 +518,9 @@ app.post('/editarPieza', auth(['1', '2']), (req, res) => {
         $set: {
           nombre: part.name,
           altura: part.height,
-          "resitencia eolica": part.windResistance,
+          'resitencia eolica': part.windResistance,
           material: part.material,
-          img: part.picture
+          img: part.picture,
         },
       },
     )
@@ -572,49 +571,53 @@ app.post('/crearMolino', auth(['1', '2']), (req, res) => {
     console.log('Connected to Database')
     const db = client.db('dbObligatorio')
     const windmillsCollection = db.collection('windmills')
-    const partsCollection = db.collection("windmill-parts")
-
-    const insertResult = await windmillsCollection.insertOne({
-      base: _idBase,
-      cuerpo: _idCuerpo,
-      aspa: _idAspa,
-      estado: "pendiente"
-    })
-    
-    console.log('Inserted document =>', insertResult)
+    const partsCollection = db.collection('windmill-parts')
 
     let editResult = await partsCollection.findOneAndUpdate(
       { _id: ObjectId(_idBase) },
       {
         $set: {
-          inUse:true
+          inUse: true,
         },
       },
     )
 
-    console.log("Edited document => ", editResult)
+    let base = await partsCollection.findOne({ _id: ObjectId(_idBase) })
+
+    console.log('Edited document => ', editResult)
 
     editResult = await partsCollection.findOneAndUpdate(
       { _id: ObjectId(_idCuerpo) },
       {
         $set: {
-          inUse:true
+          inUse: true,
         },
       },
     )
 
-    console.log("Edited document => ", editResult)
+    let cuerpo = await partsCollection.findOne({ _id: ObjectId(_idCuerpo) })
+
+    console.log('Edited document => ', editResult)
 
     editResult = await partsCollection.findOneAndUpdate(
       { _id: ObjectId(_idAspa) },
       {
         $set: {
-          inUse:true
+          inUse: true,
         },
       },
     )
 
-    console.log("Edited document => ", editResult)
+    let aspa = await partsCollection.findOne({ _id: ObjectId(_idAspa) })
+
+    console.log('Edited document => ', editResult)
+
+    const insertResult = await windmillsCollection.insertOne({
+      piezas: [base, cuerpo, aspa],
+      estado: 'pendiente',
+    })
+
+    console.log('Inserted document =>', insertResult)
 
     client.close()
 
@@ -622,12 +625,7 @@ app.post('/crearMolino', auth(['1', '2']), (req, res) => {
   })
 })
 
-// CREAR CON REFERENCIA A 3 COSOS
-app.post('/testingXD', async (req, res) => {
-  const _id1 = "6366ca9918ef5cf8a3aa3f1d"
-  const _id2 = "6366cb6818ef5cf8a3aa3f1e"
-  const _id3 = "6366cb7418ef5cf8a3aa3f1f"
-
+app.get('/listarMolinos', auth(['1', '3']), (req, res) => {
   MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
     if (err) {
       client.close()
@@ -635,56 +633,11 @@ app.post('/testingXD', async (req, res) => {
     }
     console.log('Connected to Database')
     const db = client.db('dbObligatorio')
-    const partsCollection = db.collection('users')
+    const windmillsCollection = db.collection('windmills')
 
-    const insertResult = await partsCollection.insertOne({ "carrera1": _id1, "carrera2": _id2, "carrera3": _id3 })
-    console.log('Inserted document =>', insertResult)
+    const molinos = await windmillsCollection.find()
 
-    client.close()
-
-    res.send({ msg: 'Pieza creada exitosamente!' })
-  })
-})
-
-// OBTENER 3 COSOS
-app.get("/quierotraer", async (req, res) => {
-  MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
-    if (err) {
-      client.close()
-      return console.log(err)
-    }
-    console.log('Connected to Database')
-    const db = client.db('dbObligatorio')
-    const alumnos = db.collection('alumnos')
-
-    const user = await alumnos.aggregate([
-      { $unwind: { path: "$carreras" } },
-      {
-        "$project": {
-          "coso": {
-            "$toObjectId": "$carreras",
-          },
-        }
-      },
-      {
-        "$lookup": {
-          "from": "carreras",
-          "localField": "coso",
-          "foreignField": "_id",
-          "as": "carrerita"
-        }
-      },
-      {
-        "$project": {
-          coso: 0,
-          _id: 0
-        }
-      }
-    ])
-
-    let resultadoFinal = await user.toArray()
-
-    console.log(resultadoFinal[0].carrerita[0].nombre)
+    let resultadoFinal = await molinos.toArray()
 
     client.close()
 
