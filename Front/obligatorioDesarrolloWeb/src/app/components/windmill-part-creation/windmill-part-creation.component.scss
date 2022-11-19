@@ -1,14 +1,9 @@
 .card {
-    // padding: 0.5rem;
-    // font-family: Georgia, serif;
-    // background-color: #e7ecef;
-    // margin: 0rem;
-    // width: 100%;
-    // height: 100%;
-    border: 1px solid #1d90ce;
+    min-width: 100%;
+    border: 1px;
     border-radius: 8px;
     text-align: center;
-    color: #1d90ce;
+    color: rgb(131, 129, 127);
 
 }
 
@@ -22,7 +17,7 @@ h5 {
     font-weight: 700;
     text-transform: uppercase;
     font-size: 1rem;
-    color: #001219;
+    color: #043041;
 }
 
 p {
