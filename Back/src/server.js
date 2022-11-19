@@ -22,7 +22,7 @@ app.use(express.json())
 app.use(express.static(publicDirPath))
 
 var corsOptions = {
-  origin: 'http://localhost:4200',
+  origin: ['http://localhost:4200','http://localhost:8100'],
   optionsSuccessStatus: 200,
   methods: 'GET, PUT, POST, DELETE',
 }
@@ -31,6 +31,7 @@ app.use(cors(corsOptions))
 // Login de users.
 app.post('/login', async (req, res) => {
   const { mail, pass } = req.body
+  console.log(req.body)
   if (!mail || !pass) {
     return res.status(400).send({
       error: 'Necesitas ingresar todos los campos.',
