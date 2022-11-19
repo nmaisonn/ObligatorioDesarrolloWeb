@@ -81,9 +81,7 @@ app.post('/login', async (req, res) => {
 app.post("/forgotPass", async (req, res) => {
   const { mail } = req.body
   const newPass = Math.ceil(Math.random() * (1000000 - 100000) + 100000)
-  console.log(newPass)
   const cryptedPass = await bcrypt.hash(newPass.toString(), 8)
-  console.log(cryptedPass)
 
   MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
     if (err) {
@@ -127,6 +125,59 @@ app.post("/forgotPass", async (req, res) => {
     })
 
     res.send({ msg: 'Revisa el mail que enviamos con tu nueva contraseña.' })
+  })
+})
+
+app.post("/actualizarPass", auth(["1", "2", "3"]), async (req, res) => {
+  const { mail, currentPass, newPass1, newPass2 } = req.body
+  console.log(mail, currentPass, newPass1, newPass2)
+  if (newPass1 !== newPass2) {
+    return res.status(400).send({
+      error: 'Las contraseñas deben coincidir.',
+    })
+  }
+
+  MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
+    if (err) {
+      client.close()
+      return console.log(err)
+    }
+    console.log('Connected to Database')
+    const db = client.db('dbObligatorio')
+    const usersCollection = db.collection('users')
+
+    const user = await usersCollection.findOne({ mail })
+
+    if (!user) {
+      client.close()
+      return res.status(400).send({
+        error: 'Error al cambiar la contraseña.',
+      })
+    }
+
+    const isMatch = await bcrypt.compare(currentPass, user.pass)
+
+    if (!isMatch) {
+      client.close()
+      return res.status(400).send({
+        error: 'Error al cambiar la contraseña.',
+      })
+    }
+
+    const password = await bcrypt.hash(newPass1, 8)
+
+    editResult = await usersCollection.findOneAndUpdate(
+      { mail },
+      {
+        $set: {
+          pass: password,
+        },
+      },
+    )
+
+    client.close()
+
+    res.send({ msg: "Contraseña cambiada con éxito." })
   })
 })
 
@@ -521,6 +572,7 @@ app.post('/crearMolino', auth(['1', '2']), (req, res) => {
     console.log('Connected to Database')
     const db = client.db('dbObligatorio')
     const windmillsCollection = db.collection('windmills')
+    const partsCollection = db.collection("windmill-parts")
 
     const insertResult = await windmillsCollection.insertOne({
       base: _idBase,
@@ -528,34 +580,41 @@ app.post('/crearMolino', auth(['1', '2']), (req, res) => {
       aspa: _idAspa,
       estado: "pendiente"
     })
+    
+    console.log('Inserted document =>', insertResult)
 
     let editResult = await partsCollection.findOneAndUpdate(
       { _id: ObjectId(_idBase) },
       {
         $set: {
-          inUse: true
+          inUse:true
         },
       },
     )
+
+    console.log("Edited document => ", editResult)
 
     editResult = await partsCollection.findOneAndUpdate(
       { _id: ObjectId(_idCuerpo) },
       {
         $set: {
-          inUse: true
+          inUse:true
         },
       },
     )
+
+    console.log("Edited document => ", editResult)
 
     editResult = await partsCollection.findOneAndUpdate(
       { _id: ObjectId(_idAspa) },
       {
         $set: {
-          inUse: true
+          inUse:true
         },
       },
     )
-    console.log('Inserted document =>', insertResult)
+
+    console.log("Edited document => ", editResult)
 
     client.close()
 

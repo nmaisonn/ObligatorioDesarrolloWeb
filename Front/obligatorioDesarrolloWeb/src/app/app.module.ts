@@ -32,6 +32,7 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { ModalEditWindmillPartComponent } from './components/modales/modal-edit-windmill-part/modal-edit-windmill-part.component';
 import { ModalAddWindmillPartComponent } from './components/modales/modal-add-windmill-part/modal-add-windmill-part.component';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ChangePassComponent } from './components/change-pass/change-pass.component';
 
 
 
@@ -60,7 +61,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     CreateUserComponent,
     ForgotPasswordComponent,
     ModalEditWindmillPartComponent,
-    ModalAddWindmillPartComponent
+    ModalAddWindmillPartComponent,
+    ChangePassComponent
   ],
   imports: [
     BrowserModule,
