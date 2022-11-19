@@ -12,6 +12,7 @@ import { ForgotPasswordComponent } from './components/forgot-password/forgot-pas
 import { ChangePassComponent } from './components/change-pass/change-pass.component';
 
 const routes: Routes = [
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: "creation", component: CreationComponent },
   { path: 'catalog', component: CatalogComponent },
