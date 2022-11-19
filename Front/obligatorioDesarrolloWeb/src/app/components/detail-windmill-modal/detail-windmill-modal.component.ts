@@ -22,22 +22,22 @@ export class DetailWindmillModalComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.molino);
-    console.log(this.aspa);
-    console.log(this.cuerpo);
-    console.log(this.base);
   }
 
   approveWindmill() {
-    let id: String = this.molino?.id;
-    this.windmillService.auditar(id, true);
-    //this.modalService.dismissAll();
+    let id: String = this.molino._id;
+    this.windmillService.auditar(id, true).subscribe((res) => {
+      window.location.reload()
+    });
+    this.modalService.dismissAll();
   }
 
   rejectedWindmill() {
-    let id: String = this.molino?.id;
-    this.windmillService.auditar(id, false);
-    //this.modalService.dismissAll();
+    let id: String = this.molino._id;
+    this.windmillService.auditar(id, false).subscribe((res) => {
+      window.location.reload()
+    });;
+    this.modalService.dismissAll();
   }
 
   open(modalEdit: any): void {

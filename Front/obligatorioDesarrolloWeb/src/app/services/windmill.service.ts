@@ -30,11 +30,10 @@ export class WindmillService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  auditar(pId: String, audito:boolean):void{
-    console.log("llegue al servicio "+audito)
+  auditar(pId: String, audito:boolean){
     const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
     let url = this.webApiUrl + "cambiarEstado";
-    this.http.post<any>(url,{_id:pId, flag:audito}, {headers});
+    return this.http.post<any>(url,{_id:pId, flag:audito}, {headers});
 
   }
 
