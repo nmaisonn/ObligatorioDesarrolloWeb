@@ -554,6 +554,25 @@ app.get('/listarPiezas', auth(['1', '2']), (req, res) => {
   })
 })
 
+// Listar Molinos
+app.get('/listarMolinos', auth(['1', '2']), (req, res) => {
+  MongoClient.connect(process.env.DB_CONNECTION_STRING, async (err, client) => {
+    if (err) {
+      client.close()
+      return console.log(err)
+    }
+    console.log('Connected to Database')
+    const db = client.db('dbObligatorio')
+    const windmillCollection = db.collection('windmills')
+
+    const molino = await windmillCollection.find().toArray()
+
+    client.close()
+
+    res.send({ molino })
+  })
+})
+
 // Crear molino
 app.post('/crearMolino', auth(['1', '2']), (req, res) => {
   console.log(req.body)

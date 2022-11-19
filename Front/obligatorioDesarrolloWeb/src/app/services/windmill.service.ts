@@ -15,13 +15,12 @@ export class WindmillService {
 
   constructor(private http: HttpClient) { }
 
-  getWindmillsHardCode(): windmill[] {
-    this.cargarMolinosHardCodeados();
-    return this.windmillsHardcodeados;
-  }
-
-  getWindmills(): Observable<windmill[]> {
-    return this.http.get<windmill[]>(this.webApiUrl);
+  getWindmills() {
+    console.log("llegue al servicio")
+    const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
+    const url = this.webApiUrl + "listarMolinos"
+    let respuesta= this.http.get<any>(url,{headers});
+    return respuesta
   }
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })

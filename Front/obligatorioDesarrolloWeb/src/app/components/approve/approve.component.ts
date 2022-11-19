@@ -22,13 +22,10 @@ export class ApproveComponent implements OnInit {
   constructor(private windmillService: WindmillService, private modalService: NgbModal, public matDialog: MatDialog) { }
 
   ngOnInit(): void {
-    this.getWindmillsHardCode();
-    //this.getWindmills();
+    this.getWindmills();
   }
 
-  getWindmillsHardCode(): void {
-    this.windmills = this.windmillService.getWindmillsHardCode();
-  }
+  
 
   getWindmills(): void {
     this.windmillService.getWindmills()
@@ -36,8 +33,7 @@ export class ApproveComponent implements OnInit {
   }
 
   findWindmills(pTexto: string): void {
-    //this.getWindmills();
-    this.getWindmillsHardCode();
+    this.getWindmills();
     let xAux: windmill[] = [];
     for (var i = 0; i < this.windmills.length; i++) {
       var estado = this.windmills[i].state.toLocaleLowerCase();
@@ -52,12 +48,4 @@ export class ApproveComponent implements OnInit {
     //document.getElementById("buscadorMolinos").textContent = "";
   }
 
-  showDetails(pWindmill: windmill) {
-    this.dialogConfig.id = "detail-modal-component";
-    this.dialogConfig.height = "500px";
-    this.dialogConfig.width = "650px";
-    this.dialogConfig.autoFocus=true;
-    this.dialogConfig.data = pWindmill;
-    this.modalDialog = this.matDialog.open(DetailWindmillModalComponent, this.dialogConfig);
-  }
 }
