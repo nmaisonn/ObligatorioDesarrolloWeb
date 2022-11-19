@@ -11,9 +11,6 @@
       <p>Wind Resistance: {{coso.resistenciaEolica}}</p>
     </div>
     <div>
-      <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
-    </div>
-    <div>
       <app-modal-delete-part (deletePart)="deleteWindmillPart()"></app-modal-delete-part>
       <app-modal-edit-windmill-part [windmillPartEdit]="coso">
       </app-modal-edit-windmill-part>
