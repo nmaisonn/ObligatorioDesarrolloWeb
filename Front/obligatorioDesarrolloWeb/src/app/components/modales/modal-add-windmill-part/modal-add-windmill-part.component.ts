@@ -4,7 +4,7 @@ import { NgbModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 import { windmillPart } from 'src/app/windmillPart';
 import { Location } from '@angular/common';
 import { ListService } from 'src/app/services/list.service';
-//import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -27,7 +27,8 @@ export class ModalAddWindmillPartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private modalService: NgbModal, private location: Location, private route: ActivatedRoute, private listService: ListService) { }
+  constructor(private modalService: NgbModal, private location: Location,
+    private route: ActivatedRoute, private listService: ListService, private _snackBar: MatSnackBar) { }
 
   open(content: any) {
     this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' })
@@ -62,6 +63,10 @@ export class ModalAddWindmillPartComponent implements OnInit {
     this.listService.addWindmillPart(nombre, numberCategory, altura.toString(), resViento.toString(), material, img).subscribe((res) => {
       console.log(res)
       window.location.reload()
+    });
+
+    this._snackBar.open("hola", "hola", {
+      duration: 10000,
     });
 
   }
