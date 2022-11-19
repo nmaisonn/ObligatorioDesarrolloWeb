@@ -20,9 +20,18 @@ export class WindmillService {
     return this.windmillsHardcodeados;
   }
 
-  getWindmills(): Observable<windmill[]> {
-    return this.http.get<windmill[]>(this.webApiUrl);
+  getWindmills() {
+    const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
+    let respuesta = this.http.get<any>("http://localhost:8080/listarMolinos",{headers});
+    return respuesta
   }
+
+  getWindmillPart(idPart:string) {
+    const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
+    let respuesta =  this.http.get<any>("http://localhost:8080/getPart?idPart="+idPart,{headers})
+    return respuesta
+  }
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
