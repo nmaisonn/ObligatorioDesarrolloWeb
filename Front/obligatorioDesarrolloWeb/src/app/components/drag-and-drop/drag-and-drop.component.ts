@@ -65,6 +65,7 @@ export class DragAndDropComponent implements OnInit {
       if (aspa != undefined && cuerpo != undefined && base != undefined) {
         this.windmillService.addWindmill(aspa, base, cuerpo, nombre, descripcion).subscribe((res) => {
           console.log(res)
+          window.location.reload()
         });
       }
     }
