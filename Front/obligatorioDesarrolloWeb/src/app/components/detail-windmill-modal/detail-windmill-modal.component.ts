@@ -4,6 +4,7 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { WindmillService } from 'src/app/services/windmill.service';
 import { windmill } from 'src/app/windmill';
 import { windmillPart } from 'src/app/windmillPart';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-detail-windmill-modal',
@@ -18,7 +19,7 @@ export class DetailWindmillModalComponent implements OnInit {
   @Input() cuerpo: windmillPart | any;
   @Input() base: windmillPart | any;
 
-  constructor(private windmillService: WindmillService, private modalService: NgbModal) {
+  constructor(private windmillService: WindmillService, private modalService: NgbModal, private _snackBar: MatSnackBar) {
   }
 
   ngOnInit(): void {
@@ -35,8 +36,15 @@ export class DetailWindmillModalComponent implements OnInit {
   rejectedWindmill() {
     let id: String = this.molino._id;
     this.windmillService.auditar(id, false).subscribe((res) => {
+      this._snackBar.open(res.msg, "cerrar", {
+        duration: 10000,
+      });
       window.location.reload()
-    });;
+    }, (err) => {
+      this._snackBar.open(err.error.error, "cerrar", {
+        duration: 10000,
+      });
+    });
     this.modalService.dismissAll();
   }
 

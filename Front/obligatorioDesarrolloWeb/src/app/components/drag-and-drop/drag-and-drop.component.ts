@@ -2,6 +2,7 @@ import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angul
 import { Component, OnInit } from '@angular/core';
 import { windmillPart } from 'src/app/windmillPart';
 import { WindmillService } from 'src/app/services/windmill.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-drag-and-drop',
@@ -17,7 +18,7 @@ export class DragAndDropComponent implements OnInit {
   nombreMolino: string = '';
   descripcionMolino: string = "";
 
-  constructor(private windmillService: WindmillService) { }
+  constructor(private windmillService: WindmillService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.aspaList = [];
@@ -65,8 +66,15 @@ export class DragAndDropComponent implements OnInit {
       if (aspa != undefined && cuerpo != undefined && base != undefined) {
         this.windmillService.addWindmill(aspa, base, cuerpo, nombre, descripcion).subscribe((res) => {
           console.log(res)
-          window.location.reload()
-        });
+          this._snackBar.open(res.msg, "cerrar", {
+            duration: 10000,
+          });
+        },
+          (err) => {
+            this._snackBar.open(err.error.error, "cerrar", {
+              duration: 10000,
+            });
+          });
       }
     }
   }

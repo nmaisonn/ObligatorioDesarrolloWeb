@@ -26,7 +26,7 @@ export class ApproveComponent implements OnInit {
     private windmillService: WindmillService,
     private modalService: NgbModal,
     public matDialog: MatDialog,
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.getWindmills();
@@ -45,11 +45,11 @@ export class ApproveComponent implements OnInit {
     this.getWindmills();
     let xAux: windmill[] = []
     for (var i = 0; i < this.windmills.length; i++) {
-      var estado = this.windmills[i].state.toLocaleLowerCase()
-      var nombre = this.windmills[i].name.toLocaleLowerCase()
+      var estado = this.windmills[i].state.toLowerCase()
+      var nombre = this.windmills[i].name.toLowerCase()
       if (
-        estado.includes(pTexto.toLocaleLowerCase()) ||
-        nombre.includes(pTexto)
+        estado.includes(pTexto.toLowerCase()) ||
+        nombre.includes(pTexto.toLowerCase())
       ) {
         xAux.push(this.windmills[i])
       }

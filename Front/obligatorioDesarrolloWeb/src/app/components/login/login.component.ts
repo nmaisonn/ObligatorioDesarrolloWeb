@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { LoginServiceService } from 'src/app/services/login-service.service'
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 
 @Component({
@@ -12,7 +13,7 @@ export class LoginComponent implements OnInit {
   mail: string = ''
   pass: string = ''
 
-  constructor(private _login: LoginServiceService, private router: Router) { }
+  constructor(private _login: LoginServiceService, private router: Router, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void { }
 
@@ -30,8 +31,14 @@ export class LoginComponent implements OnInit {
         } else {
           this.router.navigate(["/approve"])
         }
+        this._snackBar.open(res.msg, "cerrar", {
+          duration: 10000,
+        });
       },
-      (err) => console.log(err),
-    )
+      (err) => {
+        this._snackBar.open(err.error.error, "cerrar", {
+          duration: 10000,
+        });
+      })
   }
 }
