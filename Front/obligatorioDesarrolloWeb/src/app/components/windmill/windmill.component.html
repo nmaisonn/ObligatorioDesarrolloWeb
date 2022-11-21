@@ -1,7 +1,8 @@
 <div class="card w-100 card-border mb-5" *ngIf="windmill">
-    <h5 class="card-header">{{windmill._id}}</h5>
+    <h5 class="card-header">{{windmill.nombre}}</h5>
     <div  class="card-body">
         <div *ngIf="windmill">
+            <p class="card-text">Descripcion: {{windmill.descripcion}} </p>
             <p class="card-text">Estado: {{windmill.estado}} </p>
         </div>
         <div *ngIf="aspa">
