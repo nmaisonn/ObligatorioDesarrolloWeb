@@ -58,14 +58,21 @@ export class ModalAddWindmillPartComponent implements OnInit {
 
     this.listService.addWindmillPart(nombre, numberCategory, altura.toString(), resViento.toString(), material, img).subscribe((res) => {
       console.log(res)
+      this._snackBar.open(res.msg, "cerrar", {
+        duration: 10000,
+      });
+
+
       window.location.reload()
+    }, (err) => {
+      this._snackBar.open(err.error.error, "cerrar", {
+        duration: 10000,
+      });
+
     });
 
     this.modalService.dismissAll();
 
-    this._snackBar.open("hola", "hola", {
-      duration: 10000,
-    });
 
   }
 
