@@ -1,7 +1,7 @@
 <div>
     <div class="board">
         <h2>Aspas</h2>
-        <div>
+        <div class="lol">
             <div id="aspaList" cdkDropList [cdkDropListData]="aspaList" class="card-list col-sm-4"
                 cdkDropListConnectedTo="windmillParts" (cdkDropListDropped)="drop($event)"
                 [cdkDropListEnterPredicate]="predicateAspa">
@@ -14,7 +14,7 @@
 
     <div class="board">
         <h2>Cuerpo</h2>
-        <div>
+        <div class="lol">
             <div id="cuerpoList" cdkDropList [cdkDropListData]="cuerpoList" class="card-list col-sm-4"
                 cdkDropListConnectedTo="windmillParts" (cdkDropListDropped)="drop($event)"
                 [cdkDropListEnterPredicate]="predicateCuerpo">
@@ -26,7 +26,7 @@
     </div>
     <div class="board">
         <h2>Base</h2>
-        <div>
+        <div class="lol">
             <div id="baseList" cdkDropList [cdkDropListData]="baseList" class="card-list col-sm-4"
                 cdkDropListConnectedTo="windmillParts" (cdkDropListDropped)="drop($event)"
                 [cdkDropListEnterPredicate]="predicateBase">
@@ -36,7 +36,11 @@
             </div>
         </div>
     </div>
+    <label for="nombre"> Nombre: </label>
+    <input type="text" id="nombre" name="nombreMolino" [(ngModel)]="nombreMolino">
+    <label for="descripcion">Descripcion: </label>
+    <input type="text" id="descripcion" name="descripcionMolino" [(ngModel)]="descripcionMolino">
     <div>
-        <button class="btn btn-lg btn-outline-primary" (click)="agregarMolino()">Agregar Molino</button>
+        <button class="btn btn-lg" (click)="agregarMolino(nombreMolino,descripcionMolino)">Agregar Molino</button>
     </div>
 </div>
