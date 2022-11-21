@@ -16,13 +16,13 @@ export class WindmillService {
 
   getWindmills() {
     const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
-    let respuesta = this.http.get<any>("http://localhost:8080/listarMolinos",{headers});
+    let respuesta = this.http.get<any>("http://localhost:8080/listarMolinos", { headers });
     return respuesta
   }
 
-  getWindmillPart(idPart:string) {
+  getWindmillPart(idPart: string) {
     const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
-    let respuesta =  this.http.get<any>("http://localhost:8080/getPart?idPart="+idPart,{headers})
+    let respuesta = this.http.get<any>("http://localhost:8080/getPart?idPart=" + idPart, { headers })
     return respuesta
   }
 
@@ -30,19 +30,19 @@ export class WindmillService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  auditar(pId: String, audito:boolean){
+  auditar(pId: String, audito: boolean) {
     const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
     let url = this.webApiUrl + "cambiarEstado";
-    return this.http.post<any>(url,{_id:pId, flag:audito}, {headers});
+    return this.http.post<any>(url, { _id: pId, flag: audito }, { headers });
 
   }
 
-  addWindmill(aspa: any, base: any, cuerpo: any) {
+  addWindmill(aspa: any, base: any, cuerpo: any, nombre: string, descripcion: string) {
     const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
     const url = this.webApiUrl + "crearMolino"
-    return this.http.post<any>(url, { _idBase: base._id, _idCuerpo: cuerpo._id, _idAspa: aspa._id }, { headers })
+    return this.http.post<any>(url, { _idBase: base._id, _idCuerpo: cuerpo._id, _idAspa: aspa._id, nombre, descripcion }, { headers })
   }
 
-  
+
 }
 
