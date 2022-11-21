@@ -14,6 +14,9 @@ export class DragAndDropComponent implements OnInit {
   public aspaList: windmillPart[] = [];
   public cuerpoList: windmillPart[] = [];
 
+  nombreMolino: string = '';
+  descripcionMolino: string = "";
+
   constructor(private windmillService: WindmillService) { }
 
   ngOnInit(): void {
@@ -53,14 +56,14 @@ export class DragAndDropComponent implements OnInit {
     return parseInt(item.data.categoria) === 3;
   }
 
-  agregarMolino() {
+  agregarMolino(nombre: string, descripcion: string) {
     if (this.aspaList.length === 1 && this.baseList.length === 1 && this.cuerpoList.length == 1) {
       let aspa = this.aspaList.pop();
       let base = this.baseList.pop();
       let cuerpo = this.cuerpoList.pop();
 
       if (aspa != undefined && cuerpo != undefined && base != undefined) {
-        this.windmillService.addWindmill(aspa, base, cuerpo).subscribe((res) => {
+        this.windmillService.addWindmill(aspa, base, cuerpo, nombre, descripcion).subscribe((res) => {
           console.log(res)
         });
       }
