@@ -555,8 +555,8 @@ app.get('/listarPiezas', auth(['1', '2']), (req, res) => {
 
 // Crear molino
 app.post('/crearMolino', auth(['1', '2']), (req, res) => {
-  const { _idBase, _idCuerpo, _idAspa } = req.body
-  if (!(_idBase && _idCuerpo && _idAspa)) {
+  const { _idBase, _idCuerpo, _idAspa, nombre, descripcion } = req.body
+  if (!(_idBase && _idCuerpo && _idAspa && nombre && descripcion)) {
     return res.status(400).send({
       error: 'Faltan parametros.',
     })
@@ -612,6 +612,8 @@ app.post('/crearMolino', auth(['1', '2']), (req, res) => {
     console.log('Edited document => ', editResult)
 
     const insertResult = await windmillsCollection.insertOne({
+      nombre,
+      descripcion,
       piezas: [base, cuerpo, aspa],
       estado: 'pendiente',
     })
@@ -644,8 +646,8 @@ app.get('/listarMolinos', auth(['1', '3']), (req, res) => {
   })
 })
 
-app.post("/cambiarEstado",auth(['1', '3']),(req,res)=>{
-  const {flag, _id} = req.body
+app.post("/cambiarEstado", auth(['1', '3']), (req, res) => {
+  const { flag, _id } = req.body
   let estado
 
   flag ? estado = "aprobado" : estado = "rechazado"
@@ -670,7 +672,7 @@ app.post("/cambiarEstado",auth(['1', '3']),(req,res)=>{
 
     client.close()
 
-    res.send({ msg:"Estado del molino cambiado correctamente." })
+    res.send({ msg: "Estado del molino cambiado correctamente." })
   })
 })
 
