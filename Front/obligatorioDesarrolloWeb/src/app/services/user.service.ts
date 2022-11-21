@@ -27,20 +27,17 @@ export class UserService {
 
   deleteUser(pUsuario: user) {
     let url = this.webApiUrl + "borrarUser";
-    const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
-    return this.http.post<any>(url, { mail: pUsuario.mail }, { headers })
+    return this.http.post<any>(url, { mail: pUsuario.mail })
   }
 
   editUser(pUsuario: user, pNuevoMail: String, pNuevoRol: String) {
-    const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
     let url = this.webApiUrl + "editarUser";
-    return this.http.put<any>(url, { mail: pUsuario.mail, nuevoMail: pNuevoMail, rol: pNuevoRol }, { headers });
+    return this.http.put<any>(url, { mail: pUsuario.mail, nuevoMail: pNuevoMail, rol: pNuevoRol });
   }
 
   createUser(mail: string, pass: string, rol: string) {
-    const headers = { 'Authorization': 'Bearer ' + localStorage.getItem("token") };
     return this.http.post<any>(
-      'http://localhost:8080/crearUser', { mail, pass, rol }, { headers }
+      'http://localhost:8080/crearUser', { mail, pass, rol }
     )
   }
 
