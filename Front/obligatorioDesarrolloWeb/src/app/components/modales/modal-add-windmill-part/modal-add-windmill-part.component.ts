@@ -62,8 +62,6 @@ export class ModalAddWindmillPartComponent implements OnInit {
         duration: 10000,
       });
 
-
-      window.location.reload()
     }, (err) => {
       this._snackBar.open(err.error.error, "cerrar", {
         duration: 10000,
