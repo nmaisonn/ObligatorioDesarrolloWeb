@@ -54,15 +54,13 @@ export class ModalAddWindmillPartComponent implements OnInit {
     } else if (categoria === "aspa") {
       numberCategory = "3";
     }
-    //this._snackBar.open("hola");
+
 
     this.listService.addWindmillPart(nombre, numberCategory, altura.toString(), resViento.toString(), material, img).subscribe((res) => {
       console.log(res)
       this._snackBar.open(res.msg, "cerrar", {
         duration: 10000,
       });
-
-
       window.location.reload()
     }, (err) => {
       this._snackBar.open(err.error.error, "cerrar", {
