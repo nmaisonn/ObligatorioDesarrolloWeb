@@ -14,9 +14,9 @@ export class ListService {
     let respuesta = this.http.get<any>('http://localhost:8080/listarPiezas');
     return respuesta
   }
-  addWindmillPart(nombre: string, categoria: string, altura: string, resViento: string, material: string, img: string) {
+  addWindmillPart(nombre: string, categoria: string, altura: string, resViento: string, material: string,img:string) {
     return this.http.post<any>(
-      'http://localhost:8080/crearPieza', { nombre, categoria, altura, resViento, material, img }
+      'http://localhost:8080/crearPieza', { nombre, categoria, altura, resViento, material,img }
     )
   }
 

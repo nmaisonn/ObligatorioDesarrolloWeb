@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken')
 const MongoClient = require('mongodb').MongoClient
 const cors = require('cors')
 const sgMail = require('@sendgrid/mail')
+const multer = require("multer")
 
 const auth = require('../middleware/auth')
 const { ObjectId } = require('mongodb')
@@ -394,6 +395,29 @@ app.get('/listarUsers', auth(['1']), async (req, res) => {
   })
 })
 
+// Endpoint imagenes
+const imageUpload = multer({
+  storage: multer.diskStorage({
+    destination: (req,file,cb)=>{
+      cb(null,"images/")
+    },
+    filename:(req,file,cb)=>{
+      cb(null,new Date().valueOf() + "-"+file.originalname)
+    }
+  })
+})
+
+app.post("/image",auth(['1', '2']),imageUpload.single("image"),(req,res)=>{
+  res.json(req.file)
+})
+
+app.get("/image/:filename",(req,res)=>{
+  const {filename} = req.params
+  const dirname = path.resolve()
+  const fullFilePath = path.join(dirname, "images/"+filename)
+  return res.sendFile(fullFilePath)
+})
+
 // Endpoints de operarios
 // Crear pieza
 app.post('/crearPieza', auth(['1', '2']), (req, res) => {
@@ -435,7 +459,7 @@ app.post('/crearPieza', auth(['1', '2']), (req, res) => {
       altura,
       resistenciaEolica: resViento,
       material,
-      img: { nombre: img.nombre, ext: img.ext },
+      img,
       inUse: false,
     })
     console.log('Inserted document =>', insertResult)

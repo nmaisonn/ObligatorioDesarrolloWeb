@@ -30,13 +30,13 @@
             <input type="text" id="material" [(ngModel)]="newMaterial">
         </p>
         <p>
-            <label for="picture">Imagen URL: </label>
-            <input type="text" id="picture" class="file-upload" [(ngModel)]="newPicture">
+            <label for="picture">Imagen: </label>
+            <input #photoInput type="file" id="picture" class="file-upload" (change)="processFile(photoInput)">
         </p>
     </div>
     <div class="modal-footer">
         <button mat-stroked-button type="button" class="btn btn-outline-dark"
-            (click)="addNewItem(newName,newCategory, newHeight,newWind, newMaterial, newPicture)" data-dismiss="modal">
+            (click)="addNewItem(newName,newCategory, newHeight,newWind, newMaterial)" data-dismiss="modal">
             Save</button>
 
     </div>

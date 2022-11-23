@@ -5,7 +5,11 @@ import { windmillPart } from 'src/app/windmillPart';
 import { Location } from '@angular/common';
 import { ListService } from 'src/app/services/list.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 
+class ImageSnippet {
+  constructor(public src: string, public file: File) { }
+}
 
 @Component({
   selector: 'app-modal-add-windmill-part',
@@ -19,7 +23,8 @@ export class ModalAddWindmillPartComponent implements OnInit {
 
   newName: string = '';
   newCategory: string = "";
-  newPicture: string = "";
+  selectedFile: ImageSnippet | any;
+  imgUrl: string = ""
   newHeight: number = 0;
   newWind: number = 0;
   newMaterial: string = "";
@@ -27,7 +32,7 @@ export class ModalAddWindmillPartComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  constructor(private modalService: NgbModal, private location: Location,
+  constructor(private imgService: ImagenesService,private modalService: NgbModal, private location: Location,
     private route: ActivatedRoute, private listService: ListService, private _snackBar: MatSnackBar) { }
 
   open(content: any) {
@@ -44,8 +49,25 @@ export class ModalAddWindmillPartComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
-  addNewItem(nombre: string, categoria: string, altura: number, resViento: number, material: string, img: string) {
 
+  processFile(imageInput:any){
+    const file:File = imageInput.files[0]
+    console.log(file)
+    const reader = new FileReader()
+
+    reader.addEventListener("load",(event:any)=>{
+      this.selectedFile = new ImageSnippet(event.target.result, file);
+
+      this.imgService.upload(this.selectedFile.file).subscribe((res)=>{
+        console.log(res)
+        this.imgUrl = res.filename
+      })
+    })
+
+    reader.readAsDataURL(file)
+  }
+
+  addNewItem(nombre: string, categoria: string, altura: number, resViento: number, material: string) {
     let numberCategory: string = "";
     if (categoria === "base") {
       numberCategory = "1";
@@ -55,8 +77,10 @@ export class ModalAddWindmillPartComponent implements OnInit {
       numberCategory = "3";
     }
 
+    console.log(this.imgUrl)
 
-    this.listService.addWindmillPart(nombre, numberCategory, altura.toString(), resViento.toString(), material, img).subscribe((res) => {
+
+    this.listService.addWindmillPart(nombre, numberCategory, altura.toString(), resViento.toString(), material, this.imgUrl).subscribe((res) => {
       console.log(res)
       this._snackBar.open(res.msg, "cerrar", {
         duration: 10000,
