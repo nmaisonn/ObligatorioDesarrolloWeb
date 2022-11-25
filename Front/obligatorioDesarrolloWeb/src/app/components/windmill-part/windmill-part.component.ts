@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ListService } from 'src/app/services/list.service';
+import { ImagenesService } from 'src/app/services/imagenes.service';
 
 @Component({
   selector: 'app-windmill-part',
@@ -12,22 +13,26 @@ import { ListService } from 'src/app/services/list.service';
 })
 export class WindmillPartComponent implements OnInit {
   @Input() coso: windmillPart | any;
+  imagen: any;
 
-  constructor(private location: Location, private route: ActivatedRoute, private modalService: NgbModal, private listService: ListService) { }
+  constructor(private location: Location, private route: ActivatedRoute, private modalService: NgbModal, private listService: ListService, private imagenService: ImagenesService) { }
 
   ngOnInit(): void {
+    this.imagenService.getImg(this.coso.img).subscribe((res)=>{
+     this.blobToImage(res);
+
+    })
   }
 
-  // editWindmillPart(newPart: windmillPart): void {
-  //   if (this.coso != undefined) {
-  //     this.coso.height = newPart.height;
-  //     this.coso.name = newPart.name;
-  //     this.coso.windResistance = newPart.windResistance;
-  //     this.coso.picture = newPart.picture;
-  //     this.coso.material = newPart.material;
-  //   }
-  //   this.listService.editWindmillPart(this.coso);
-  // }
+  blobToImage(theBlob : Blob){
+    let reader = new FileReader();
+    reader.addEventListener("load",() =>{
+      this.imagen = reader.result;
+    },false)
+    if(theBlob){
+      reader.readAsDataURL(theBlob);
+    }
+  }
 
   deleteWindmillPart() {
     console.log(this.coso)
