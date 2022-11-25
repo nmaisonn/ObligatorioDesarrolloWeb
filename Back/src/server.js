@@ -681,6 +681,7 @@ app.post("/cambiarEstado", auth(['1', '3']), (req, res) => {
       client.close()
       return console.log(err)
     }
+    
     console.log('Connected to Database')
     const db = client.db('dbObligatorio')
     const windmillsCollection = db.collection('windmills')
