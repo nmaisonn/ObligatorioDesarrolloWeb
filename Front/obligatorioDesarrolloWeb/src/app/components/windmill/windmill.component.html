@@ -1,6 +1,6 @@
 <div class="card w-100 card-border mb-5" *ngIf="windmill">
-    <h5 class="card-header">{{windmill.nombre}}</h5>
-    <div  class="card-body">
+    <h2 class="card-header">{{windmill.nombre}}</h2>
+    <div class="card-body">
         <div *ngIf="windmill">
             <p class="card-text">Descripcion: {{windmill.descripcion}} </p>
             <p class="card-text">Estado: {{windmill.estado}} </p>
@@ -12,10 +12,11 @@
             <p class="card-text">Cuerpo: {{cuerpo.nombre}} </p>
         </div>
         <div *ngIf="base">
-        <p class="card-text">Base: {{base.nombre}}</p>
+            <p class="card-text">Base: {{base.nombre}}</p>
         </div>
     </div>
     <div class="card-footer">
-        <app-detail-windmill-modal  [molino]="windmill" [aspa]="aspa" [cuerpo]="cuerpo" [base]="base"></app-detail-windmill-modal>
+        <app-detail-windmill-modal [molino]="windmill" [aspa]="aspa" [cuerpo]="cuerpo" [base]="base">
+        </app-detail-windmill-modal>
     </div>
 </div>
