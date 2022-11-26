@@ -39,5 +39,11 @@ h1 {
 }
 
 .btn {
-    margin-top: 1rem;
+    margin-top: 1.3rem;
+    background-color: #004773;
+    border-color: #096096;
+}
+
+.btn:hover {
+    background-color: #00304e;
 }

@@ -2,7 +2,8 @@
 <ng-template #modalDetails let-c="close" let-d="dismiss">
     <div class="modal-header fm">
         <h5 class="modal-title " id="staticBackdropLabelAgregar">Detalles del Molino</h5>
-        <button type="button" class="btn btn-close fr" data-bs-dismiss="modalDetails" aria-label="Close" (click)="d('Cross click')"></button>
+        <button type="button" class="btn btn-close fr" data-bs-dismiss="modalDetails" aria-label="Close"
+            (click)="d('Cross click')"></button>
     </div>
     <div class="modal-body" *ngIf="molino">
         <h1>{{molino._id}}</h1>
@@ -49,10 +50,10 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-success" (click)="approveWindmill();"
+        <button id="aceptar" type="button" class="btn btn-success" (click)="approveWindmill();"
             aria-multiselectable="close">Aprobar</button>
 
-        <button type="button" class="btn btn-warning" (click)="rejectedWindmill()"
+        <button id="rechazar" type="button" class="btn btn-warning" (click)="rejectedWindmill()"
             aria-multiselectable="close">Rechazar</button>
     </div>
 </ng-template>

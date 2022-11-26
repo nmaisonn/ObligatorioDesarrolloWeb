@@ -19,3 +19,22 @@ button {
     border-radius: 1em;
     margin: 0.5em;
 }
+
+#rechazar {
+    background-color: #dc2f02;
+    color: azure;
+}
+
+#rechazar:hover {
+    background-color: #780000;
+    color: azure;
+}
+
+#aceptar {
+    background-color: #377b2c;
+}
+
+#aceptar:hover {
+    background-color: #24541c;
+    color: azure;
+}
