@@ -16,7 +16,8 @@ import { DetailWindmillModalComponent } from '../detail-windmill-modal/detail-wi
   styleUrls: ['./approve.component.scss'],
 })
 export class ApproveComponent implements OnInit {
-  windmills: windmill[] = []
+  windmills: any[] = []
+  buscador: any[] = []
   textoBuscado: string = ''
 
   dialogConfig = new MatDialogConfig()
@@ -38,15 +39,16 @@ export class ApproveComponent implements OnInit {
       let molinos = response.resultadoFinal
       console.log(molinos)
       this.windmills = molinos
+      this.buscador = molinos
     })
   }
 
   findWindmills(pTexto: string): void {
-    this.getWindmills();
+    this.windmills = this.buscador
     let xAux: windmill[] = []
     for (var i = 0; i < this.windmills.length; i++) {
-      var estado = this.windmills[i].state.toLowerCase()
-      var nombre = this.windmills[i].name.toLowerCase()
+      var estado = this.windmills[i].estado.toLowerCase()
+      var nombre = this.windmills[i].nombre.toLowerCase()
       if (
         estado.includes(pTexto.toLowerCase()) ||
         nombre.includes(pTexto.toLowerCase())

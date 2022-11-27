@@ -14,6 +14,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class CatalogComponent implements OnInit {
 
   windmillParts: any[] = [];
+  buscador:any[]=[]
   textoBuscado: string = ''
 
   constructor(private listService: ListService, private _snackBar: MatSnackBar) { }
@@ -25,9 +26,11 @@ export class CatalogComponent implements OnInit {
     this.listService.getWindmillParts().subscribe(res => {
       console.log(res)
       this.windmillParts = res.parts
+      this.buscador=res.parts
     });
   }
   findWindmillParts(pTexto: string): void {
+    this.windmillParts = this.buscador
     let xAux: windmillPart[] = []
 
     for (var i = 0; i < this.windmillParts.length; i++) {
