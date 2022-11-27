@@ -1,21 +1,30 @@
 <ng-template #modalEditarUser let-c="close" let-d="dismiss">
     <div class="modal-header fm">
-        <h5 class="modal-title " id="staticBackdropDelete">Editar Usuario</h5>
-        <button type="button" class="btn btn-close fr" data-bs-dismiss="modal" aria-label="Close" (click)="d('Cross click')"></button>
+        <h2 class="modal-title " id="staticBackdropDelete">Editar Usuario</h2>
+        <button type="button" class="btn btn-close fr" data-bs-dismiss="modal" aria-label="Close"
+            (click)="d('Cross click')"></button>
     </div>
     <div class="modal-body" *ngIf="usuario">
-        <p class="card-text">Mail: {{usuario.mail}} </p>
-        <input type="text" id="mail" [(ngModel)]="nuevoMail">
-        <p class="card-text">Rol: {{usuario.rol}} </p>
-        <select id="rol" class="form-select form-select-sm" aria-label=".form-select-sm example" [(ngModel)]="nuevoRol">
-            <option selected>Elegir una opcion</option>
-            <option value="1">Administrador</option>
-            <option value="2">Operario</option>
-            <option value="3">Auditor</option>
-        </select>
+        <p>
+            <label for="mail">Mail: {{usuario.mail}} </label>
+            <input type="text" id="mail" [(ngModel)]="nuevoMail" placeholder="Nuevo mail">
+        </p>
+        <p>
+            <label for="rol">Rol: {{usuario.rol}} </label>
+            <select id="rol" class="form-select form-select-sm" aria-label=".form-select-sm example"
+                [(ngModel)]="nuevoRol">
+                <option selected>Elegir una opcion</option>
+                <option value="1">Administrador</option>
+                <option value="2">Operario</option>
+                <option value="3">Auditor</option>
+            </select>
+        </p>
+
+
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-danger" (click)="editUser(nuevoMail,nuevoRol)">Editar</button>
+        <button id="save" type="button" class="btn btn-danger" (click)="editUser(nuevoMail,nuevoRol)">Editar</button>
     </div>
 </ng-template>
-<button id=" edit" (click)="open(modalEditarUser)" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Editar</button>
+<button id="edit" (click)="open(modalEditarUser)" data-bs-toggle="modal"
+    data-bs-target="#staticBackdrop">Editar</button>

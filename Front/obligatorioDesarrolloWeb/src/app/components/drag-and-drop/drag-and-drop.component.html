@@ -36,10 +36,12 @@
             </div>
         </div>
     </div>
-    <label for="nombre"> Nombre: </label>
-    <input type="text" id="nombre" name="nombreMolino" [(ngModel)]="nombreMolino">
-    <label for="descripcion">Descripcion: </label>
-    <input type="text" id="descripcion" name="descripcionMolino" [(ngModel)]="descripcionMolino">
+    <div class="nomMolino">
+        <label for="nombre"> Nombre: </label>
+        <input type="text" id="nombre" name="nombreMolino" [(ngModel)]="nombreMolino">
+        <label for="descripcion">Descripcion: </label>
+        <input type="text" id="descripcion" name="descripcionMolino" [(ngModel)]="descripcionMolino">
+    </div>
     <div>
         <button class="btn btn-lg" (click)="agregarMolino(nombreMolino,descripcionMolino)">Agregar Molino</button>
     </div>

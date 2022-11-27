@@ -17,11 +17,10 @@ h5 {
     font-weight: 700;
     text-transform: uppercase;
     font-size: 2rem;
-    color: #001219;
+    color: rgb(6, 47, 64);
     text-shadow: 1px 1px 0px #005f73,
         2px 2px 0px #0a9396,
-        3px 3px 0px #94d2bd,
-        4px 4px 0px #e9d8a6;
+        3px 3px 0px #94d2bd;
 }
 
 p {
@@ -33,6 +32,7 @@ img {
     max-width: 100%;
     height: 250px;
 }
+
 
 .picture {
     display: flex;

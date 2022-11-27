@@ -1,11 +1,11 @@
 <div class="card w-100 card-border mb-5" *ngIf="usuario">
-    <h5 class="card-header">{{usuario.id}}</h5>
+    <h2 class="card-header">{{usuario.id}}</h2>
     <div *ngIf="usuario" class="card-body">
         <p class="card-text">Mail: {{usuario.mail}} </p>
         <p class="card-text">Rol: {{usuario.rol}} </p>
         <div class="card-footer">
-           <app-edit-user-modal [usuario]="usuario"></app-edit-user-modal>
-           <app-delete-user-modal [usuario]="usuario"></app-delete-user-modal>
+            <app-edit-user-modal [usuario]="usuario"></app-edit-user-modal>
+            <app-delete-user-modal [usuario]="usuario"></app-delete-user-modal>
         </div>
     </div>
-</div> 
+</div>

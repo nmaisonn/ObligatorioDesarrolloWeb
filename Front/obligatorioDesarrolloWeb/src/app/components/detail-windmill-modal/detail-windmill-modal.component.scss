@@ -20,6 +20,20 @@ button {
     margin: 0.5em;
 }
 
+.card {
+    border-style: solid;
+    border-color: black;
+    border: 3px;
+    margin: 0.2rem;
+    padding: 0.5rem;
+    font-family: Georgia, serif;
+    background-color: #e7ecef;
+}
+
+p {
+    margin: 0.5em;
+}
+
 #rechazar {
     background-color: #dc2f02;
     color: azure;
@@ -37,4 +51,12 @@ button {
 #aceptar:hover {
     background-color: #24541c;
     color: azure;
+}
+
+
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-color: black;
 }

@@ -94,7 +94,7 @@ export class DetailWindmillModalComponent implements OnInit {
   }
 
   open(modalEdit: any): void {
-    this.modalService.open(modalEdit);
+    this.modalService.open(modalEdit, { size: 'lg' });
   }
 
 }
