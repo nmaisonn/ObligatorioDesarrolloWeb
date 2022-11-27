@@ -1,15 +1,35 @@
 #delete {
     background-color: #dc2f02;
+    border-color: #a60505;
 }
 
 #delete:hover {
     background-color: #780000;
     color: azure;
+    border-color: #a60505;
 }
 
 button {
     padding: 0.5em;
     border-radius: 1em;
     margin: 0.5em;
+}
 
+.btn {
+
+    background-color: rgb(18, 103, 137);
+    border-color: rgb(10, 82, 111);
+    border-width: 0.1em;
+    color: beige;
+
+}
+
+.btn:hover {
+
+    background-color: rgb(8, 71, 96);
+
+}
+
+p {
+    font-size: medium;
 }

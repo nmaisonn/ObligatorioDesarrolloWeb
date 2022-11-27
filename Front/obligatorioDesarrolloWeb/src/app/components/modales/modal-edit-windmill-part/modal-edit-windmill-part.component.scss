@@ -1,6 +1,37 @@
-button {
+#edit {
     padding: 0.5em;
     border-radius: 1em;
     margin: 0.5em;
+    border-color: rgb(189, 183, 183);
+}
 
+input {
+    border-color: rgb(191, 191, 191);
+    border-radius: 0.4rem;
+}
+
+label {
+    font-size: medium;
+    font-weight: 700;
+    color: rgb(4, 4, 4);
+    text-shadow: 1px 1px 0px rgb(249, 249, 249);
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+}
+
+.btn {
+    background-color: rgb(18, 103, 137);
+    border-color: rgb(10, 82, 111);
+    border-width: 0.1em;
+    color: beige;
+}
+
+.btn:hover {
+    background-color: rgb(8, 71, 96);
+}
+
+h2 {
+
+    font-weight: 700;
+    margin-top: 1rem;
 }

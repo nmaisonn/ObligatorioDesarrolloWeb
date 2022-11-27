@@ -4,10 +4,52 @@
     display: grid;
     grid-template-rows: repeat(1fr, 3);
 }
-#modal-title {
-    font-size: 22px;
-}
+
+
 #modal-footer {
     justify-self: right;
     align-self: center;
+}
+
+button {
+    padding: 0.5em;
+    border-radius: 1em;
+    margin: 0.5em;
+    border-color: rgb(170, 165, 165);
+}
+
+button:hover {
+    background-color: rgb(164, 156, 156);
+}
+
+
+input {
+    border-color: rgb(191, 191, 191);
+    border-radius: 0.4rem;
+}
+
+label {
+    font-size: medium;
+    font-weight: 700;
+    color: rgb(4, 4, 4);
+    text-shadow: 1px 1px 0px rgb(249, 249, 249);
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+}
+
+#save {
+    background-color: rgb(18, 103, 137);
+    border-color: rgb(10, 82, 111);
+    border-width: 0.1em;
+    color: beige;
+}
+
+#save:hover {
+    background-color: rgb(8, 71, 96);
+}
+
+h2 {
+
+    font-weight: 700;
+    margin-top: 1rem;
 }

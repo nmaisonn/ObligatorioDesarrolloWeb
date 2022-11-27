@@ -1,6 +1,6 @@
 #agregar {
-    background-color: #004773;
-    border-color: #096096;
+    background-color: rgb(18, 103, 137);
+    border-color: rgb(10, 82, 111);
     border-width: 0.1em;
     position: relative;
     margin: 60px;
@@ -11,5 +11,36 @@
 }
 
 #agregar:hover {
-    background-color: #00304e;
+    background-color: rgb(8, 71, 96);
+}
+
+input {
+    border-color: rgb(191, 191, 191);
+    border-radius: 0.4rem;
+}
+
+label {
+    font-size: medium;
+    font-weight: 700;
+    color: rgb(4, 4, 4);
+    text-shadow: 1px 1px 0px rgb(249, 249, 249);
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+}
+
+.btn {
+    background-color: rgb(18, 103, 137);
+    border-color: rgb(10, 82, 111);
+    border-width: 0.1em;
+    color: beige;
+}
+
+btn:hover {
+    background-color: rgb(8, 71, 96);
+}
+
+h2 {
+
+    font-weight: 700;
+    margin-top: 1rem;
 }

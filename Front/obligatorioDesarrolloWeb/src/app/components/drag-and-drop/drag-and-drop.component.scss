@@ -60,7 +60,6 @@ h2 {
     font-size: xx-large;
     text-shadow: 1px 1px 0px #005f73,
         2px 2px 0px #0a9396,
-        3px 3px 0px #94d2bd,
 }
 
 
@@ -76,4 +75,33 @@ button:hover {
     color: azure;
     border-color: rgb(231, 210, 158);
     margin-top: 1rem;
+}
+
+label {
+    font-size: medium;
+    font-weight: 700;
+    color: azure;
+    text-shadow: 1px 1px 0px rgb(213, 150, 128);
+    margin-left: 0.4rem;
+    margin-right: 0.4rem;
+}
+
+input {
+    border-color: rgb(213, 150, 128);
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: hidden;
+    border-radius: 0.4rem;
+}
+
+.nomMolino {
+    margin: 1.4rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(219, 174, 158);
+    padding: 1rem;
+    border-radius: 1em;
+
 }

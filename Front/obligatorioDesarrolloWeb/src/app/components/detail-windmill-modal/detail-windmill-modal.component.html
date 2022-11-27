@@ -1,16 +1,16 @@
 <!-- Detalles Molino -->
 <ng-template #modalDetails let-c="close" let-d="dismiss">
     <div class="modal-header fm">
-        <h5 class="modal-title " id="staticBackdropLabelAgregar">Detalles del Molino</h5>
+        <h3 class="modal-title " id="staticBackdropLabelAgregar">Detalles del Molino</h3>
         <button type="button" class="btn btn-close fr" data-bs-dismiss="modalDetails" aria-label="Close"
             (click)="d('Cross click')"></button>
     </div>
     <div class="modal-body" *ngIf="molino">
         <h1>{{molino._id}}</h1>
         <div class="row">
-            <div class="col-sm-12 col-md-4" *ngIf="aspa">
+            <div class="card col-sm-12 col-md-3" *ngIf="aspa">
                 <div class="row">
-                    <h3 class="text-center h1">Aspa: {{aspa.nombre}}</h3>
+                    <h2 class="text-center h1">Aspa: {{aspa.nombre}}</h2>
                 </div>
                 <div class="row">
                     <img src="{{imagenAspa}}">
@@ -21,9 +21,9 @@
                     <p>Material: {{aspa.material}}</p>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4" *ngIf="cuerpo">
+            <div class="card col-sm-12 col-md-3" *ngIf="cuerpo">
                 <div class="row">
-                    <h3 class="text-center h1">Cuerpo: {{cuerpo.nombre}}</h3>
+                    <h2 class="text-center h1">Cuerpo: {{cuerpo.nombre}}</h2>
                 </div>
                 <div class="row">
                     <img src="{{imagenCuerpo}}">
@@ -34,9 +34,9 @@
                     <p>Material: {{cuerpo.material}}</p>
                 </div>
             </div>
-            <div class="col-sm-12 col-md-4" *ngIf="base">
+            <div class="card col-sm-12 col-md-3" *ngIf="base">
                 <div class="row">
-                    <h3 class="text-center h1">Base: {{base.nombre}}</h3>
+                    <h2 class="text-center h1">Base: {{base.nombre}}</h2>
                 </div>
                 <div class="row">
                     <img src="{{imagenBase}}">
