@@ -23,7 +23,7 @@ app.use(express.json())
 app.use(express.static(publicDirPath))
 
 var corsOptions = {
-  origin: 'http://localhost:4200',
+  origin: ['http://localhost:4200','http://localhost:8100'],
   optionsSuccessStatus: 200,
   methods: 'GET, PUT, POST, DELETE',
 }
