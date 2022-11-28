@@ -1,0 +1,42 @@
+<ion-card *ngIf="windmill">
+  <ion-card-header>
+    <ion-card-title>{{windmill.nombre}}</ion-card-title>
+    <ion-card-subtitle>{{windmill.estado}}</ion-card-subtitle>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list >
+      <ion-item>
+        <ion-label>{{base.nombre}}</ion-label>
+        <ion-thumbnail slot="start">
+          <img src={{imagenBase}} />
+        </ion-thumbnail>
+        <ion-label>Categoria:{{base.categoria}}</ion-label>
+        <ion-label>Altura:{{base.altura}}</ion-label>
+        <ion-label>Resitencia de viento:{{base.resistenciaEolica}}</ion-label>
+        <ion-label>Material:{{base.material}}</ion-label>  
+      </ion-item>
+
+      <ion-item>
+        <ion-label>{{cuerpo.nombre}}</ion-label>
+        <ion-thumbnail slot="start">
+          <img src={{imagenCuerpo}} />
+        </ion-thumbnail>
+        <ion-label>Categoria:{{cuerpo.categoria}}</ion-label>
+        <ion-label>Altura:{{cuerpo.altura}}</ion-label>
+        <ion-label>Resitencia de viento:{{cuerpo.resistenciaEolica}}</ion-label>
+        <ion-label>Material:{{cuerpo.material}}</ion-label>  
+      </ion-item>
+
+      <ion-item>
+        <ion-label>{{aspa.nombre}}</ion-label>
+        <ion-thumbnail slot="start">
+          <img src={{imagenAspa}} />
+        </ion-thumbnail>
+        <ion-label>Categoria:{{aspa.categoria}}</ion-label>
+        <ion-label>Altura:{{aspa.altura}}</ion-label>
+        <ion-label>Resitencia de viento:{{aspa.resistenciaEolica}}</ion-label>
+        <ion-label>Material:{{aspa.material}}</ion-label>  
+      </ion-item>
+    </ion-list>
+  </ion-card-content>
+</ion-card>
